@@ -1,7 +1,7 @@
 ```
 from auth import authenticate
 from sampling import get_sample
-from util import export, get_url, create_path, combine
+from util import export, get_url, create_path, combine, delete_local_repo_clone
 from calling_github import clone, get_commits
 from mining import classify_commits
 from investigation import analyze_data
@@ -21,6 +21,7 @@ def main():
         df = classify_commits(repo=repo, commits=relevant_commits)
         export(df)
         data = combine(df1=data, df2=df)
+        delete_local_repo_clone(path=path)
     export(data)
     results = analyze_data(data=data)
     export(results)
