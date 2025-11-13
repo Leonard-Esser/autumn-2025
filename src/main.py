@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 import config
+from helpers import run_git_gc
 from sampling import get_sample
 from calling_github import clone, get_commits
 
@@ -21,6 +22,8 @@ def main():
             print(f"Not cloning because the path already exists.")
         else:
             repo = clone(url=url, path=path, depth=1)
+            result = run_git_gc(working_dir=path)
+            print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
 
 
 if __name__ == "__main__":

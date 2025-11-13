@@ -14,7 +14,7 @@ from sampling import get_sample
 
 def clone(
     url: str,
-    path: str | PathLike[str],
+    path: str,
     bare: bool = True,
     depth: int = 0
 ):
