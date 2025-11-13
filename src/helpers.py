@@ -3,6 +3,7 @@ import os
 import subprocess
 
 from pathlib import Path
+import pandas as pd
 
 
 def get_url(full_name: str):
@@ -60,15 +61,14 @@ def dir_is_empty(path: Path):
     return len(os.listdir(path)) == 0
 
 
+def get_new_df(columns):
+    df = pd.DataFrame(columns=columns)
+    return df
+
+
 def main():
-    root = Path(__file__).resolve().parent.parent
-    bare_clones_dir = make_directory_for_bare_clones(root)
-    path = create_path_for_git_directory(parent_dir=bare_clones_dir, full_name_of_repo="leonardesser/autumn-2025")
-    path.mkdir(parents=True, exist_ok=True)
-    another_path = create_path_for_git_directory(parent_dir=bare_clones_dir, full_name_of_repo="leonardesser/winter-2025")
-    another_path.mkdir(parents=True, exist_ok=True)
-    delete_git_dir(path)
-    delete_git_dir(another_path)
+    df = get_new_df(["Foo", "Bar", "Baz"])
+    print(df)
 
 
 if __name__ == "__main__":

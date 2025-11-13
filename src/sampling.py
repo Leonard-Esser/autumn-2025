@@ -1,5 +1,5 @@
 def get_sample():
-    return {get_full_name_of_some_repo()}
+    return {get_full_name_of_some_repo(), "tensorflow/tensorflow"}
 
 
 def get_full_name_of_some_repo() -> str:
