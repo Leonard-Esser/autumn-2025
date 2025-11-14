@@ -6,8 +6,8 @@ from pygit2 import Repository
 import pandas as pd
 
 from decorators import timer
-from helpers import get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, delete_git_dir
 from sampling import get_sample
+from helpers import *
 from calling_github import clone, get_commits
 from mining import get_ccd_events, classify
 import config
@@ -36,6 +36,7 @@ def main():
             result = run_git_gc(working_dir=path)
             print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
         repo = Repository(path)
+        commits = convert_to_pygit2_commits(commits, repo)
         df = get_ccd_events(
             repo,
             full_name,

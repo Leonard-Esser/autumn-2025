@@ -1,4 +1,5 @@
 from pathlib import Path
+from pygit2 import Repository, Commit, Diff
 import pandas as pd
 
 from decorators import timer
@@ -17,7 +18,7 @@ def get_file_specific_commits(repo, full_name_of_repo, commits, path):
 
 
 @timer
-def get_ccd_events(repo, full_name_of_repo, commits, path, classify_func):
+def get_ccd_events(repo: Repository, full_name_of_repo, commits, path, classify_func):
     rows = [
         classify_func(repo, full_name_of_repo, commit, path)
         for commit in commits
@@ -25,11 +26,16 @@ def get_ccd_events(repo, full_name_of_repo, commits, path, classify_func):
     return pd.DataFrame(rows)
 
 
-def classify(repo, full_name_of_repo, commit, path):
+def classify(repo: Repository, full_name_of_repo, commit: Commit, path):
+    if len(commit.parent_ids) == 0:
+        pass
+    diff = repo.diff(commit.id, commit.parent_ids[0])
     return {
         "Repository": full_name_of_repo,
-        "Commit": commit.sha,
-        "Path": path
+        "Commit": commit.id,
+        "Time": commit.commit_time,
+        "Path": path,
+        "Diff": diff.patchid,
     }
 
 

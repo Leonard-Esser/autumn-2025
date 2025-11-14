@@ -8,8 +8,6 @@ from pygit2 import clone_repository
 
 from decorators import timer
 from auth import get_github, get_remote_callbacks
-from sampling import get_sample
-import config
 
 
 @timer

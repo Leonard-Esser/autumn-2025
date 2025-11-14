@@ -2,7 +2,9 @@ from shutil import rmtree
 import os
 import subprocess
 
+from github import PaginatedList
 from pathlib import Path
+from pygit2 import Repository
 
 from decorators import timer
 
@@ -61,6 +63,16 @@ def delete_git_dir(path: Path):
 
 def dir_is_empty(path: Path):
     return len(os.listdir(path)) == 0
+
+
+def convert_to_pygit2_commits(
+    pygithub_commits: PaginatedList,
+    repo: Repository
+):
+    return [
+        repo.get(commit.sha)
+        for commit in pygithub_commits
+    ]
 
 
 def main():
