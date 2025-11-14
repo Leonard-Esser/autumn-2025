@@ -24,17 +24,17 @@ def main():
             print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
         repo = Repository(path)
         df = get_ccd_events(
-            get_classifier(config.CLASSIFIER),
             repo,
             full_name,
             commits,
-            files_to_be_studied
+            file_to_be_studied,
+            get_classifier(config.CLASSIFIER)
         )
         export(df)
         data.append(df)
         if config.DELETE_GIT_DIR_IMMEDIATELY:
             delete_git_dir(path)
-    data = pd.concat(data)
+    data = pd.concat(data, ignore_index=True)
     export(data)
     results = analyze_data(data=data)
     export(results)

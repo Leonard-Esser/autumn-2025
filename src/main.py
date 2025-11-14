@@ -9,7 +9,7 @@ from decorators import timer
 from helpers import get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, delete_git_dir
 from sampling import get_sample
 from calling_github import clone, get_commits
-from mining import get_file_specific_commits
+from mining import get_ccd_events, classify
 import config
 
 
@@ -36,16 +36,17 @@ def main():
             result = run_git_gc(working_dir=path)
             print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
         repo = Repository(path)
-        df = get_file_specific_commits(
+        df = get_ccd_events(
             repo,
             full_name,
             commits,
-            file_to_be_studied
+            file_to_be_studied,
+            classify
         )
         data.append(df)
         if config.DELETE_GIT_DIR_IMMEDIATELY:
             delete_git_dir(path)
-    data = pd.concat(data)
+    data = pd.concat(data, ignore_index=True)
     print(data)
 
 
