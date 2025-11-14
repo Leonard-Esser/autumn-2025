@@ -23,12 +23,12 @@ def main():
             result = run_git_gc(working_dir=path)
             print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
         repo = Repository(path)
-        df = get_ccd_events(
+        df = get_ccd_events_of_entire_repo(
             repo,
             full_name,
-            commits,
             file_to_be_studied,
-            get_classifier(config.CLASSIFIER)
+            commits,
+            get_finder(config.FINDER_TO_USE)
         )
         export(df)
         data.append(df)

@@ -9,7 +9,7 @@ from decorators import timer
 from sampling import get_sample
 from helpers import *
 from calling_github import clone, get_commits
-from mining import get_ccd_events, classify
+from mining import get_ccd_events_of_entire_repo, find_ccd_events
 import config
 
 
@@ -37,12 +37,12 @@ def main():
             print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
         repo = Repository(path)
         commits = convert_to_pygit2_commits(commits, repo)
-        df = get_ccd_events(
+        df = get_ccd_events_of_entire_repo(
             repo,
             full_name,
-            commits,
             file_to_be_studied,
-            classify
+            commits,
+            find_ccd_events
         )
         data.append(df)
         if config.DELETE_GIT_DIR_IMMEDIATELY:
