@@ -3,7 +3,8 @@ import os
 import subprocess
 
 from pathlib import Path
-import pandas as pd
+
+from decorators import timer
 
 
 def get_url(full_name: str):
@@ -38,6 +39,7 @@ def path_is_git_dir(path: Path):
     return path.suffix == ".git"
 
 
+@timer
 def run_git_gc(working_dir: Path):
     raise_error_if_path_is_not_git_dir(working_dir)
     return subprocess.run(
@@ -61,14 +63,8 @@ def dir_is_empty(path: Path):
     return len(os.listdir(path)) == 0
 
 
-def get_new_df(columns):
-    df = pd.DataFrame(columns=columns)
-    return df
-
-
 def main():
-    df = get_new_df(["Foo", "Bar", "Baz"])
-    print(df)
+    print(f"Hello from {Path(__file__).name}!")
 
 
 if __name__ == "__main__":

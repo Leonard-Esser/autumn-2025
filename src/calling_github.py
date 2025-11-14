@@ -6,12 +6,13 @@ from github import Repository
 from pathlib import Path
 from pygit2 import clone_repository
 
-
-import config
+from decorators import timer
 from auth import get_github, get_remote_callbacks
 from sampling import get_sample
+import config
 
 
+@timer
 def clone(
     url: str,
     path: str,
@@ -27,6 +28,7 @@ def clone(
     )
 
 
+@timer
 def get_commits(
     full_name: str,
     path: str,
@@ -44,19 +46,7 @@ def get_commits(
 
 
 def main():
-    sample = get_sample()
-    for full_name in sample:
-        commits = get_commits(full_name=full_name, path="README.md", since=config.SINCE, until=config.UNTIL)
-        print(commits.totalCount)
-        for commit in commits:
-            print(commit.sha)
-        url = f"https://github.com/{full_name}.git"
-        root = Path(__file__).resolve().parent.parent
-        path = os.path.join(root, f"data/clones/{full_name}.git")
-        if os.path.exists(path):
-            print(f"Not cloning because the path already exists.")
-        else:
-            repo = clone(url=url, path=path, depth=1)
+    print(f"Hello from {Path(__file__).name}!")
 
 
 if __name__ == "__main__":

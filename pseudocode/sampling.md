@@ -1,6 +1,10 @@
 ```
 def get_sample():
-    return {get_full_name_of_some_repo(), "tensorflow/tensorflow"}
+    return {
+        get_full_name_of_some_repo(),
+        "tensorflow/tensorflow",
+        "swiftlang/swift",
+    }
 
 
 def get_full_name_of_some_repo() -> str:

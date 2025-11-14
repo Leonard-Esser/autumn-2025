@@ -1,21 +1,27 @@
 import os
+import time
 
 from pathlib import Path
+from pygit2 import Repository
 import pandas as pd
 
-from helpers import get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, get_new_df, delete_git_dir
+from decorators import timer
+from helpers import get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, delete_git_dir
 from sampling import get_sample
 from calling_github import clone, get_commits
+from mining import get_file_specific_commits
 import config
 
 
+@timer
 def main():
+    file_to_be_studied = config.FILE_TO_BE_STUDIED
     sample = get_sample()
     data = []
     for full_name in sample:
         commits = get_commits(
             full_name,
-            config.FILE_TO_BE_STUDIED,
+            file_to_be_studied,
             config.SINCE,
             config.UNTIL
         )
@@ -26,12 +32,19 @@ def main():
         if path.exists():
             print(f"Not cloning because the path already exists.")
         else:
-            repo = clone(url=url, path=path)
+            clone(url=url, path=path)
             result = run_git_gc(working_dir=path)
             print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
-        df = get_new_df(config.COLUMNS, full_name)
+        repo = Repository(path)
+        df = get_file_specific_commits(
+            repo,
+            full_name,
+            commits,
+            file_to_be_studied
+        )
         data.append(df)
-        delete_git_dir(path)
+        if config.DELETE_GIT_DIR_IMMEDIATELY:
+            delete_git_dir(path)
     data = pd.concat(data)
     print(data)
 
