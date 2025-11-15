@@ -1,5 +1,6 @@
 from pathlib import Path
 from pygit2 import Repository, Commit, Diff
+from typing import Iterable
 import pandas as pd
 
 from decorators import timer
@@ -18,31 +19,40 @@ def get_file_specific_commits(repo, full_name_of_repo, commits, path):
 
 
 @timer
-def get_ccd_events_of_entire_repo(repo: Repository, full_name_of_repo: str, path: str, commits, finder):
-    frames = [
-        get_ccd_events_of_single_commit(commit, path, finder)
-        for commit in commits
-    ]
-    return pd.concat(frames, ignore_index=True).assign(Repository=full_name_of_repo)
+def get_ccd_events_of_entire_repo(
+    repo: Repository,
+    commits_dict: dict[str, Iterable[str]],
+    finder
+):
+    frames = []
+    for commit_sha in commits_dict:
+        commit: Commit = repo.get(commit_sha)
+        paths_to_consider: Iterabel[str] = commits_dict[commit_sha]
+        frames.append(
+            get_ccd_events_of_single_commit(commit, paths_to_consider, finder)
+        )
+    return pd.concat(frames, ignore_index=True)
 
 
-def get_ccd_events_of_single_commit(commit: Commit, path: str, finder):
+def get_ccd_events_of_single_commit(
+    commit: Commit,
+    paths: Iterable[str],
+    finder
+):
     if commit.parent_ids:
         diff = commit.tree.diff_to_tree(
             commit.parents[0].tree
         )
     else:
         diff = commit.tree.diff_to_tree()
-    ccd_events = finder(diff, path)
-    if ccd_events:
-        rows = [
-            create_row(commit, path, ccd_event)
-            for ccd_event in ccd_events
-        ]
-    else:
-        rows = [
-            create_row_for_commit_only(commit, path)
-        ]
+    rows = []
+    for path in paths:
+        ccd_events = finder(diff, path)
+        if ccd_events:
+            for ccd_event in ccd_events:
+                rows.append(create_row(commit, path, ccd_event))
+        else:
+            rows.append(create_row_for_commit_only(commit, path))
     return pd.DataFrame(rows)
 
 

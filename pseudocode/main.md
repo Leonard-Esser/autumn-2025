@@ -1,17 +1,35 @@
 ```
+import os
+import time
+
+from pathlib import Path
+from pygit2 import Repository
+import pandas as pd
+
+from decorators import timer
+from sampling import get_sample
+from helpers import *
+from calling_github import get_github, get_repo, get_commits_dict_for_multiple_paths, clone
+from mining import get_ccd_events_of_entire_repo, find_ccd_events
+from investigation import analyze_data
+import config
+
+
+@timer
 def main():
-    files_to_be_studied = config.FILE_TO_BE_STUDIED
     sample = get_sample()
     export(sample)
     data = []
     for full_name in sample:
-        commits = get_commits(
-            full_name,
-            files_to_be_studied,
+        github = get_github()
+        repo = get_repo(github, full_name)
+        commits_dict = get_commits_dict_for_multiple_paths(
+            repo,
+            config.PATHS_TO_CONSIDER,
             config.SINCE,
             config.UNTIL
         )
-        export(commits)
+        export(sample)
         url = get_url(full_name)
         root = Path(__file__).resolve().parent.parent
         bare_clones_dir = make_directory_for_bare_clones(root)
@@ -25,17 +43,19 @@ def main():
         repo = Repository(path)
         df = get_ccd_events_of_entire_repo(
             repo,
-            full_name,
-            file_to_be_studied,
-            commits,
+            commits_dict,
             get_finder(config.FINDER_TO_USE)
-        )
+        ).assign(Repository=full_name)
         export(df)
         data.append(df)
         if config.DELETE_GIT_DIR_IMMEDIATELY:
             delete_git_dir(path)
     data = pd.concat(data, ignore_index=True)
     export(data)
-    results = analyze_data(data=data)
+    results = analyze_data(data)
     export(results)
+
+
+if __name__ == "__main__":
+    main()
 ```
