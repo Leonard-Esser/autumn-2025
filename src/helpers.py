@@ -75,6 +75,10 @@ def convert_to_pygit2_commits(
     ]
 
 
+def get_latest_commit(repo: Repository):
+    return repo.revparse_single('HEAD')
+
+
 def main():
     print(f"Hello from {Path(__file__).name}!")
 

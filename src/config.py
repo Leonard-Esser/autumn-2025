@@ -6,6 +6,11 @@ __all__ = [
     "SINCE",
     "UNTIL",
     "PATHS_TO_CONSIDER",
+    "PARTS_OF_BASE_OUTPUT_DIR",
+    "NAME_OF_SAMPLES_DIR",
+    "NAME_OF_COMMITS_DIR",
+    "NAME_OF_FRAMES_DIR",
+    "NAME_OF_RESULTS_DIR",
 ]
 
 DELETE_GIT_DIR_IMMEDIATELY = False
@@ -20,3 +25,12 @@ PATHS_TO_CONSIDER = [
     _README + ".txt",
     _README.lower() + ".txt",
 ]
+
+PARTS_OF_BASE_OUTPUT_DIR = [
+    "data",
+    "output"
+]
+NAME_OF_SAMPLES_DIR = "samples"
+NAME_OF_COMMITS_DIR = "commits"
+NAME_OF_FRAMES_DIR = "frames"
+NAME_OF_RESULTS_DIR = "results"
