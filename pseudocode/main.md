@@ -8,7 +8,7 @@ import pandas as pd
 
 from calling_github import get_github, get_repo, get_commits_dict_for_multiple_paths, clone
 from decorators import timer
-from io_helpers import export_one_column_of_strings, get_output_dir, export_commits
+from io_helpers import export_one_column_of_strings, get_output_dir, export_commits, export_df
 from mining import get_ccd_events_of_entire_repo, find_ccd_events
 from sampling import get_sample
 import config
@@ -63,14 +63,22 @@ def main():
             commits_dict,
             find_ccd_events
         ).assign(Repository=full_name)
-        export(df)
+        export_df(
+            df,
+            "ccd_events",
+            get_output_dir(root, "frames", owner, name, version)
+        )
         data.append(df)
         if config.DELETE_GIT_DIR_IMMEDIATELY:
             helpers.delete_git_dir(path)
     data = pd.concat(data, ignore_index=True)
-    export(data)
+    export_df(
+        data,
+        "ccd_events",
+        get_output_dir(root, "frames", version=version)
+    )
     results = analyze_data(data)
-    export(results)
+    export_results(results)
 
 
 if __name__ == "__main__":

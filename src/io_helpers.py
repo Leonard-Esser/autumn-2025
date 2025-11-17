@@ -1,10 +1,11 @@
 import csv
+import json
 import os
 
 from pathlib import Path
 from pygit2 import Repository
 from typing import Iterable
-import json
+import pandas as pd
 
 from decorators import timer
 import config
@@ -69,6 +70,18 @@ def export_commits(
     file_path = destination / file_name
     with file_path.open("w", encoding="utf-8") as f:
         json.dump(commits_dict, f, indent=2, ensure_ascii=False)
+
+
+@timer
+def export_df(
+    df: pd.DataFrame,
+    file_name: str,
+    destination: str | Path,
+    index: bool = False
+) -> None:
+    destination = create_path_and_make_dir(destination)
+    path = destination / ensure_correct_file_ending(file_name, ".csv")
+    df.to_csv(path, index=index)
 
 
 def main():
