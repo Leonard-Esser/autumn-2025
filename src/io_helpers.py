@@ -1,0 +1,79 @@
+import csv
+import os
+
+from pathlib import Path
+from pygit2 import Repository
+from typing import Iterable
+import json
+
+from decorators import timer
+import config
+
+
+def get_output_dir(
+    root: str,
+    name: str,
+    repo_owner: str | None = None,
+    repo_name: str | None = None,
+    version: str | None = None
+) -> Path:
+    parts = [root]
+    parts.extend(config.PARTS_OF_BASE_OUTPUT_DIR)
+    if version:
+        parts.append(version)
+    parts.append(name)
+    if repo_owner:
+        parts.append(repo_owner)
+    if repo_name:
+        parts.append(repo_name)
+    return Path(*parts)
+
+
+@timer
+def export_one_column_of_strings(
+    export_goods: Iterable[str],
+    file_name: str,
+    destination: str | Path
+):
+    destination = create_path_and_make_dir(destination)
+    path = destination / ensure_correct_file_ending(file_name, ".csv")
+    with open(path, "w", newline="", encoding="utf-8") as csv_file:
+        for export_good in export_goods:
+            get_csv_writer(csv_file).writerow([export_good])
+
+
+def create_path_and_make_dir(path: str | Path):
+    path = Path(path)
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def ensure_correct_file_ending(file_name: str, file_ending: str) -> str:
+    if not file_name.endswith(file_ending):
+        file_name = file_name + file_ending
+    return file_name
+
+
+def get_csv_writer(csv_file):
+    return csv.writer(csv_file)
+
+
+@timer
+def export_commits(
+    commits_dict: dict[str, list[str]],
+    file_name: str,
+    destination: str | Path
+) -> None:
+    destination = create_path_and_make_dir(destination)
+    ensure_correct_file_ending(file_name, ".json")
+    file_path = destination / file_name
+    with file_path.open("w", encoding="utf-8") as f:
+        json.dump(commits_dict, f, indent=2, ensure_ascii=False)
+
+
+def main():
+    print(f"Hello from {Path(__file__).name}!")
+
+
+if __name__ == "__main__":
+    main()
