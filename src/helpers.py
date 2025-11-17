@@ -6,7 +6,7 @@ from github import PaginatedList
 from pathlib import Path
 from pygit2 import Repository
 
-from decorators import timer
+from decorators import stop_the_clock
 
 
 def get_url(full_name: str):
@@ -41,7 +41,7 @@ def path_is_git_dir(path: Path):
     return path.suffix == ".git"
 
 
-@timer
+@stop_the_clock
 def run_git_gc(working_dir: Path):
     raise_error_if_path_is_not_git_dir(working_dir)
     return subprocess.run(

@@ -2,7 +2,7 @@ import time
 from functools import wraps
 
 
-def timer(func):
+def stop_the_clock(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
@@ -13,9 +13,8 @@ def timer(func):
     return wrapper
 
 
-@timer
 def main():
-    print("Hello from timer.py!")
+    print(f"Hello from {Path(__file__).name}!")
 
 
 if __name__ == "__main__":

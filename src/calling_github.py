@@ -7,12 +7,12 @@ from pathlib import Path
 from pygit2 import clone_repository
 from typing import Iterable
 
-from decorators import timer
+from decorators import stop_the_clock
 from auth import get_remote_callbacks, get_github
 import config
 
 
-@timer
+@stop_the_clock
 def clone(
     url: str,
     path: str,
@@ -32,7 +32,6 @@ def get_repo(github: Github, full_name: str, lazy: bool = False):
     return github.get_repo(full_name_or_id=full_name, lazy=lazy)
 
 
-@timer
 def get_commits_for_multiple_paths(
     repo: Repository,
     paths: Iterable[str],
@@ -48,7 +47,6 @@ def get_commits_for_multiple_paths(
     return sorted(unique, key=lambda c: c.commit.committer.date, reverse=False)
 
 
-@timer
 def get_commits_dict_for_multiple_paths(
     repo: Repository,
     paths: Iterable[str],

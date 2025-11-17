@@ -6,7 +6,7 @@ from pygit2 import Repository
 import pandas as pd
 
 from calling_github import get_github, get_repo, get_commits_dict_for_multiple_paths, clone
-from decorators import timer
+from decorators import stop_the_clock
 from io_helpers import export_one_column_of_strings, get_output_dir, export_commits, export_df
 from mining import get_ccd_events_of_entire_repo, find_ccd_events
 from sampling import get_sample
@@ -14,7 +14,7 @@ import config
 import helpers
 
 
-@timer
+@stop_the_clock
 def main():
     root = Path(__file__).resolve().parent.parent
     this_repo = Repository(root)

@@ -4,10 +4,10 @@ from pygit2 import Repository, Commit, Diff
 from typing import Iterable
 import pandas as pd
 
-from decorators import timer
+from decorators import stop_the_clock
 
 
-@timer
+@stop_the_clock
 def get_file_specific_commits(repo, full_name_of_repo, commits, path):
     rows = []
     for commit in commits:
@@ -19,7 +19,7 @@ def get_file_specific_commits(repo, full_name_of_repo, commits, path):
     return pd.DataFrame(rows)
 
 
-@timer
+@stop_the_clock
 def get_ccd_events_of_entire_repo(
     repo: Repository,
     commits_dict: dict[str, Iterable[str]],

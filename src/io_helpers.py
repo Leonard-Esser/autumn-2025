@@ -7,7 +7,6 @@ from pygit2 import Repository
 from typing import Iterable
 import pandas as pd
 
-from decorators import timer
 import config
 
 
@@ -30,7 +29,6 @@ def get_output_dir(
     return Path(*parts)
 
 
-@timer
 def export_one_column_of_strings(
     export_goods: Iterable[str],
     file_name: str,
@@ -59,7 +57,6 @@ def get_csv_writer(csv_file):
     return csv.writer(csv_file)
 
 
-@timer
 def export_commits(
     commits_dict: dict[str, list[str]],
     file_name: str,
@@ -72,7 +69,6 @@ def export_commits(
         json.dump(commits_dict, f, indent=2, ensure_ascii=False)
 
 
-@timer
 def export_df(
     df: pd.DataFrame,
     file_name: str,
