@@ -19,11 +19,16 @@ SINCE = datetime(2019, 1, 1)
 UNTIL = datetime(2024, 12, 31, 23, 59, 59)
 
 _README = "README"
+_CONTRIBUTING = "CONTRIBUTING"
 PATHS_TO_CONSIDER = [
     _README + ".md",
     _README.lower() + ".md",
     _README + ".txt",
     _README.lower() + ".txt",
+    _CONTRIBUTING + ".md",
+    _CONTRIBUTING.lower() + ".md",
+    _CONTRIBUTING + ".txt",
+    _CONTRIBUTING.lower() + ".txt",
 ]
 
 PARTS_OF_BASE_OUTPUT_DIR = [
