@@ -80,6 +80,17 @@ def export_df(
     df.to_csv(path, index=index)
 
 
+def export_changes(
+    changes: str,
+    file_name: str,
+    destination: str | Path
+):
+    destination = create_path_and_make_dir(destination)
+    path = destination / ensure_correct_file_ending(file_name, ".txt")
+    with path.open("w", encoding="utf-8") as f:
+        f.write(changes)
+
+
 def main():
     print(f"Hello from {Path(__file__).name}!")
 
