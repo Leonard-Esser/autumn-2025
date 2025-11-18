@@ -59,7 +59,7 @@ def get_ccd_events_of_single_commit(
             create_row(
                 commit,
                 path,
-                finder(diff, path, path_to_changes_dir)
+                finder(diff, path, commit, path_to_changes_dir)
             )
         )
     return pd.DataFrame(rows)
@@ -72,6 +72,7 @@ def find_ccd_events(diff: Diff, path: str):
 def is_ccd_event(
     diff: Diff,
     path: str,
+    commit: Commit,
     path_to_changes_dir: str | Path
 ) -> bool:
     changes = flatten(get_patch(diff, path))
