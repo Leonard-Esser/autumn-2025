@@ -1,9 +1,4 @@
-import os
-import time
-
 from pathlib import Path
-from pygit2 import Repository
-import pandas as pd
 
 from batching import process_each_sample
 from decorators import stop_the_clock
@@ -19,7 +14,7 @@ def get_root() -> Path:
 
 
 def is_ccd_event(text: str) -> bool:
-    return false
+    return False
 
 
 @stop_the_clock

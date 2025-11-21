@@ -1,3 +1,6 @@
+from pathlib import Path
+from pygit2 import Repository
+from typing import Iterable
 import pandas as pd
 
 from calling_github import get_github, get_repo, get_commits_dict_for_multiple_paths, clone
@@ -30,9 +33,9 @@ def process_each_sample(
             get_output_dir(root, config.NAME_OF_COMMITS_DIR, owner, name, version)
         )
 
-        url = helpers.get_url(full_name)
-        bare_clones_dir = helpers.make_directory_for_bare_clones(root)
-        path = helpers.create_path_for_git_directory(
+        url = get_url(full_name)
+        bare_clones_dir = make_directory_for_bare_clones(root)
+        path = create_path_for_git_directory(
             parent_dir=bare_clones_dir,
             full_name_of_repo=full_name
         )
@@ -57,6 +60,6 @@ def process_each_sample(
         )
         data.append(df)
         if config.DELETE_GIT_DIR_IMMEDIATELY:
-            helpers.delete_git_dir(path)
+            delete_git_dir(path)
     
     return pd.concat(data, ignore_index=True)

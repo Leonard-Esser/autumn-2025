@@ -3,6 +3,15 @@ import pygit2
 import config
 
 
+def get_diff(commit: pygit2.Commit):
+    if commit.parent_ids:
+        return commit.tree.diff_to_tree(
+            commit.parents[0].tree
+        )
+    else:
+        return commit.tree.diff_to_tree()
+
+
 def get_patch(
     diff: pygit2.Diff,
     path: str

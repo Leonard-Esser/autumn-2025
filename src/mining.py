@@ -4,7 +4,7 @@ from typing import Iterable
 import pandas as pd
 
 from decorators import stop_the_clock
-from diffing import flatten, get_patch
+from diffing import flatten, get_patch, get_diff
 from io_helpers import export_changes
 
 
@@ -36,15 +36,14 @@ def get_ccd_events_of_single_commit(
     finder,
     path_to_changes_dir: str | Path
 ):
-    if commit.parent_ids:
-        diff = commit.tree.diff_to_tree(
-            commit.parents[0].tree
-        )
-    else:
-        diff = commit.tree.diff_to_tree()
     rows = []
     for path in paths:
-        changes = flatten(get_patch(diff, path))
+        changes = flatten(
+            get_patch(
+                get_diff(commit),
+                path
+            )
+        )
         export_changes(changes, commit.short_id, path_to_changes_dir)
         rows.append(
             create_row(
