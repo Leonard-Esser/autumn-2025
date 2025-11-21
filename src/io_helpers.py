@@ -10,6 +10,26 @@ import pandas as pd
 import config
 
 
+def export_sample(sample: Iterable[str], root: Path, version: str):
+    export_one_column_of_strings(
+        sample,
+        "sample",
+        get_output_dir(root, config.NAME_OF_SAMPLES_DIR, version=version)
+    )
+
+
+def export_one_column_of_strings(
+    export_goods: Iterable[str],
+    file_name: str,
+    destination: str | Path
+):
+    destination = create_path_and_make_dir(destination)
+    path = destination / ensure_correct_file_ending(file_name, ".csv")
+    with open(path, "w", newline="", encoding="utf-8") as csv_file:
+        for export_good in export_goods:
+            get_csv_writer(csv_file).writerow([export_good])
+
+
 def get_output_dir(
     root: str,
     name: str,
@@ -27,18 +47,6 @@ def get_output_dir(
     if repo_name:
         parts.append(repo_name)
     return Path(*parts)
-
-
-def export_one_column_of_strings(
-    export_goods: Iterable[str],
-    file_name: str,
-    destination: str | Path
-):
-    destination = create_path_and_make_dir(destination)
-    path = destination / ensure_correct_file_ending(file_name, ".csv")
-    with open(path, "w", newline="", encoding="utf-8") as csv_file:
-        for export_good in export_goods:
-            get_csv_writer(csv_file).writerow([export_good])
 
 
 def create_path_and_make_dir(path: str | Path):
@@ -67,6 +75,18 @@ def export_commits(
     file_path = destination / file_name
     with file_path.open("w", encoding="utf-8") as f:
         json.dump(commits_dict, f, indent=2, ensure_ascii=False)
+
+
+def export_ccd_events(
+    data: pd.DataFrame,
+    root: Path,
+    version: str
+):
+    export_df(
+        data,
+        "ccd_events",
+        get_output_dir(root, config.NAME_OF_FRAMES_DIR, version=version)
+    )
 
 
 def export_df(

@@ -8,17 +8,6 @@ from diffing import flatten, get_patch
 from io_helpers import export_changes
 
 
-def get_file_specific_commits(repo, full_name_of_repo, commits, path):
-    rows = []
-    for commit in commits:
-        rows.append({
-            "Repository": full_name_of_repo,
-            "Commit": commit.sha,
-            "Path": path
-        })
-    return pd.DataFrame(rows)
-
-
 @stop_the_clock
 def get_ccd_events_of_entire_repo(
     repo: Repository,
@@ -55,29 +44,16 @@ def get_ccd_events_of_single_commit(
         diff = commit.tree.diff_to_tree()
     rows = []
     for path in paths:
+        changes = flatten(get_patch(diff, path))
+        export_changes(changes, commit.short_id, path_to_changes_dir)
         rows.append(
             create_row(
                 commit,
                 path,
-                finder(diff, path, commit, path_to_changes_dir)
+                finder(changes)
             )
         )
     return pd.DataFrame(rows)
-
-
-def find_ccd_events(diff: Diff, path: str):
-    pass
-
-
-def is_ccd_event(
-    diff: Diff,
-    path: str,
-    commit: Commit,
-    path_to_changes_dir: str | Path
-) -> bool:
-    changes = flatten(get_patch(diff, path))
-    export_changes(changes, commit.short_id, path_to_changes_dir)
-    return False
 
 
 def create_row(commit: Commit, path: str, is_ccd_event: bool):

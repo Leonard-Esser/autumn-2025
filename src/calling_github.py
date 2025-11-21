@@ -32,21 +32,6 @@ def get_repo(github: Github, full_name: str, lazy: bool = False):
     return github.get_repo(full_name_or_id=full_name, lazy=lazy)
 
 
-def get_commits_for_multiple_paths(
-    repo: Repository,
-    paths: Iterable[str],
-    since: datetime,
-    until: datetime
-):
-    commits = (
-        commit
-        for path in paths
-        for commit in get_commits(repo, path, since, until)
-    )
-    unique = {commit.sha: commit for commit in commits}.values()
-    return sorted(unique, key=lambda c: c.commit.committer.date, reverse=False)
-
-
 def get_commits_dict_for_multiple_paths(
     repo: Repository,
     paths: Iterable[str],

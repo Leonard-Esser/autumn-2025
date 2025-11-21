@@ -9,6 +9,15 @@ from pygit2 import Repository
 from decorators import stop_the_clock
 
 
+def get_version(root: Path):
+    this_repo = Repository(root)
+    return get_latest_commit(this_repo).short_id
+
+
+def get_latest_commit(repo: Repository):
+    return repo.revparse_single('HEAD')
+
+
 def get_url(full_name: str):
     return f"https://github.com/{full_name}.git"
 
@@ -63,20 +72,6 @@ def delete_git_dir(path: Path):
 
 def dir_is_empty(path: Path):
     return len(os.listdir(path)) == 0
-
-
-def convert_to_pygit2_commits(
-    pygithub_commits: PaginatedList,
-    repo: Repository
-):
-    return [
-        repo.get(commit.sha)
-        for commit in pygithub_commits
-    ]
-
-
-def get_latest_commit(repo: Repository):
-    return repo.revparse_single('HEAD')
 
 
 def main():

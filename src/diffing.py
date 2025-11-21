@@ -38,26 +38,3 @@ def flatten(
         for line in hunk.lines:
             changes.append(f"{line.origin} {line.content.rstrip()}")
     return "\n".join(changes)
-
-
-def file_is_part_of_diff(
-    diff: pygit2.Diff,
-    path: str
-) -> bool:
-    for delta in diff.deltas:
-        if delta.old_file.path == path or delta.new_file.path == path:
-            return True
-    return False
-
-
-def get_single_delta(
-    diff: pygit2.Diff,
-    path: str
-) -> pygit2.DiffDelta:
-    deltas_per_file = []
-    for delta in diff.deltas:
-        if delta.old_file.path == path or delta.new_file.path == path:
-            deltas_per_file.append(delta)
-    if config.ASSUME_MAXIMUM_OF_ONE_DELTA_PER_FILE:
-        raise_exception_if_too_many_deltas_per_file(deltas_per_file)
-    return deltas_per_file[0]
