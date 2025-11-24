@@ -36,14 +36,20 @@ def raise_exception_if_too_many_deltas_per_file(
     deltas: list[pygit2.DiffDelta] | list[pygit2.Patch]
 ):
     if len(deltas) > 1:
-        raise Exception("We assume that there can be a maximum of one pygit2.DiffDelta per file.")
+        raise Exception("We assume that there can be a maximum of one pygit2.DiffDelta per file")
 
 
-def flatten(
+def get_changes(
     patch: pygit2.Patch
 ) -> str:
     changes = []
     for hunk in patch.hunks:
         for line in hunk.lines:
             changes.append(f"{line.origin} {line.content.rstrip()}")
+    return changes
+
+
+def flatten(
+    changes: list[str]
+) -> str:
     return "\n".join(changes)

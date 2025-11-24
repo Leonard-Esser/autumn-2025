@@ -14,7 +14,7 @@ def process_each_sample(
     sample: Iterable[str],
     root: Path,
     version: str,
-    finder
+    classifier
 ) -> pd.DataFrame:
     data = []
     for full_name in sample:
@@ -40,22 +40,23 @@ def process_each_sample(
             full_name_of_repo=full_name
         )
         if path.exists():
-            print(f"Not cloning because the path already exists.")
+            print(f"Not cloning because the path already exists")
         else:
             clone(url=url, path=path)
             result = run_git_gc(working_dir=path)
-            print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}.")
+            print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}")
         repo = Repository(path)
         
         df = get_ccd_events_of_entire_repo(
             repo,
+            full_name,
             commits_dict,
-            finder,
+            classifier,
             get_output_dir(root, config.NAME_OF_CHANGES_DIR, owner, name, version)
-        ).assign(Repository=full_name)
+        )
         export_df(
             df,
-            "ccd_events",
+            "ccd events",
             get_output_dir(root, config.NAME_OF_FRAMES_DIR, owner, name, version)
         )
         data.append(df)
