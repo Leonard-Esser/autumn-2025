@@ -22,7 +22,7 @@ def create_dummy(base: Event):
         base.get_repo(),
         base.get_commit(),
         base.get_path(),
-        {
+        changes_per_channel = {
             "My Favorite Communication Channel": [TypeOfChange.ADD],
             "Another Communication Channel": [TypeOfChange.UPDATE],
             "The Communication Channel We All Hate": [TypeOfChange.REMOVE],

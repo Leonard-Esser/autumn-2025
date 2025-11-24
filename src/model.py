@@ -18,8 +18,18 @@ class Event:
 
 
 class EventWhereCommunicationChannelDocumentationHasChanged(Event):
-    def __init__(self, repo, commit, path, changes_per_channel):
+    def __init__(
+        self,
+        repo,
+        commit,
+        path,
+        affected_channels = None,
+        types_of_changes = None,
+        changes_per_channel = None
+    ):
         super().__init__(repo, commit, path)
+        self.__affected_channels = affected_channels
+        self.__types_of_changes = types_of_changes
         self.__changes_per_channel = changes_per_channel
     
     def get_changes_per_channel(self):
@@ -28,10 +38,22 @@ class EventWhereCommunicationChannelDocumentationHasChanged(Event):
     @property
     def does_not_affect_any_specific_channel(self):
         return (
-            not self.__changes_per_channel
-            or all(
-                not changes
-                for changes in self.__changes_per_channel.values()
+            (
+                not self.__affected_channels
+                or
+                all(
+                    not channels
+                    for channels in self.__affected_channels
+                )
+            )
+            and
+            (
+                not self.__changes_per_channel
+                or
+                all(
+                    not changes
+                    for changes in self.__changes_per_channel.values()
+                )
             )
         )
 
