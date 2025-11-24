@@ -52,6 +52,7 @@ def process_each_sample(
             full_name,
             commits_dict,
             classifier,
+            version,
             get_output_dir(root, config.NAME_OF_CHANGES_DIR, owner, name, version)
         )
         export_df(

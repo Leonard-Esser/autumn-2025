@@ -15,6 +15,7 @@ def get_ccd_events_of_entire_repo(
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
     classifier,
+    version: str,
     path_to_changes_dir: str | Path
 ):
     frames = []
@@ -27,6 +28,7 @@ def get_ccd_events_of_entire_repo(
                 commit,
                 paths_to_consider,
                 classifier,
+                version,
                 path_to_changes_dir
             )
         )
@@ -38,6 +40,7 @@ def get_ccd_events_of_single_commit(
     commit: Commit,
     paths: Iterable[str],
     classifier,
+    version: str,
     path_to_changes_dir: str | Path
 ):
     rows = []
@@ -58,7 +61,8 @@ def get_ccd_events_of_single_commit(
                     commit.id,
                     path,
                     flattened_changes
-                )
+                ),
+                version
             )
         )
     
@@ -67,10 +71,16 @@ def get_ccd_events_of_single_commit(
 
 def create_rows(
     event: EventWhereCommunicationChannelDocumentationHasChanged | Event,
+    version: str = None
 ) -> list[dict]:
     rows = []
 
+    base = {}
+    if version:
+        base = {**base, "Version": version}
+    
     base = {
+        **base,
         "Repository": event.get_repo(),
         "Commit": event.get_commit(),
         "Path": event.get_path(),
