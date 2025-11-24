@@ -1,8 +1,8 @@
 def get_sample():
     return {
         "microsoft/vscode",
-        #"tensorflow/tensorflow",
-        #"swiftlang/swift",
+        "tensorflow/tensorflow",
+        "swiftlang/swift",
     }
 
 
