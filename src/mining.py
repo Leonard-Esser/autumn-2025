@@ -51,7 +51,7 @@ def get_ccd_events_of_single_commit(
                     get_diff(commit),
                     path
                 )
-            )            
+            )
         )
         export_changes(flattened_changes, commit.short_id, path_to_changes_dir)
         rows.extend(

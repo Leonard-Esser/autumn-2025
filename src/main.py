@@ -35,6 +35,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print("---")
-    print("Reminders:")
-    print_reminders()
+    if reminders:
+        print("----------")
+        print("Reminders:")
+        print_reminders()

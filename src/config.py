@@ -43,4 +43,6 @@ NAME_OF_FRAMES_DIR = "frames"
 NAME_OF_CHANGES_DIR = "changes"
 NAME_OF_RESULTS_DIR = "results"
 
+# diffing options:
 ASSUME_MAXIMUM_OF_ONE_DELTA_PER_FILE = True
+CONTEXT_LINES = 12
