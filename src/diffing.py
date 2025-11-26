@@ -78,7 +78,7 @@ def raise_exception_if_too_many_deltas_per_file(
 
 def get_changes(
     patch: pygit2.Patch
-) -> str:
+) -> list[str]:
     changes = []
     for hunk in patch.hunks:
         for line in hunk.lines:

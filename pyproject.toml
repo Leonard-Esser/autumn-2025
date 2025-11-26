@@ -11,5 +11,7 @@ dependencies = [
     "pygit2>=1.19.0",
     "pygithub>=2.8.1",
     "python-dotenv>=1.2.1",
+    "torch>=2.9.1",
+    "transformers>=4.57.1",
     "typing>=3.10.0.0",
 ]

@@ -5,8 +5,8 @@ from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_sample, export_ccd_events
 from memory import reminders
-from random_dummy_classifier import classify
 from sampling import get_sample
+from zero_shot_classification import classify
 import config
 import helpers
 
