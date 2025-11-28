@@ -59,8 +59,10 @@ def main():
     if not sample:
         pass
     else:
-        ccd_events = process_each_sample(sample, root, version, classify)
-        export_ccd_events(ccd_events, root, version)
+        data = process_each_sample(sample, root, version, classify)
+        export_ccd_events(data, "all_events", root, version)
+        filtered = data[data["Affects CCD"] == 1]
+        export_ccd_events(filtered, "ccd_events_only", root, version)
 
 
 if __name__ == "__main__":

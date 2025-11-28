@@ -83,12 +83,13 @@ def export_commits(
 
 def export_ccd_events(
     data: pd.DataFrame,
+    file_name: str,
     root: Path,
     version: str
 ):
     export_df(
         data,
-        "ccd_events",
+        file_name,
         get_output_dir(root, config.NAME_OF_FRAMES_DIR, version=version)
     )
 

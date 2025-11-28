@@ -16,8 +16,8 @@ __all__ = [
 ]
 
 DELETE_GIT_DIR_IMMEDIATELY = False
-SAMPLE_SIZE = 50
-SINCE = datetime(2016, 1, 1)
+SAMPLE_SIZE = 100
+SINCE = datetime(2014, 1, 1)
 UNTIL = datetime(2019, 12, 31, 23, 59, 59)
 
 _README = "README"
@@ -45,4 +45,4 @@ NAME_OF_RESULTS_DIR = "results"
 
 # diffing options:
 ASSUME_MAXIMUM_OF_ONE_DELTA_PER_FILE = True
-CONTEXT_LINES = 12
+CONTEXT_LINES = 6
