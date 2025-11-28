@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from pathlib import Path
 from pygit2 import Repository, Commit, Diff
 from typing import Iterable
@@ -14,7 +16,7 @@ def get_ccd_events_of_entire_repo(
     repo: Repository,
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
-    classifier,
+    classifier: Callable[[str, str, str, str], EventWhereCommunicationChannelDocumentationHasChanged | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -39,7 +41,7 @@ def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
     paths: Iterable[str],
-    classifier,
+    classifier: Callable[[str, str, str, str], EventWhereCommunicationChannelDocumentationHasChanged | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):

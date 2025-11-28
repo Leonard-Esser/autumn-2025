@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from pathlib import Path
 from pygit2 import Repository
 from typing import Iterable
@@ -7,6 +9,7 @@ from calling_github import get_github, get_repo, for_each_path_get_commits, get_
 from data_frames_care import create_df_for_repo, create_df_for_commits
 from helpers import get_url, make_directory_for_bare_clones, create_path_for_git_directory, delete_git_dir
 from io_helpers import get_output_dir, export_commits, export_df
+from model import Event, EventWhereCommunicationChannelDocumentationHasChanged
 from mining import get_ccd_events_of_entire_repo
 import config
 
@@ -15,7 +18,7 @@ def process_each_sample(
     sample: Iterable[str],
     root: Path,
     version: str,
-    classifier
+    classifier: Callable[[str, str, str, str], EventWhereCommunicationChannelDocumentationHasChanged | Event]
 ) -> pd.DataFrame:
     
     github = get_github()
