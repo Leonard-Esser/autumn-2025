@@ -3,7 +3,7 @@ from pathlib import Path
 from batching import process_each_sample
 from decorators import stop_the_clock
 from helpers import get_version
-from io_helpers import export_sample, export_ccd_events
+from io_helpers import export_ccd_events, export_sample
 from memory import reminders
 from sampling import get_sample
 from zero_shot_classification import classify

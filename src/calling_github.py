@@ -1,12 +1,14 @@
+from collections import defaultdict
 from os import PathLike
 import os
 
 from datetime import datetime
-from github import Github, Repository
+from github import Commit, Github, Repository
 from pathlib import Path
 from pygit2 import clone_repository
 from typing import Iterable
 
+from data_frames_care import create_df_for_commit
 from decorators import stop_the_clock
 from auth import get_remote_callbacks, get_github
 import config
@@ -32,37 +34,43 @@ def get_repo(github: Github, full_name: str, lazy: bool = False):
     return github.get_repo(full_name_or_id=full_name, lazy=lazy)
 
 
-def get_commits_dict_for_multiple_paths(
+def for_each_path_get_commits(
     repo: Repository,
     paths: Iterable[str],
     since: datetime,
     until: datetime
-) -> dict[str, list[str]]:
-    result: dict[str, list[str]] = {}
-    commit_date: dict[str, datetime] = {}
-
+) -> dict[str, list[Commit]]:
+    result = {}
     for path in paths:
-        commits = get_commits(repo, path, since, until)
+        result[path] = get_commits(repo, path, since, until)
+    
+    return result
+
+
+def get_commits_and_their_paths(
+    commits_of_each_path: dict[str, list[Commit]],
+    sort_result_right_away: bool = False
+) -> dict[Commit, list[str]]:
+
+    result = defaultdict(list)
+    
+    for path, commits in commits_of_each_path.items():
         for commit in commits:
-            sha = commit.sha
-
-            if sha not in result:
-                result[sha] = []
-                commit_date[sha] = commit.commit.committer.date
-
-            result[sha].append(path)
-
-    for sha in result:
-        result[sha] = sorted(result[sha])
-
-    sorted_result = dict(
-        sorted(
-            result.items(),
-            key=lambda item: commit_date[item[0]]
-        )
+            result[commit].append(path)
+    
+    if not sort_result_right_away:
+        return dict(result)
+    
+    for commit in result:
+        result[commit].sort()
+    
+    sorted_items = sorted(
+        result.items(),
+        key=lambda item: item[0].commit.committer.date,
+        reverse=True
     )
-
-    return sorted_result
+    
+    return dict(sorted_items)
 
 
 def get_commits(
