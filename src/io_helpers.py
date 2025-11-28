@@ -10,7 +10,11 @@ import pandas as pd
 import config
 
 
-def export_sample(sample: Iterable[str], root: Path, version: str):
+def export_sample(
+    sample: Iterable[int] | Iterable[str],
+    root: str,
+    version: str
+):
     export_one_column_of_strings(
         sample,
         "sample",

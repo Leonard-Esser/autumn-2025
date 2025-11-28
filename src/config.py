@@ -16,9 +16,9 @@ __all__ = [
 ]
 
 DELETE_GIT_DIR_IMMEDIATELY = False
-SAMPLE_SIZE = 1
-SINCE = datetime(2019, 1, 1)
-UNTIL = datetime(2024, 12, 31, 23, 59, 59)
+SAMPLE_SIZE = 50
+SINCE = datetime(2016, 1, 1)
+UNTIL = datetime(2019, 12, 31, 23, 59, 59)
 
 _README = "README"
 _CONTRIBUTING = "CONTRIBUTING"

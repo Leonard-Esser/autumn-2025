@@ -4,6 +4,7 @@ import os
 
 from datetime import datetime
 from github import Commit, Github, Repository
+from github.GithubException import GithubException, UnknownObjectException
 from pathlib import Path
 from pygit2 import clone_repository
 from typing import Iterable
@@ -30,8 +31,24 @@ def clone(
     )
 
 
-def get_repo(github: Github, full_name: str, lazy: bool = False):
-    return github.get_repo(full_name_or_id=full_name, lazy=lazy)
+def get_repo(github: Github, full_name_or_id: int | str, lazy: bool = False):
+    try:
+        return github.get_repo(full_name_or_id=full_name_or_id, lazy=lazy)
+
+    except UnknownObjectException as exc:
+        # 404: repository not found
+        print(f"[Error] Repository not found for '{full_name_or_id}': {exc.status} {exc.data}")
+        return None
+
+    except GithubException as exc:
+        # Other GitHub API exceptions
+        print(f"[Error] GitHub API error for '{full_name_or_id}': {exc.status} {exc.data}")
+        return None
+
+    except Exception as exc:
+        # Any other unexpected errors
+        print(f"[Error] Unexpected error while fetching '{full_name_or_id}': {exc}")
+        return None
 
 
 def for_each_path_get_commits(

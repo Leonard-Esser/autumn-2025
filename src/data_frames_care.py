@@ -46,11 +46,15 @@ def create_single_row_df(
 
 
 def create_df_for_commits(commits: list[str]) -> pd.DataFrame:
-    frames = []
-    for commit in commits:
-        frames.append(create_df_for_commit(commit))
+    if not commits:
+        return pd.DataFrame()
+    
+    frames = [create_df_for_commit(commit) for commit in commits]
+    if not frames:
+        return pd.DataFrame()
     
     return pd.concat(frames, ignore_index=True)
+
 
 
 def create_df_for_commit(commit: Commit) -> pd.DataFrame:

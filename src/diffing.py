@@ -4,35 +4,34 @@ from decorators import explain_why
 import config
 
 
-@explain_why
 def get_diff(
     commit: pygit2.Commit,
     call_find_similar_right_away: bool = True
 ) -> pygit2.Diff:
-    """Gets the diff that describes the changes introduced by a commit.
+    """Gets the diff describing the changes introduced by a commit."""
 
-    Args:
-        commit (pygit2.Commit): The commit.
-        call_find_similar_right_away (bool, optional): Whether or not find_similar() is applied to the diff object right away. Defaults to True.
-
-    Returns:
-        pygit2.Diff: The diff "caused by the commit".
-    """
-    parent_tree = commit.parents[0].tree if commit.parent_ids else None
-    
+    flags = _get_flags_for_diff_options()
     swap = True
-    # swap must be set to True.
-    # Otherwise, the diff would describe what is necessary to undo the effects of the commit
-    diff = commit.tree.diff_to_tree(
-        parent_tree,
-        flags=_get_flags_for_diff_options(),
-        context_lines=config.CONTEXT_LINES,
-        swap=swap
-    )
-    
+    parent_exists = bool(commit.parent_ids)
+
+    if parent_exists:
+        parent_tree = commit.parents[0].tree
+        diff = commit.tree.diff_to_tree(
+            parent_tree,
+            flags=flags,
+            context_lines=config.CONTEXT_LINES,
+            swap=swap,
+        )
+    else:
+        diff = commit.tree.diff_to_tree(
+            flags=flags,
+            context_lines=config.CONTEXT_LINES,
+            swap=swap,
+        )
+
     if call_find_similar_right_away:
         diff.find_similar()
-    
+
     return diff
 
 

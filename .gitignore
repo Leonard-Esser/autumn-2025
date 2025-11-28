@@ -12,5 +12,6 @@ wheels/
 # Environment variables
 .env
 
-# Data
-data/
+# Output
+data/bare_clones/
+data/output/

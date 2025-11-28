@@ -37,6 +37,17 @@ def back_up_with_literature(func):
     return wrapper
 
 
+def delete_sooner_or_later(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        reminder = f"Delete {func.__name__} sooner or later"
+        if reminder not in reminders:
+            reminders.append(reminder)
+        return result
+    return wrapper
+
+
 def main():
     print(f"Hello from {Path(__file__).name}!")
 
