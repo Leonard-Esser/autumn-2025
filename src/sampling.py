@@ -36,15 +36,6 @@ def read_full_names_from_sample_provided_by_ebert_et_al(
     return results
 
 
-@delete_sooner_or_later
-def get_sample():
-    return {
-        "microsoft/vscode",
-        "tensorflow/tensorflow",
-        "swiftlang/swift",
-    }
-
-
 def main():
     print(f"Hello from {Path(__file__).name}!")
 

@@ -1,3 +1,4 @@
+import pandas as pd
 from pathlib import Path
 
 from batching import process_each_sample
@@ -40,6 +41,29 @@ def _get_path_of_sample(root: str | Path) -> Path:
     return Path(root) / "data" / "samples" / "ebert_et_al_2022" / "sample_100.csv"
 
 
+def export_selected_information(
+    data: pd.DataFrame,
+    root: str | Path,
+    version: str
+):
+    columns_of_interest = [
+        "Repository Full Name",
+        "Commit SHA",
+        "Path",
+        "Affects CCD",
+        "Commit Date",
+        "Repository Has Discussions",
+        "Repository Has Issues",
+        "Repository Has Wiki",
+        "Repository Open Issues Count",
+        "Repository Stargazers Count",
+        "Repository Subscribers Count",
+        "Repository Size",
+    ]
+    data = data[columns_of_interest]
+    export_ccd_events(data, "events", root, version)
+
+
 def _print_reminders():
     for reminder in reminders:
         print(reminder)
@@ -59,10 +83,11 @@ def main():
     if not sample:
         pass
     else:
-        data = process_each_sample(sample, root, version, classify)
-        export_ccd_events(data, "all_events", root, version)
-        filtered = data[data["Affects CCD"] == 1]
-        export_ccd_events(filtered, "ccd_events_only", root, version)
+        export_selected_information(
+            process_each_sample(sample, root, version, classify),
+            root,
+            version
+        )
 
 
 if __name__ == "__main__":
