@@ -1,6 +1,7 @@
 from datetime import datetime
 
 __all__ = [
+    "DO_NOT_CLASSIFY_AT_ALL",
     "RANDOM_STATE",
     "RANDOM_STATE_FOR_DRAWING_EVENTS",
     "EVENTS_SAMPLE_SIZE",
@@ -18,6 +19,8 @@ __all__ = [
     "ASSUME_MAXIMUM_OF_ONE_DELTA_PER_FILE",
     "CONTEXT_LINES",
 ]
+
+DO_NOT_CLASSIFY_AT_ALL = True
 
 # reproducibility
 RANDOM_STATE = 42

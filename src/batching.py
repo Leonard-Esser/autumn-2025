@@ -18,7 +18,7 @@ def process_each_sample(
     sample: Iterable[int] | Iterable[str],
     root: Path,
     version: str,
-    classifier: Callable[[str, str, str, str], CCDCEvent | Event]
+    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event]
 ) -> pd.DataFrame:
     
     github = get_github()

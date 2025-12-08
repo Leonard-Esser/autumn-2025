@@ -91,7 +91,7 @@ def _classify(
     commit: str,
     path: str,
     flattened_changes: str,
-    simply_create_bare_events: bool = True
+    simply_create_bare_events: bool
 ) -> CCDCEvent | Event:
     if simply_create_bare_events:
         return Event(repo, commit, path)
@@ -149,7 +149,7 @@ def _print_reminders():
 
 if __name__ == "__main__":
     main()
-    #_read_events_csv_and_draw_random_events()
+    _read_events_csv_and_draw_random_events()
     if reminders:
         print("----------")
         print("Reminders:")

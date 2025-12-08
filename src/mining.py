@@ -5,6 +5,7 @@ from pygit2 import Repository, Commit, Diff
 from typing import Iterable
 import pandas as pd
 
+import config
 from decorators import stop_the_clock
 from diffing import flatten, get_changes, get_patch, get_diff
 from io_helpers import export_changes
@@ -16,7 +17,7 @@ def get_ccd_events_of_entire_repo(
     repo: Repository,
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
-    classifier: Callable[[str, str, str, str], CCDCEvent | Event],
+    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -41,7 +42,7 @@ def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
     paths: Iterable[str],
-    classifier: Callable[[str, str, str, str], CCDCEvent | Event],
+    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -62,7 +63,8 @@ def get_ccd_events_of_single_commit(
                     full_name_of_repo,
                     commit.id,
                     path,
-                    flattened_changes
+                    flattened_changes,
+                    config.DO_NOT_CLASSIFY_AT_ALL
                 ),
                 version
             )
