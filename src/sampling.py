@@ -1,11 +1,26 @@
 import csv
+import random
 from pathlib import Path
 from urllib.parse import urlparse
 
 from decorators import delete_sooner_or_later
 
 
-def read_full_names_from_sample_provided_by_ebert_et_al(
+def get_sample_provided_by_ebert_et_al(
+    csv_path: str | Path,
+    k: int
+) -> list[str]:
+    results = _read_full_names_from_sample_provided_by_ebert_et_al(csv_path)
+    if not results:
+        return []
+    
+    if k > 0:
+        return random.sample(results, k)
+    
+    return results
+
+
+def _read_full_names_from_sample_provided_by_ebert_et_al(
     csv_path: str | Path
 ) -> list[str]:
     results = []

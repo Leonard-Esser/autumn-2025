@@ -8,7 +8,7 @@ import pandas as pd
 from decorators import stop_the_clock
 from diffing import flatten, get_changes, get_patch, get_diff
 from io_helpers import export_changes
-from model import Event, EventWhereCommunicationChannelDocumentationHasChanged
+from model import CCDCEvent, Event
 
 
 @stop_the_clock
@@ -16,7 +16,7 @@ def get_ccd_events_of_entire_repo(
     repo: Repository,
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
-    classifier: Callable[[str, str, str, str], EventWhereCommunicationChannelDocumentationHasChanged | Event],
+    classifier: Callable[[str, str, str, str], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -41,7 +41,7 @@ def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
     paths: Iterable[str],
-    classifier: Callable[[str, str, str, str], EventWhereCommunicationChannelDocumentationHasChanged | Event],
+    classifier: Callable[[str, str, str, str], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -72,7 +72,7 @@ def get_ccd_events_of_single_commit(
 
 
 def create_rows(
-    event: EventWhereCommunicationChannelDocumentationHasChanged | Event,
+    event: CCDCEvent | Event,
     version: str = None
 ) -> list[dict]:
     rows = []
@@ -88,25 +88,34 @@ def create_rows(
         "Path": event.get_path(),
     }
 
-    if isinstance(event, EventWhereCommunicationChannelDocumentationHasChanged):
-        if event.does_not_affect_any_specific_channel:
-            rows.append({**base, "Affects CCD": 1})
-            return rows
-
-        for channel, changes in event.get_changes_per_channel().items():
-            for type_of_change in changes:
+    if isinstance(event, CCDCEvent):
+        if event.get_types_of_changes:
+            for type_of_change in event.get_types_of_changes:
                 rows.append(
                     {
                         **base,
                         "Affects CCD": 1,
-                        "Affected Channel": channel,
                         "Type of Change": type_of_change,
                     }
                 )
+        else:
+            rows.append(
+                {
+                    **base,
+                    "Affects CCD": 1,
+                    "Type of Change": 0,
+                }
+            )
         return rows
     
     if isinstance(event, Event):
-        rows.append({**base, "Affects CCD": 0})
+        rows.append(
+            {
+                **base,
+                "Affects CCD": 0,
+                "Type of Change": 0,
+            }
+        )
 
     return rows
 

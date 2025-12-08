@@ -1,15 +1,18 @@
+import random
+
 import pandas as pd
 from pathlib import Path
 
+import config
+import helpers
 from batching import process_each_sample
+from classifying import is_ccdc_event, identify_types_of_changes
 from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_ccd_events, export_sample
 from memory import reminders
-from sampling import read_full_names_from_sample_provided_by_ebert_et_al
-from zero_shot_classification import classify
-import config
-import helpers
+from model import CCDCEvent, Event
+from sampling import get_sample_provided_by_ebert_et_al
 
 
 def _get_root() -> Path:
@@ -20,18 +23,14 @@ def _get_sample(
     root: str | Path,
     version: str,
     export_the_sample_right_away: bool = True
-) -> list[int] | list[str]:
+) -> list[str]:
     
-    sample = read_full_names_from_sample_provided_by_ebert_et_al(
-        _get_path_of_sample(root)
+    sample = get_sample_provided_by_ebert_et_al(
+        _get_path_of_sample(root),
+        config.SAMPLE_SIZE
     )
     
-    if not sample:
-        return
-    
-    sample = sample[:config.SAMPLE_SIZE]
-    
-    if export_the_sample_right_away:
+    if sample and export_the_sample_right_away:
         export_sample(sample, root, version)
     
     return sample
@@ -51,6 +50,7 @@ def export_selected_information(
         "Commit SHA",
         "Path",
         "Affects CCD",
+        "Type of Change",
         "Commit Date",
         "Repository Has Discussions",
         "Repository Has Issues",
@@ -69,6 +69,23 @@ def _print_reminders():
         print(reminder)
 
 
+def _classify(
+    repo: str,
+    commit: str,
+    path: str,
+    flattened_changes: str
+) -> CCDCEvent | Event:
+    if is_ccdc_event(flattened_changes):
+        return CCDCEvent(
+            repo,
+            commit,
+            path,
+            types_of_changes=identify_types_of_changes(flattened_changes)
+        )
+    
+    return Event(repo, commit, path)
+
+
 @stop_the_clock
 def main():
     root = _get_root()
@@ -84,7 +101,7 @@ def main():
         pass
     else:
         export_selected_information(
-            process_each_sample(sample, root, version, classify),
+            process_each_sample(sample, root, version, _classify),
             root,
             version
         )

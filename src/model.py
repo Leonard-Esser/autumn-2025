@@ -17,6 +17,34 @@ class Event:
         return self.__path
 
 
+class CCDCEvent(Event):
+    def __init__(
+        self,
+        repo,
+        commit,
+        path,
+        types_of_changes = None,
+        affected_channels = None
+    ):
+        super().__init__(repo, commit, path)
+        self.__types_of_changes = types_of_changes
+        self.__affected_channels = affected_channels
+    
+    @property
+    def get_types_of_changes(self):
+        return self.__types_of_changes
+    
+    @property
+    def get_affected_channels(self):
+        return self.__affected_channels
+
+
+class TypeOfChange(Enum):
+    ADD = 1
+    UPDATE = 2
+    REMOVE = 3
+
+
 class EventWhereCommunicationChannelDocumentationHasChanged(Event):
     def __init__(
         self,
@@ -56,10 +84,3 @@ class EventWhereCommunicationChannelDocumentationHasChanged(Event):
                 )
             )
         )
-
-
-class TypeOfChange(Enum):
-    ADD = 1
-    UPDATE = 2
-    REMOVE = 3
-    MENTION_BY_NAME = 4
