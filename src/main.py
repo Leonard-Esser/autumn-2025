@@ -9,10 +9,31 @@ from batching import process_each_sample
 from classifying import is_ccdc_event, identify_types_of_changes
 from decorators import stop_the_clock
 from helpers import get_version
-from io_helpers import export_ccd_events, export_sample
+from io_helpers import export_ccd_events, export_sample, get_output_dir
 from memory import reminders
 from model import CCDCEvent, Event
-from sampling import get_sample_provided_by_ebert_et_al
+from sampling import draw_k_random_distinct_rows_from_sample, get_sample_provided_by_ebert_et_al
+
+
+@stop_the_clock
+def main():
+    root = _get_root()
+    version = get_version(root)
+    print(f"Data will be saved to a directory named {version} within data/output/")
+    
+    sample = _get_sample(
+        root,
+        version
+    )
+    
+    if not sample:
+        pass
+    else:
+        _export_selected_information(
+            process_each_sample(sample, root, version, _classify),
+            root,
+            version
+        )
 
 
 def _get_root() -> Path:
@@ -27,7 +48,8 @@ def _get_sample(
     
     sample = get_sample_provided_by_ebert_et_al(
         _get_path_of_sample(root),
-        config.SAMPLE_SIZE
+        config.SAMPLE_SIZE,
+        config.RANDOM_STATE
     )
     
     if sample and export_the_sample_right_away:
@@ -40,7 +62,7 @@ def _get_path_of_sample(root: str | Path) -> Path:
     return Path(root) / "data" / "samples" / "ebert_et_al_2022" / "sample_100.csv"
 
 
-def export_selected_information(
+def _export_selected_information(
     data: pd.DataFrame,
     root: str | Path,
     version: str
@@ -64,17 +86,16 @@ def export_selected_information(
     export_ccd_events(data, "events", root, version)
 
 
-def _print_reminders():
-    for reminder in reminders:
-        print(reminder)
-
-
 def _classify(
     repo: str,
     commit: str,
     path: str,
-    flattened_changes: str
+    flattened_changes: str,
+    simply_create_bare_events: bool = True
 ) -> CCDCEvent | Event:
+    if simply_create_bare_events:
+        return Event(repo, commit, path)
+    
     if is_ccdc_event(flattened_changes):
         return CCDCEvent(
             repo,
@@ -86,29 +107,49 @@ def _classify(
     return Event(repo, commit, path)
 
 
-@stop_the_clock
-def main():
+def _read_events_csv_and_draw_random_events():
     root = _get_root()
     version = get_version(root)
-    print(f"Data will be saved to a directory named {version} within data/output/")
-    
-    sample = _get_sample(
+    path = get_output_dir(root, config.NAME_OF_FRAMES_DIR, version=version)
+    path = path / "events.csv"
+    _draw_random_events(
+        pd.read_csv(path),
         root,
         version
     )
+
+
+def _draw_random_events(
+    events: pd.DataFrame,
+    root: str | Path,
+    version: str
+) -> pd.DataFrame:
+    columns_of_interest = [
+        "Repository Full Name",
+        "Commit SHA",
+        "Path"
+    ]
     
-    if not sample:
-        pass
-    else:
-        export_selected_information(
-            process_each_sample(sample, root, version, _classify),
-            root,
-            version
-        )
+    output_dir = get_output_dir(root, config.NAME_OF_SAMPLES_DIR, version=version)
+    export_path = output_dir / f"{config.EVENTS_SAMPLE_SIZE}_random_events.csv"
+    
+    return draw_k_random_distinct_rows_from_sample(
+        events,
+        columns_of_interest,
+        config.EVENTS_SAMPLE_SIZE,
+        export_path,
+        config.RANDOM_STATE_FOR_DRAWING_EVENTS
+    )
+
+
+def _print_reminders():
+    for reminder in reminders:
+        print(reminder)
 
 
 if __name__ == "__main__":
     main()
+    #_read_events_csv_and_draw_random_events()
     if reminders:
         print("----------")
         print("Reminders:")

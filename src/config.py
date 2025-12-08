@@ -1,6 +1,9 @@
 from datetime import datetime
 
 __all__ = [
+    "RANDOM_STATE",
+    "RANDOM_STATE_FOR_DRAWING_EVENTS",
+    "EVENTS_SAMPLE_SIZE",
     "DELETE_GIT_DIR_IMMEDIATELY",
     "SAMPLE_SIZE",
     "SINCE",
@@ -16,8 +19,15 @@ __all__ = [
     "CONTEXT_LINES",
 ]
 
+# reproducibility
+RANDOM_STATE = 42
+RANDOM_STATE_FOR_DRAWING_EVENTS = 42
+
+# manual labeling
+EVENTS_SAMPLE_SIZE = 100
+
 DELETE_GIT_DIR_IMMEDIATELY = False
-SAMPLE_SIZE = 100
+SAMPLE_SIZE = 0
 SINCE = datetime(2010, 1, 1)
 UNTIL = datetime(2025, 11, 30, 23, 59, 59)
 
@@ -46,4 +56,4 @@ NAME_OF_RESULTS_DIR = "results"
 
 # diffing options:
 ASSUME_MAXIMUM_OF_ONE_DELTA_PER_FILE = True
-CONTEXT_LINES = 5
+CONTEXT_LINES = 0
