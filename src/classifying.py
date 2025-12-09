@@ -7,7 +7,28 @@ from model import CCDCEvent, Event, TypeOfChange
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
 
-def is_ccdc_event(text: str) -> bool:
+def classify(
+    repo: str,
+    commit: str,
+    path: str,
+    flattened_changes: str,
+    simply_create_bare_events: bool = False
+) -> CCDCEvent | Event:
+    if simply_create_bare_events:
+        return Event(repo, commit, path)
+    
+    if _is_ccdc_event(flattened_changes):
+        return CCDCEvent(
+            repo,
+            commit,
+            path,
+            types_of_changes=_identify_types_of_changes(flattened_changes)
+        )
+    
+    return Event(repo, commit, path)
+
+
+def _is_ccdc_event(text: str) -> bool:
     if not text or not text.strip():
         return False
     
@@ -18,7 +39,7 @@ def is_ccdc_event(text: str) -> bool:
     return False
 
 
-def identify_types_of_changes(text: str) -> set[TypeOfChange]:
+def _identify_types_of_changes(text: str) -> set[TypeOfChange]:
     if not text or not text.strip():
         return set()
     

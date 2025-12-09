@@ -7,7 +7,7 @@ import pandas as pd
 
 from calling_github import get_github, get_repo, for_each_path_get_commits, get_commits_and_their_paths, clone
 from data_frames_care import create_df_for_repo, create_df_for_commits
-from helpers import get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, delete_git_dir
+from helpers import clone_if_necessary, get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, delete_git_dir
 from io_helpers import get_output_dir, export_commits, export_df
 from model import CCDCEvent, Event
 from mining import get_ccd_events_of_entire_repo
@@ -62,19 +62,11 @@ def process_each_sample(
             get_output_dir(root, config.NAME_OF_COMMITS_DIR, owner, name, version)
         )
 
-        url = get_url(full_name)
-        bare_clones_dir = make_directory_for_bare_clones(root)
-        path = create_path_for_git_directory(
-            parent_dir=bare_clones_dir,
-            full_name_of_repo=full_name
+        repo = clone_if_necessary(
+            root,
+            full_name,
+            False
         )
-        if path.exists():
-            print(f"Not cloning because the path already exists")
-        else:
-            clone(url=url, path=path)
-            result = run_git_gc(working_dir=path)
-            print(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}")
-        repo = Repository(path)
         
         ccd_events = get_ccd_events_of_entire_repo(
             repo,
@@ -104,7 +96,7 @@ def process_each_sample(
         ccd_events_of_all_repos.append(ccd_events)
 
         if config.DELETE_GIT_DIR_IMMEDIATELY:
-            delete_git_dir(path)
+            delete_git_dir(Path(repo.path))
     
     if repos_df:
         repos_df = pd.concat(repos_df, ignore_index=True)

@@ -6,7 +6,7 @@ from pathlib import Path
 import config
 import helpers
 from batching import process_each_sample
-from classifying import is_ccdc_event, identify_types_of_changes
+from classifying import classify
 from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_ccd_events, export_sample, get_output_dir
@@ -30,7 +30,7 @@ def main():
         pass
     else:
         _export_selected_information(
-            process_each_sample(sample, root, version, _classify),
+            process_each_sample(sample, root, version, classify),
             root,
             version
         )
@@ -86,27 +86,6 @@ def _export_selected_information(
     export_ccd_events(data, "events", root, version)
 
 
-def _classify(
-    repo: str,
-    commit: str,
-    path: str,
-    flattened_changes: str,
-    simply_create_bare_events: bool
-) -> CCDCEvent | Event:
-    if simply_create_bare_events:
-        return Event(repo, commit, path)
-    
-    if is_ccdc_event(flattened_changes):
-        return CCDCEvent(
-            repo,
-            commit,
-            path,
-            types_of_changes=identify_types_of_changes(flattened_changes)
-        )
-    
-    return Event(repo, commit, path)
-
-
 def _read_events_csv_and_draw_random_events():
     root = _get_root()
     version = get_version(root)
@@ -149,7 +128,7 @@ def _print_reminders():
 
 if __name__ == "__main__":
     main()
-    _read_events_csv_and_draw_random_events()
+    #_read_events_csv_and_draw_random_events()
     if reminders:
         print("----------")
         print("Reminders:")

@@ -43,8 +43,8 @@ def get_ccd_events_of_single_commit(
     commit: Commit,
     paths: Iterable[str],
     classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event],
-    version: str,
-    path_to_changes_dir: str | Path
+    version: str | None = None,
+    path_to_changes_dir: str | Path | None = None
 ):
     rows = []
     for path in paths:
@@ -56,7 +56,8 @@ def get_ccd_events_of_single_commit(
                 )
             )
         )
-        export_changes(flattened_changes, commit.short_id + f"-{path}", path_to_changes_dir)
+        if path_to_changes_dir:
+            export_changes(flattened_changes, commit.short_id + f"-{path}", path_to_changes_dir)
         rows.extend(
             create_rows(
                 classifier(
