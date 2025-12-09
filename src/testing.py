@@ -10,7 +10,7 @@ from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
 from io_helpers import get_output_dir, export_df
 from mining import get_ccd_events_of_single_commit
-from model import CCDCEvent, Event
+from model import CCDCEvent, convert_to_type_of_change, Event
 
 
 @stop_the_clock
@@ -102,9 +102,14 @@ def _test_classifier(
             # Collect all distinct types of changes for this triple.
             # Assumption: a value of 0 is a sentinel meaning "no type of change".
             type_of_change_col = rows["Type of Change"].dropna().tolist()
+            
             expected_types_of_changes = sorted(
-                {t for t in type_of_change_col if t not in (0, "0")},
-                key=lambda x: x.name,
+                {
+                    convert_to_type_of_change(t)
+                    for t in type_of_change_col
+                    if t not in (0, "0")
+                },
+                key=lambda x: x.name
             )
 
             expected_results[key] = {
@@ -168,7 +173,7 @@ def _test_classifier(
             type_of_change_col = events["Type of Change"].dropna().tolist()
             actual_types_of_changes = sorted(
                 {t for t in type_of_change_col if t not in (0, "0")},
-                key=lambda x: x.name,
+                key=lambda x: x.name
             )
 
             actual_results[key] = {
@@ -190,11 +195,11 @@ def _test_classifier(
             act_aff = act_res["Affects CCD"]
             exp_types = sorted(
                 exp_res["Types of Changes"],
-                key=lambda x: x.name,
+                key=lambda x: x.name
             )
             act_types = sorted(
                 act_res["Types of Changes"],
-                key=lambda x: x.name,
+                key=lambda x: x.name
             )
 
             # No error?

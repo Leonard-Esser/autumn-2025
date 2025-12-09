@@ -3,39 +3,39 @@ AppIntro/AppIntro,e2e5b397a9ae5c684ba7736d9f8119231f807ccb,README.md,0,0,2025-12
 clojure-expectations/expectations,e35d24d30f1c022685369719001c5539f3de504f,README.md,0,0,2025-12-08,Leonard Esser
 billz/raspap-webgui,6e881dfa98dbee57feedb5fed4e8d66c053868fa,README.md,0,0,2025-12-08,Leonard Esser
 MetalPetal/MetalPetal,7027c4953283448bea29cdf1cbe8f5b6563fe595,README.md,0,0,2025-12-09,Leonard Esser
-manrajgrover/halo,a48d3f887618a765edc83c55c2b2bdc2696a0310,README.md,,,,
-metaskills/minitest-spec-rails,20da8a1b2e50883271eafed092b20e9893d00f41,README.md,,,,
-LinDA-tools/LindaWorkbench,53e87d218f1ae2bca0ff84eef6a225851ec95004,README.md,,,,
-marcoslin/angularAMD,5af4931fa2bcacf9d5b82f9a7e61cc9f8ac55927,README.md,,,,
-rafi/vim-config,16ee424004a73907b07c8bc74cd9f59ce6699464,README.md,,,,
-OasysFoundation/Oasys-Toolbox-React,909af32835cc63fb8b43297f56391d4b172f5043,README.md,,,,
-layoutBox/PinLayout,6013e9465acfcfe56d50c0ff5d9eeb499c21c342,README.md,,,,
-laravelio/laravel.io,f4970adb80aa953dbde145dfecad5104b3691401,README.md,,,,
-rafi/vim-config,60a52d6c216645f283b4741063c9bc96a58cd683,README.md,,,,
+manrajgrover/halo,a48d3f887618a765edc83c55c2b2bdc2696a0310,README.md,0,0,2025-12-09,Leonard Esser
+metaskills/minitest-spec-rails,20da8a1b2e50883271eafed092b20e9893d00f41,README.md,0,0,2025-12-09,Leonard Esser
+LinDA-tools/LindaWorkbench,53e87d218f1ae2bca0ff84eef6a225851ec95004,README.md,0,0,2025-12-09,Leonard Esser
+marcoslin/angularAMD,5af4931fa2bcacf9d5b82f9a7e61cc9f8ac55927,README.md,0,0,2025-12-09,Leonard Esser
+rafi/vim-config,16ee424004a73907b07c8bc74cd9f59ce6699464,README.md,0,0,2025-12-09,Leonard Esser
+OasysFoundation/Oasys-Toolbox-React,909af32835cc63fb8b43297f56391d4b172f5043,README.md,1,TypeOfChange.REMOVE,2025-12-09,Leonard Esser
+layoutBox/PinLayout,6013e9465acfcfe56d50c0ff5d9eeb499c21c342,README.md,0,0,2025-12-09,Leonard Esser
+laravelio/laravel.io,f4970adb80aa953dbde145dfecad5104b3691401,README.md,0,0,2025-12-09,Leonard Esser
+rafi/vim-config,60a52d6c216645f283b4741063c9bc96a58cd683,README.md,0,0,2025-12-09,Leonard Esser
 chocoteam/choco-solver,9ebd4a2774c1a84945b4a5f9129dbf9e2435f925,README.md,,,,
 chocoteam/choco-solver,d1747cf7a031eddf523380420eb6be6d921ab02b,README.md,,,,
 billz/raspap-webgui,84bd1410259bf1e6d02dc950dc327fe470cf96ca,README.md,0,0,2025-12-08,Leonard Esser
-rafi/vim-config,63fff0726875ccacd3934fae1fc189a6de417ebd,README.md,,,,
+rafi/vim-config,63fff0726875ccacd3934fae1fc189a6de417ebd,README.md,0,0,2025-12-09,Leonard Esser
 compiling-to-categories/concat,5dee6ff552c3d1a4f154631c2ab11b2c687dd665,README.md,,,,
-manrajgrover/halo,14edc8d88ce8a8552d62d668c77cb0977be6fd29,README.md,,,,
+manrajgrover/halo,14edc8d88ce8a8552d62d668c77cb0977be6fd29,README.md,0,0,2025-12-09,Leonard Esser
 TritonDataCenter/triton-kubernetes,30ba750478ae63f7158eb74de4dffa54792e7404,README.md,,,,
 cake-contrib/Cake.Npm,b91fa0f465fc710b8a69d64f13b0f58b07b4f801,README.md,,,,
 86Box/86Box,36b63fa532c21c0b80fdd1fc6b6ef3231bd4f1c9,readme.txt,,,,
 denoland/deno,24debe9546cb9f7e365f05de548c7d6ea267af22,README.md,,,,
-rafi/vim-config,eceaf6c3c1cda0de99cb6ebc2ac91e9d5ea59fcf,README.md,,,,
+rafi/vim-config,eceaf6c3c1cda0de99cb6ebc2ac91e9d5ea59fcf,README.md,0,0,2025-12-09,Leonard Esser
 billz/raspap-webgui,8cef08cc81851c302d494a412908042adc6cec0c,README.md,0,0,2025-12-08,Leonard Esser
 DynamoRIO/drmemory,4ca92fd35ac681ff6282169e54d2da1a71ea521f,README.md,,,,
 AppIntro/AppIntro,0dda4e80ca94b41f383161711bfe786a31630ef2,README.md,0,0,2025-12-08,Leonard Esser
-laravelio/laravel.io,4e08b51fb7da5d318d917796ed7439dede08668b,contributing.md,,,,
+laravelio/laravel.io,4e08b51fb7da5d318d917796ed7439dede08668b,contributing.md,1,TypeOfChange.ADD,2025-12-09,Leonard Esser
 denoland/deno,d63e03a8e75ff39cec60f8d6fd82e57078373207,README.md,,,,
 Pryaxis/orion-core,6e629fb563d2f6aecf2baa62460d58888ebe0761,README.md,,,,
 billz/raspap-webgui,6772709141e1e884ba6ba82b5ed6a42a3f9d8030,README.md,0,0,2025-12-08,Leonard Esser
 sobolevn/git-secret,6abdd4523d090ab5a7fe0bbf5a00313f3e3b1402,CONTRIBUTING.md,,,,
-rafi/vim-config,aea808bda3a3c9a5d018aae275ff88e89b5e09a1,README.md,,,,
+rafi/vim-config,aea808bda3a3c9a5d018aae275ff88e89b5e09a1,README.md0,0,2025-12-09,Leonard Esser
 nuxt-modules/i18n,333a2bbe4d16e41e0dc528ffe5f0aa9373c209c5,README.md,,,,
-rafi/vim-config,a6483f350898409ce8ba893797d91ee51c2654a4,README.md,,,,
+rafi/vim-config,a6483f350898409ce8ba893797d91ee51c2654a4,README.md,0,0,2025-12-09,Leonard Esser
 yonadev/yona-server,5c159595e52542e79a4700b8639f2417aa3b9506,README.md,,,,
-rafi/vim-config,ab442809607e5cd2c6866c0d96ab3cb668fb542c,README.md,,,,
+rafi/vim-config,ab442809607e5cd2c6866c0d96ab3cb668fb542c,README.md,0,0,2025-12-09,Leonard Esser
 atomantic/dotfiles,4d0d079ba45f113fa619825670962de88a668427,README.md,,,,
 GoogleChromeLabs/pwa-wp,735274e54fcc96173a2d420d4c7db3b6016acacb,README.md,,,,
 clojure-expectations/expectations,29fde4a8c18900563646a0eb544af16bfe4c4be7,README.md,0,0,2025-12-08,Leonard Esser
@@ -46,10 +46,10 @@ sobolevn/git-secret,ca500fa13f20fbb3c6024e2135caf16e983cd9f9,CONTRIBUTING.md,,,,
 denoland/deno,aa34c1df6a4520c1e9f0da55289eb00434d6118f,README.md,,,,
 serde-rs/serde,b80fb0ed0e244fe38e0ffd90b2847c02d32a45dd,README.md,,,,
 billz/raspap-webgui,9dcea9c97a387a5f539d555af37b9cc0a0335864,README.md,0,0,2025-12-08,Leonard Esser
-rafi/vim-config,dc295c15923653b1ef6af36894109416c026ffd5,README.md,,,,
+rafi/vim-config,dc295c15923653b1ef6af36894109416c026ffd5,README.md,0,0,2025-12-09,Leonard Esser
 billz/raspap-webgui,f29f0f2b53a1ee71a1fdfb956b74836cdaf0c6b6,README.md,0,0,2025-12-08,Leonard Esser
-laravelio/laravel.io,db18cb45817d649b28893824959804c4b75cd513,readme.md,,,,
-rafi/vim-config,da733d539422756c50f9976d0676a863f07e646a,README.md,,,,
+laravelio/laravel.io,db18cb45817d649b28893824959804c4b75cd513,readme.md,0,0,2025-12-09,Leonard Esser
+rafi/vim-config,da733d539422756c50f9976d0676a863f07e646a,README.md,0,0,2025-12-09,Leonard Esser
 keras-team/keras-docs-ja,c76fc86da9b4ce2483be98f2d40a0444da44ee3d,README.md,,,,
 GoogleChromeLabs/pwa-wp,71c8593f418220ae1473444e61013b327669e429,readme.md,,,,
 TritonDataCenter/triton-kubernetes,d6225c4545dcce77a229b03117d01de02891842a,README.md,,,,
@@ -57,7 +57,7 @@ sobolevn/git-secret,368be9790a9183e378e4322be90504e355e49afb,README.md,,,,
 billz/raspap-webgui,58bd439b4dfd8b1177f3d6c0e1d4a697b766ed7d,README.md,0,0,2025-12-08,Leonard Esser
 chocoteam/choco-solver,275263995c7fc66f071f245b27cc3fbf3b03dd18,README.md,,,,
 cloudfoundry/eirini,2d6573dd70c2f47b37e0fdfd0b4983b242c85b69,README.md,,,,
-rafi/vim-config,9ac8df8accd33fb44973408da3a3e874bca45a64,README.md,,,,
+rafi/vim-config,9ac8df8accd33fb44973408da3a3e874bca45a64,README.md,0,0,2025-12-09,Leonard Esser
 serde-rs/serde,2aeb51ad51bcd9174905bee9b10384d929a995a7,README.md,,,,
 serde-rs/serde,7014c105b46e0b9cd01a3b899468d8e81c738a39,README.md,,,,
 MetalPetal/MetalPetal,46fb13a36b034e30ad795011d33ca927c485a59f,README.md,0,0,2025-12-09,Leonard Esser
@@ -68,7 +68,7 @@ chocoteam/choco-solver,481ecfcbc62ce99261edc431cdf7fa15e41d6d2a,README.md,,,,
 AppIntro/AppIntro,fe157bf222d44d170b2f586ef8b5c8535dc4ebed,README.md,0,0,2025-12-08,Leonard Esser
 Hammerspoon/hammerspoon,ef8d90170247bb3734268611a99d1b9b71705db2,README.md,,,,
 AppIntro/AppIntro,ff1d9d697f96ba5b30a68d5f303245cf34d6feed,README.md,0,0,2025-12-08,Leonard Esser
-metaskills/minitest-spec-rails,3ae9ab43625c6e763c31c8b7003cb33eda390205,README.md,,,,
+metaskills/minitest-spec-rails,3ae9ab43625c6e763c31c8b7003cb33eda390205,README.md,0,0,2025-12-09,Leonard Esser
 STAMP-project/dspot,2844be37999f63b8f00b2c52e5aa386205db7986,README.md,,,,
 GoogleChromeLabs/pwa-wp,76b4c72428ec2ab8c3f1f24c9c9252e7915ca2ba,README.md,,,,
 gshakhn/idea-fitnesse,c1ba2a58cd7025b47005312a7a748a8b000844d6,README.md,,,,
@@ -87,7 +87,7 @@ heroku/heroku-buildpack-nodejs,8c67d739b93d2862f3ba5aa933fc729be194aa74,README.m
 clojure-expectations/expectations,3e65631efb5606c8d818328495a49adf09e52e94,README.md,0,0,2025-12-08,Leonard Esser
 sobolevn/git-secret,1e748a3c540bc421f9112a119ca886f92092491f,CONTRIBUTING.md,,,,
 sobolevn/git-secret,235a73af36d97ace1323724908ab51f8b04a7352,README.md,,,,
-laravelio/laravel.io,f789d0db7a7da3292c7e6cab2be0cceebaaf3964,README.md,,,,
+laravelio/laravel.io,f789d0db7a7da3292c7e6cab2be0cceebaaf3964,README.md,0,0,2025-12-09,Leonard Esser
 sobolevn/git-secret,eafd3fc531cea4c2d9f5d257ef6fa5d60510ea9b,CONTRIBUTING.md,,,,
 Hammerspoon/hammerspoon,d2a3b2ccace1ba4633588fcc3006c14d28dbbfe3,README.md,,,,
 clojure-expectations/expectations,4bacf2063c656ab8aee4b43f96a1715eecf8671a,README.md,0,0,2025-12-08,Leonard Esser

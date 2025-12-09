@@ -45,42 +45,22 @@ class TypeOfChange(Enum):
     REMOVE = 3
 
 
-class EventWhereCommunicationChannelDocumentationHasChanged(Event):
-    def __init__(
-        self,
-        repo,
-        commit,
-        path,
-        affected_channels = None,
-        types_of_changes = None,
-        changes_per_channel = None
-    ):
-        super().__init__(repo, commit, path)
-        self.__affected_channels = affected_channels
-        self.__types_of_changes = types_of_changes
-        self.__changes_per_channel = changes_per_channel
-    
-    def get_changes_per_channel(self):
-        return self.__changes_per_channel
-    
-    @property
-    def does_not_affect_any_specific_channel(self):
-        return (
-            (
-                not self.__affected_channels
-                or
-                all(
-                    not channels
-                    for channels in self.__affected_channels
-                )
-            )
-            and
-            (
-                not self.__changes_per_channel
-                or
-                all(
-                    not changes
-                    for changes in self.__changes_per_channel.values()
-                )
-            )
-        )
+def convert_to_type_of_change(value) -> TypeOfChange:
+    if isinstance(value, TypeOfChange):
+        return value
+
+    if isinstance(value, str):
+        v = value.strip()
+
+        if v.isdigit():
+            return TypeOfChange(int(v))
+
+        if v.startswith("TypeOfChange."):
+            v = v.split(".", 1)[1]
+
+        return TypeOfChange[v]
+
+    if isinstance(value, (int, float)):
+        return TypeOfChange(int(value))
+
+    raise ValueError(f"Cannot convert {value!r} to TypeOfChange")
