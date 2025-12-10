@@ -1,15 +1,20 @@
 LABELS_REPRESENTING_CCDC_EVENT = [
     "communication channels",
+    "github issues",
 ]
 
 LABELS_IDENTIFYING_CCDC_EVENT = [
     *LABELS_REPRESENTING_CCDC_EVENT,
-    "installation and requirements",
-    "usage and examples",
-    "contribution guidelines",
+    "installation",
+    "requirements"
+    "usage",
+    "examples"
+    "contribution",
     "project description",
     "maintenance notes",
     "legal and licensing",
+    "sponsors",
+    "other",
 ]
 
 LABELS_REPRESENTING_ADD = [

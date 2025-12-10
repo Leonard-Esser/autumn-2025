@@ -6,12 +6,11 @@ from pathlib import Path
 import config
 import helpers
 from batching import process_each_sample
-from classifying import classify
+from classifying import classify, naysayer
 from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_ccd_events, export_sample, get_output_dir
 from memory import reminders
-from model import CCDCEvent, Event
 from sampling import draw_k_random_distinct_rows_from_sample, get_sample_provided_by_ebert_et_al
 
 
@@ -28,12 +27,17 @@ def main():
     
     if not sample:
         pass
+    
+    if config.DO_NOT_CLASSIFY_AT_ALL:
+        data = process_each_sample(sample, root, version, naysayer)
     else:
-        _export_selected_information(
-            process_each_sample(sample, root, version, classify),
-            root,
-            version
-        )
+        data = process_each_sample(sample, root, version, classify)
+    
+    _export_selected_information(
+        data,
+        root,
+        version
+    )
 
 
 def _get_root() -> Path:
@@ -128,8 +132,8 @@ def _print_reminders():
 
 if __name__ == "__main__":
     main()
-    #_read_events_csv_and_draw_random_events()
+    _read_events_csv_and_draw_random_events()
     if reminders:
         print("----------")
         print("Reminders:")
-        print_reminders()
+        _print_reminders()

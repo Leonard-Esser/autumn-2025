@@ -1,42 +1,51 @@
 from enum import Enum
 
 
-class Event:
-    def __init__(self, repo, commit, path):
-        self.__repo = repo
-        self.__commit = commit
+class EventKey:
+    def __init__(
+        self,
+        full_name_of_repo,
+        commit_sha,
+        path
+    ):
+        self.__full_name_of_repo = full_name_of_repo
+        self.__commit_sha = commit_sha
         self.__path = path
     
-    def get_repo(self):
-        return self.__repo
+    @property
+    def get_full_name_of_repo(self):
+        return self.__full_name_of_repo
     
-    def get_commit(self):
-        return self.__commit
+    @property
+    def get_commit_sha(self):
+        return self.__commit_sha
     
+    @property
     def get_path(self):
         return self.__path
+
+
+class Event:
+    def __init__(self, key):
+        self.__key = key
+    
+    @property
+    def get_key(self):
+        return self.__key
 
 
 class CCDCEvent(Event):
     def __init__(
         self,
-        repo,
-        commit,
-        path,
-        types_of_changes = None,
-        affected_channels = None
+        key,
+        types_of_changes = None
     ):
-        super().__init__(repo, commit, path)
+        super().__init__(key)
         self.__types_of_changes = types_of_changes
-        self.__affected_channels = affected_channels
     
     @property
     def get_types_of_changes(self):
         return self.__types_of_changes
-    
-    @property
-    def get_affected_channels(self):
-        return self.__affected_channels
 
 
 class TypeOfChange(Enum):

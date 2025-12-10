@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 from pathlib import Path
-from pygit2 import Repository
+from pygit2 import Patch, Repository
 from typing import Iterable
 import pandas as pd
 
@@ -9,7 +9,7 @@ from calling_github import get_github, get_repo, for_each_path_get_commits, get_
 from data_frames_care import create_df_for_repo, create_df_for_commits
 from helpers import clone_if_necessary, get_url, make_directory_for_bare_clones, create_path_for_git_directory, run_git_gc, delete_git_dir
 from io_helpers import get_output_dir, export_commits, export_df
-from model import CCDCEvent, Event
+from model import CCDCEvent, Event, EventKey
 from mining import get_ccd_events_of_entire_repo
 import config
 
@@ -18,7 +18,7 @@ def process_each_sample(
     sample: Iterable[int] | Iterable[str],
     root: Path,
     version: str,
-    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event]
+    classifier_pipeline: Callable[[EventKey, Patch], CCDCEvent | Event],
 ) -> pd.DataFrame:
     
     github = get_github()
@@ -72,7 +72,7 @@ def process_each_sample(
             repo,
             full_name,
             commits_and_their_paths,
-            classifier,
+            classifier_pipeline,
             version,
             get_output_dir(root, config.NAME_OF_CHANGES_DIR, owner, name, version)
         )

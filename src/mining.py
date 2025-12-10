@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 from pathlib import Path
-from pygit2 import Repository, Commit, Diff
+from pygit2 import Repository, Commit, Diff, Patch
 from typing import Iterable
 import pandas as pd
 
@@ -9,7 +9,7 @@ import config
 from decorators import stop_the_clock
 from diffing import flatten, get_changes, get_patch, get_diff
 from io_helpers import export_changes
-from model import CCDCEvent, Event
+from model import CCDCEvent, Event, EventKey
 
 
 @stop_the_clock
@@ -17,7 +17,7 @@ def get_ccd_events_of_entire_repo(
     repo: Repository,
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
-    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event],
+    classifier_pipeline: Callable[[EventKey, Patch], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -30,7 +30,7 @@ def get_ccd_events_of_entire_repo(
                 full_name_of_repo,
                 commit,
                 paths_to_consider,
-                classifier,
+                classifier_pipeline,
                 version,
                 path_to_changes_dir
             )
@@ -42,30 +42,30 @@ def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
     paths: Iterable[str],
-    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event],
+    classifier_pipeline: Callable[[EventKey, Patch], CCDCEvent | Event],
     version: str | None = None,
     path_to_changes_dir: str | Path | None = None
 ):
     rows = []
     for path in paths:
+        patch = get_patch(
+            get_diff(commit),
+            path
+        )
         flattened_changes = flatten(
-            get_changes(
-                get_patch(
-                    get_diff(commit),
-                    path
-                )
-            )
+            get_changes(patch)
         )
         if path_to_changes_dir:
             export_changes(flattened_changes, commit.short_id + f"-{path}", path_to_changes_dir)
         rows.extend(
             create_rows(
-                classifier(
-                    full_name_of_repo,
-                    commit.id,
-                    path,
-                    flattened_changes,
-                    config.DO_NOT_CLASSIFY_AT_ALL
+                classifier_pipeline(
+                    EventKey(
+                        full_name_of_repo,
+                        commit.id,
+                        path
+                    ),
+                    patch
                 ),
                 version
             )
@@ -86,9 +86,9 @@ def create_rows(
     
     base = {
         **base,
-        "Repository": event.get_repo(),
-        "Commit": event.get_commit(),
-        "Path": event.get_path(),
+        "Repository": event.get_key.get_full_name_of_repo,
+        "Commit": event.get_key.get_commit_sha,
+        "Path": event.get_key.get_path,
     }
 
     if isinstance(event, CCDCEvent):

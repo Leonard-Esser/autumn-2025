@@ -82,7 +82,7 @@ mykey = tuple[str, str, str]
 def _test_classifier(
     root: Path,
     truth: pd.DataFrame,
-    classifier: Callable[[str, str, str, str, bool], CCDCEvent | Event]
+    classifier_pipeline: Callable[[EventKey, pygit2.Patch], CCDCEvent | Event],
 ) -> pd.DataFrame:
     key_cols: list[str] = ["Repository Full Name", "Commit SHA", "Path"]
     
@@ -158,7 +158,7 @@ def _test_classifier(
                 full_name_of_repo,
                 commit,
                 [path],
-                classifier
+                classifier_pipeline
             )
             affects_ccd_col = events["Affects CCD"].dropna().unique()
             if len(affects_ccd_col) != 1:
