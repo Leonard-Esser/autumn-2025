@@ -5,12 +5,12 @@ from pathlib import Path
 from typing import Any, Callable
 
 import config
-from classifying import classify
+from classifying import classify, naysayer
 from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
 from io_helpers import get_output_dir, export_df
 from mining import get_ccd_events_of_single_commit
-from model import CCDCEvent, convert_to_type_of_change, Event
+from model import CCDCEvent, convert_to_type_of_change, Event, EventKey
 
 
 @stop_the_clock
@@ -19,11 +19,18 @@ def main():
     version = get_version(root)
     print(f"Data will be saved to a directory named {version} within data/output/")
     
-    delta = _test_classifier(
-        root,
-        _get_the_truth(root),
-        classify
-    )
+    if config.DO_NOT_CLASSIFY_AT_ALL:
+        delta = _test_classifier(
+            root,
+            _get_the_truth(root),
+            naysayer
+        )
+    else:
+        delta = _test_classifier(
+            root,
+            _get_the_truth(root),
+            classifier
+        )
     
     file_name = f"test_result_delta_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
     export_df(
