@@ -6,6 +6,7 @@ import config
 
 def get_diff(
     commit: pygit2.Commit,
+    context_lines: int,
     call_find_similar_right_away: bool = True
 ) -> pygit2.Diff:
     """Gets the diff describing the changes introduced by a commit."""
@@ -19,13 +20,13 @@ def get_diff(
         diff = commit.tree.diff_to_tree(
             parent_tree,
             flags=flags,
-            context_lines=config.CONTEXT_LINES,
+            context_lines=context_lines,
             swap=swap,
         )
     else:
         diff = commit.tree.diff_to_tree(
             flags=flags,
-            context_lines=config.CONTEXT_LINES,
+            context_lines=context_lines,
             swap=swap,
         )
 
@@ -80,8 +81,18 @@ def get_changes(
 ) -> list[str]:
     changes = []
     for hunk in patch.hunks:
-        for line in hunk.lines:
-            changes.append(f"{line.origin} {line.content.rstrip()}")
+        changes.extend(
+            get_changes_of_hunk(hunk)
+        )
+    return changes
+
+
+def get_changes_of_hunk(
+    hunk: pygit2.DiffHunk
+) -> list[str]:
+    changes = []
+    for line in hunk.lines:
+        changes.append(f"{line.origin} {line.content.rstrip()}")
     return changes
 
 

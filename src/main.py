@@ -6,7 +6,7 @@ from pathlib import Path
 import config
 import helpers
 from batching import process_each_sample
-from classifying import classify, naysayer
+from classifying import classify, classify_thoroughly, naysayer
 from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_ccd_events, export_sample, get_output_dir
@@ -31,7 +31,7 @@ def main():
     if config.DO_NOT_CLASSIFY_AT_ALL:
         data = process_each_sample(sample, root, version, naysayer)
     else:
-        data = process_each_sample(sample, root, version, classify)
+        data = process_each_sample(sample, root, version, classify_thoroughly)
     
     _export_selected_information(
         data,
@@ -132,7 +132,7 @@ def _print_reminders():
 
 if __name__ == "__main__":
     main()
-    _read_events_csv_and_draw_random_events()
+    #_read_events_csv_and_draw_random_events()
     if reminders:
         print("----------")
         print("Reminders:")

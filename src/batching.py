@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 from pathlib import Path
-from pygit2 import Patch, Repository
+from pygit2 import Commit, Repository
 from typing import Iterable
 import pandas as pd
 
@@ -18,7 +18,7 @@ def process_each_sample(
     sample: Iterable[int] | Iterable[str],
     root: Path,
     version: str,
-    classifier_pipeline: Callable[[EventKey, Patch], CCDCEvent | Event],
+    classifier_pipeline: Callable[[EventKey, Commit], CCDCEvent | Event],
 ) -> pd.DataFrame:
     
     github = get_github()

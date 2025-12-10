@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 from pathlib import Path
-from pygit2 import Repository, Commit, Diff, Patch
+from pygit2 import Repository, Commit, Diff
 from typing import Iterable
 import pandas as pd
 
@@ -17,7 +17,7 @@ def get_ccd_events_of_entire_repo(
     repo: Repository,
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
-    classifier_pipeline: Callable[[EventKey, Patch], CCDCEvent | Event],
+    classifier_pipeline: Callable[[EventKey, Commit], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -42,18 +42,19 @@ def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
     paths: Iterable[str],
-    classifier_pipeline: Callable[[EventKey, Patch], CCDCEvent | Event],
+    classifier_pipeline: Callable[[EventKey, Commit], CCDCEvent | Event],
     version: str | None = None,
     path_to_changes_dir: str | Path | None = None
 ):
     rows = []
     for path in paths:
-        patch = get_patch(
-            get_diff(commit),
-            path
-        )
         flattened_changes = flatten(
-            get_changes(patch)
+            get_changes(
+                get_patch(
+                    get_diff(commit, config.CONTEXT_LINES),
+                    path
+                )
+            )
         )
         if path_to_changes_dir:
             export_changes(flattened_changes, commit.short_id + f"-{path}", path_to_changes_dir)
@@ -65,7 +66,7 @@ def get_ccd_events_of_single_commit(
                         commit.id,
                         path
                     ),
-                    patch
+                    commit
                 ),
                 version
             )
