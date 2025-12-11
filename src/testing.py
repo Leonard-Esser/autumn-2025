@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import config
-from classifying import classify, classify_thoroughly, naysayer
+from classifying import classify_thoroughly, naysayer
 from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
 from io_helpers import get_output_dir, export_df
