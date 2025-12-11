@@ -10,6 +10,7 @@ from classifying import classify, classify_thoroughly, naysayer
 from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_ccd_events, export_sample, get_output_dir
+from logging_something import setup_logging
 from memory import reminders
 from sampling import draw_k_random_distinct_rows_from_sample, get_sample_provided_by_ebert_et_al
 
@@ -17,6 +18,7 @@ from sampling import draw_k_random_distinct_rows_from_sample, get_sample_provide
 @stop_the_clock
 def main():
     root = _get_root()
+    setup_logging(root)
     version = get_version(root)
     print(f"Data will be saved to a directory named {version} within data/output/")
     

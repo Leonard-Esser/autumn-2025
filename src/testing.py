@@ -9,13 +9,14 @@ from classifying import classify, classify_thoroughly, naysayer
 from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
 from io_helpers import get_output_dir, export_df
+from logging_something import setup_logging
 from mining import get_ccd_events_of_single_commit
 from model import CCDCEvent, convert_to_type_of_change, Event, EventKey
 
 
-@stop_the_clock
 def main():
     root = _get_root()
+    setup_logging(root)
     version = get_version(root)
     print(f"Data will be saved to a directory named {version} within data/output/")
     
@@ -86,6 +87,7 @@ def _read_clean_csv(path: str, required_columns: list[str] | None = None) -> pd.
 mykey = tuple[str, str, str]
 
 
+@stop_the_clock
 def _test_classifier(
     root: Path,
     truth: pd.DataFrame,
