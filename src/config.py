@@ -21,18 +21,21 @@ __all__ = [
     "CONTEXT_LINES",
 ]
 
+# development
 DO_NOT_CLASSIFY_AT_ALL = False
+DO_NOT_EXPORT_CHANGES = True
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO = 10 # ignored if not > 0
 
 # reproducibility
-RANDOM_STATE = 42
+RANDOM_STATE = 44
 RANDOM_STATE_FOR_DRAWING_EVENTS = 42
 
 # manual labeling
 EVENTS_SAMPLE_SIZE = 100
 
 DELETE_GIT_DIR_IMMEDIATELY = False
-SAMPLE_SIZE = 3
-SINCE = datetime(2018, 1, 1)
+SAMPLE_SIZE = 10
+SINCE = datetime(2023, 1, 1)
 UNTIL = datetime(2025, 11, 30, 23, 59, 59)
 
 _README = "README"

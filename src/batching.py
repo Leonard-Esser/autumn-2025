@@ -80,13 +80,13 @@ def process_each_sample(
             ccd_events,
             left_on="Repository Full Name",
             right_on="Repository",
-            how="left"
+            how="right"
         ).drop(columns=["Repository"])
         ccd_events = commits_df.merge(
             ccd_events,
             left_on="Commit SHA",
             right_on="Commit",
-            how="left"
+            how="right"
         )
         export_df(
             ccd_events,

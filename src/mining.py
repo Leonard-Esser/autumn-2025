@@ -1,3 +1,5 @@
+import logging
+import random
 from collections.abc import Callable
 
 from pathlib import Path
@@ -12,6 +14,9 @@ from io_helpers import export_changes
 from model import CCDCEvent, Event, EventKey
 
 
+logger = logging.getLogger(__name__)
+
+
 @stop_the_clock
 def get_ccd_events_of_entire_repo(
     repo: Repository,
@@ -22,6 +27,14 @@ def get_ccd_events_of_entire_repo(
     path_to_changes_dir: str | Path
 ):
     frames = []
+    k = config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO
+    if k > 0:
+        if config.RANDOM_STATE:
+            random.seed(config.RANDOM_STATE)
+        commit_shas = list(commits_dict.keys())
+        if len(commit_shas) > k:
+            sampled_shas = set(random.sample(commit_shas, k))
+            commits_dict = {sha: commits_dict[sha] for sha in sampled_shas}
     for commit_sha in commits_dict:
         commit: Commit = repo.get(commit_sha)
         paths_to_consider: Iterabel[str] = commits_dict[commit_sha]
@@ -38,6 +51,7 @@ def get_ccd_events_of_entire_repo(
     return pd.concat(frames, ignore_index=True)
 
 
+@stop_the_clock
 def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
@@ -56,7 +70,7 @@ def get_ccd_events_of_single_commit(
                 )
             )
         )
-        if path_to_changes_dir:
+        if not config.DO_NOT_EXPORT_CHANGES and path_to_changes_dir:
             export_changes(flattened_changes, commit.short_id + f"-{path}", path_to_changes_dir)
         rows.extend(
             create_rows(
