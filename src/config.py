@@ -2,6 +2,8 @@ from datetime import datetime
 
 __all__ = [
     "DO_NOT_CLASSIFY_AT_ALL",
+    "DO_NOT_EXPORT_CHANGES",
+    "ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO",
     "RANDOM_STATE",
     "RANDOM_STATE_FOR_DRAWING_EVENTS",
     "EVENTS_SAMPLE_SIZE",
