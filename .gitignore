@@ -18,3 +18,4 @@ data/output/
 
 # Logs
 *.log
+*.log.*
