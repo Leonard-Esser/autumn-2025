@@ -116,6 +116,27 @@ def export_changes(
         f.write(changes)
 
 
+def export_test_result(
+    events_df: pd.DataFrame,
+    summary: str | None,
+    separator: str | None,
+    file_name: str,
+    destination: str | Path,
+    index: bool = False,
+    index_label: str | None = None,
+) -> None:
+    destination = create_path_and_make_dir(destination)
+    path = destination / ensure_correct_file_ending(file_name, ".csv")
+    
+    events_df.to_csv(path, index=index, index_label=index_label)
+    
+    if summary:
+        with open(path, "a", newline="", encoding="utf-8") as csv_file:
+            writer = get_csv_writer(csv_file)
+            writer.writerow([separator])
+            writer.writerow([summary])
+
+
 def main():
     print(f"Hello from {Path(__file__).name}!")
 

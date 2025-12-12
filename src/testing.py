@@ -8,7 +8,7 @@ import config
 from classifying import classify_thoroughly, naysayer
 from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
-from io_helpers import get_output_dir, export_df
+from io_helpers import get_output_dir, export_test_result
 from logging_something import setup_logging
 from mining import get_ccd_events_of_single_commit
 from model import CCDCEvent, convert_to_type_of_change, Event, EventKey
@@ -20,24 +20,33 @@ def main():
     version = get_version(root)
     print(f"Data will be saved to a directory named {version} within data/output/")
     
+    truth = _get_the_truth(root)
     if config.DO_NOT_CLASSIFY_AT_ALL:
         delta = _test_classifier(
             root,
-            _get_the_truth(root),
+            truth,
             naysayer
         )
     else:
         delta = _test_classifier(
             root,
-            _get_the_truth(root),
+            truth,
             classify_thoroughly
         )
     
-    file_name = f"test_result_delta_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
-    export_df(
+    timestamp = f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+    file_name = f"test_result_delta_{timestamp}.csv"
+    error_rate = len(delta) / len(truth)
+    the_error_rate_as_a_percentage = error_rate * 100
+    summary = f"{version}@{timestamp} – error rate: {the_error_rate_as_a_percentage} %"
+    export_test_result(
         delta,
+        summary,
+        config.SEPARATOR_BETWEEN_EVENTS_AND_SUMMARY,
         file_name,
-        get_output_dir(root, config.NAME_OF_TEST_RESULTS_DIR, version=version)
+        get_output_dir(root, config.NAME_OF_TEST_RESULTS_DIR, version=version),
+        index=True,
+        index_label="Incorrectly classified event number…"
     )
 
 
