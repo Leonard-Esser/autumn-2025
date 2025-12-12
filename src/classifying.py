@@ -5,8 +5,10 @@ from transformers import pipeline
 
 import config
 import labels
+from classifier import Classifier
 from decorators import delete_sooner_or_later
 from diffing import flatten, get_changes, get_changes_of_hunk, get_diff, get_patch
+from labels import HypothesisTemplateIdentifier
 from model import CCDCEvent, Event, EventKey, TypeOfChange
 
 
@@ -14,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+classifier = Classifier()
 
 
 def classify_thoroughly(
@@ -40,11 +43,11 @@ def classify_thoroughly(
         if not config.CONTEXT_LINES > 0 or not _is_ccdc_event_based_on_patch(patch):
             return Event(event_key)
     
-    illogical_types_of_changes = _rule_out_illogical_types_of_changes(patch_without_context)
-    types_of_changes = _identify_types_of_changes_based_on_patch(patch_without_context)
-    types_of_changes -= illogical_types_of_changes
+    #illogical_types_of_changes = _rule_out_illogical_types_of_changes(patch_without_context)
+    #types_of_changes = _identify_types_of_changes_based_on_patch(patch_without_context)
+    #types_of_changes -= illogical_types_of_changes
     
-    return CCDCEvent(event_key, types_of_changes)
+    return CCDCEvent(event_key)
 
 
 def _get_diff_with_and_without_context(
@@ -125,23 +128,29 @@ def _identify_types_of_changes_based_on_patch(patch_to_investigate: pygit2.Patch
 def _is_ccdc_event(text: str) -> bool:
     if not text or not text.strip():
         return False
+
+    lbls = labels.TOPICS
+    identifier = HypothesisTemplateIdentifier.TOPIC
+    target_labels = labels.TOPICS_IDENTIFYING_CCDC_EVENTS
     
-    result = classifier(text, labels.LABELS_IDENTIFYING_CCDC_EVENT, multi_label=False)
-    logger.info(result)
-    labels_and_their_scores = zip(result["labels"], result["scores"])
-    tendency = False
-    for label, score in labels_and_their_scores:
-        if label in labels.LABELS_REPRESENTING_CCDC_EVENT:
-            if score > 0.50:
-                return True
-            elif score > 0.30 and not tendency:
-                tendency = True
-    result = classifier(text, labels.COMMUNICATION_CHANNELS, multi_label=True)
-    logger.info(result)
-    labels_and_their_scores = zip(result["labels"], result["scores"])
-    for label, score in labels_and_their_scores:
-        if score > 0.90 or (tendency and score > 0.50):
-            return True
+    if config.TASK_MODE == 1:
+        lbls = labels.INTENTIONS
+        identifier = HypothesisTemplateIdentifier.INTENT
+        target_labels = labels.INTENTIONS_IDENTIFYING_CCDC_EVENTS
+    
+    hypothesis = labels.HYPOTHESIS_TEMPLATES[identifier]
+    
+    labels_and_their_scores = classifier.classify(
+        text,
+        lbls,
+        hypothesis
+    )
+    logger.info(text)
+    logger.info(labels_and_their_scores)
+    for label, score in labels_and_their_scores.items():
+        if label in target_labels:
+            # TODO implement threshold based logic
+            continue
     return False
 
 

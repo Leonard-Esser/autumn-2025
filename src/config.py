@@ -72,3 +72,6 @@ NAME_OF_CHANGES_DIR = "changes"
 NAME_OF_RESULTS_DIR = "results"
 NAME_OF_TEST_RESULTS_DIR = "test results"
 DO_NOT_EXPORT_CHANGES = True
+
+# RE classification
+TASK_MODE = 1 # 0 -> TOPIC, 1 -> INTENT – see labels.py
