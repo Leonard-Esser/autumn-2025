@@ -100,3 +100,37 @@ def flatten(
     changes: list[str]
 ) -> str:
     return "\n".join(changes)
+
+
+def get_flattened_changes_grouped_by_line_origin(
+    hunk: pygit2.DiffHunk
+) -> dict[str, str]:
+    return _flatten_grouped_lines(
+        _group_lines_by_origin(hunk),
+        flatten
+    )
+
+
+from collections.abc import Callable
+
+from typing import Any
+
+def _flatten_grouped_lines(
+    grouped_lines: dict[Any, list[str]],
+    flatten: Callable[[list[str]], str],
+) -> dict[Any, str]:
+    return {
+        key: flatten(lines)
+        for key, lines in grouped_lines.items()
+    }
+
+
+def _group_lines_by_origin(
+    hunk: pygit2.DiffHunk
+) -> dict[str, list[str]]:
+    from collections import defaultdict
+
+    buckets = defaultdict(list)
+    for line in hunk.lines:
+        buckets[line.origin].append(line.content.rstrip())
+    return dict(buckets)

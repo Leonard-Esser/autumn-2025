@@ -74,37 +74,41 @@ LABELS_IDENTIFYING_TYPES_OF_CHANGES = [
 ]
 
 from enum import Enum
-class HypothesisTemplateIdentifier(Enum):
+class TaskMode(Enum):
     TOPIC = 1
     INTENT = 2
 
 HYPOTHESIS_TEMPLATES = {
-    HypothesisTemplateIdentifier.TOPIC: "This change is about {}.",
-    HypothesisTemplateIdentifier.INTENT: "The change {}.",
+    TaskMode.TOPIC: "This text is about {}.",
+    TaskMode.INTENT: "The change {}.",
 }
 
+PROJECT_COMMUNICATION_LABELS = {
+    TaskMode.TOPIC: "project communication",
+    TaskMode.INTENT: "modifies project communication documentation",
+}
+
+COMMUNICATION_CHANNEL_DOCUMENTATION = "communication channel documentation"
+
 TOPICS_IDENTIFYING_CCDC_EVENTS = [
-    "communication",
+    COMMUNICATION_CHANNEL_DOCUMENTATION,
+    "a communication channel",
     "communication channels",
-    "communication channel documentation",
-    "project communication",
-    "how to communicate",
-    "where to communicate",
-    "exchanging information",
 ]
 
 TOPICS = [
+    PROJECT_COMMUNICATION_LABELS[TaskMode.TOPIC],
     *TOPICS_IDENTIFYING_CCDC_EVENTS,
 ]
 
 INTENTIONS_IDENTIFYING_CCDC_EVENTS = [
+    "modifies information about a communication channel",
     "adds a communication channel to the documentation",
-    "updates the documentation of a communication channel",
     "removes a communication channel from the documentation",
-    "updates information regarding communication",
     "explains why and how to use a communication channel",
 ]
 
 INTENTIONS = [
+    PROJECT_COMMUNICATION_LABELS[TaskMode.INTENT],
     *INTENTIONS_IDENTIFYING_CCDC_EVENTS,
 ]
