@@ -100,7 +100,7 @@ mykey = tuple[str, str, str]
 def _test_classifier(
     root: Path,
     truth: pd.DataFrame,
-    classifier_pipeline: Callable[[EventKey, pygit2.Patch], CCDCEvent | Event],
+    classifier_pipeline: Callable[[EventKey, pygit2.Commit], CCDCEvent | Event]
 ) -> pd.DataFrame:
     key_cols: list[str] = ["Repository Full Name", "Commit SHA", "Path"]
     
