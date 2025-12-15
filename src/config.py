@@ -25,22 +25,22 @@ __all__ = [
 
 # development
 DELETE_GIT_DIR_IMMEDIATELY = False
-DO_NOT_CLASSIFY_AT_ALL = False
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO = 10 # ignored if not > 0
+DO_NOT_CLASSIFY_AT_ALL = True
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO = 0 # ignored if not > 0
 
 # testing
 SEPARATOR_BETWEEN_EVENTS_AND_SUMMARY = "--- Summary: ---"
 
 # reproducibility
-RANDOM_STATE = 44
-RANDOM_STATE_FOR_DRAWING_EVENTS = 42
+RANDOM_STATE = 42
+RANDOM_STATE_FOR_DRAWING_EVENTS = 43
 
 # manual labeling
 EVENTS_SAMPLE_SIZE = 100
 
 # research subject
-SAMPLE_SIZE = 10
-SINCE = datetime(2023, 1, 1)
+SAMPLE_SIZE = 0
+SINCE = datetime(2009, 1, 1)
 UNTIL = datetime(2025, 11, 30, 23, 59, 59)
 
 _README = "README"
