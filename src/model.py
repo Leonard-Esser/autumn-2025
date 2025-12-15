@@ -38,14 +38,14 @@ class CCDCEvent(Event):
     def __init__(
         self,
         key,
-        types_of_changes = None
+        types_of_change = None
     ):
         super().__init__(key)
-        self.__types_of_changes = types_of_changes
+        self.__types_of_change = types_of_change
     
     @property
-    def get_types_of_changes(self):
-        return self.__types_of_changes
+    def get_types_of_change(self):
+        return self.__types_of_change
 
 
 class TypeOfChange(Enum):

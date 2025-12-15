@@ -1,78 +1,3 @@
-COMMUNICATION_CHANNELS = [
-    "pull request",
-    "fork",
-    "ping",
-    "wiki",
-    "issues",
-    "rss feed",
-    "medium",
-    "website",
-    "blog",
-    "gitter",
-    "discord",
-    "slack",
-    "patreon",
-    "zulip",
-    "icq",
-    "telegram",
-    "irc",
-    "forum",
-    "stack overflow",
-    "reddit",
-    "meetup",
-    "skype",
-    "newsletter",
-    "mailing list",
-    "mail",
-    "form",
-    "google group",
-    "youtube",
-    "facebook",
-    "twitter",
-    "linkedin",
-    "jira",
-]
-
-LABELS_REPRESENTING_CCDC_EVENT = [
-    "communication channels",
-    "a communication channel",
-    "project communication",
-]
-
-LABELS_IDENTIFYING_CCDC_EVENT = [
-    *LABELS_REPRESENTING_CCDC_EVENT,
-    "installation",
-    "requirements"
-    "usage",
-    "examples",
-    "project description",
-    "maintenance notes",
-    "licensing",
-    "sponsors",
-    "copyright",
-    "version management",
-    "project history",
-    "implementation details",
-]
-
-LABELS_REPRESENTING_ADD = [
-    "communication channel addition",
-]
-
-LABELS_REPRESENTING_UPDATE = [
-    "communication channel documentation update",
-]
-
-LABELS_REPRESENTING_REMOVE = [
-    "communication channel removal",
-]
-
-LABELS_IDENTIFYING_TYPES_OF_CHANGES = [
-    *LABELS_REPRESENTING_ADD,
-    *LABELS_REPRESENTING_UPDATE,
-    *LABELS_REPRESENTING_REMOVE,
-]
-
 from enum import Enum
 class TaskMode(Enum):
     TOPIC = 1
@@ -83,25 +8,25 @@ HYPOTHESIS_TEMPLATES = {
     TaskMode.INTENT: "The change {}.",
 }
 
-PROJECT_COMMUNICATION_LABELS = {
+PROJECT_COMMUNICATION = {
     TaskMode.TOPIC: "project communication",
     TaskMode.INTENT: "modifies project communication documentation",
 }
 
 COMMUNICATION_CHANNEL_DOCUMENTATION = "communication channel documentation"
 
-TOPICS_IDENTIFYING_CCDC_EVENTS = [
+TOPICS_FOR_IDENTIFYING_CCDC_EVENT = [
     COMMUNICATION_CHANNEL_DOCUMENTATION,
     "a communication channel",
     "communication channels",
 ]
 
 TOPICS = [
-    PROJECT_COMMUNICATION_LABELS[TaskMode.TOPIC],
-    *TOPICS_IDENTIFYING_CCDC_EVENTS,
+    PROJECT_COMMUNICATION[TaskMode.TOPIC],
+    *TOPICS_FOR_IDENTIFYING_CCDC_EVENT,
 ]
 
-INTENTIONS_IDENTIFYING_CCDC_EVENTS = [
+INTENTIONS_FOR_IDENTIFYING_CCDC_EVENT = [
     "modifies information about a communication channel",
     "adds a communication channel to the documentation",
     "removes a communication channel from the documentation",
@@ -109,6 +34,25 @@ INTENTIONS_IDENTIFYING_CCDC_EVENTS = [
 ]
 
 INTENTIONS = [
-    PROJECT_COMMUNICATION_LABELS[TaskMode.INTENT],
-    *INTENTIONS_IDENTIFYING_CCDC_EVENTS,
+    PROJECT_COMMUNICATION[TaskMode.INTENT],
+    *INTENTIONS_FOR_IDENTIFYING_CCDC_EVENT,
+]
+
+LABELS_REPRESENTING_ADD = [
+    "added",
+]
+
+LABELS_REPRESENTING_UPDATE = [
+    "updated",
+    "updated regardings its documentation",
+]
+
+LABELS_REPRESENTING_REMOVE = [
+    "removed",
+]
+
+LABELS_FOR_IDENTIFYING_TYPE_OF_CHANGE = [
+    *LABELS_REPRESENTING_ADD,
+    *LABELS_REPRESENTING_UPDATE,
+    *LABELS_REPRESENTING_REMOVE,
 ]

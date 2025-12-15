@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import config
-from classifying import classify_thoroughly, naysayer
+from classifying import classify_commit, naysayer
 from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
 from io_helpers import get_output_dir, export_test_result
@@ -31,7 +31,7 @@ def main():
         delta = _test_classifier(
             root,
             truth,
-            classify_thoroughly
+            classify_commit
         )
     
     timestamp = f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
@@ -100,7 +100,7 @@ mykey = tuple[str, str, str]
 def _test_classifier(
     root: Path,
     truth: pd.DataFrame,
-    classifier_pipeline: Callable[[EventKey, pygit2.Commit], CCDCEvent | Event]
+    classifier_pipeline: Callable[[pygit2.Commit, EventKey], CCDCEvent | Event]
 ) -> pd.DataFrame:
     key_cols: list[str] = ["Repository Full Name", "Commit SHA", "Path"]
     
@@ -117,11 +117,11 @@ def _test_classifier(
                 )
             affects_ccd = int(affects_ccd_col[0])
 
-            # Collect all distinct types of changes for this triple.
+            # Collect all distinct types of change for this triple.
             # Assumption: a value of 0 is a sentinel meaning "no type of change".
             type_of_change_col = rows["Type of Change"].dropna().tolist()
             
-            expected_types_of_changes = sorted(
+            expected_types_of_change = sorted(
                 {
                     convert_to_type_of_change(t)
                     for t in type_of_change_col
@@ -132,7 +132,7 @@ def _test_classifier(
 
             expected_results[key] = {
                 "Affects CCD": affects_ccd,
-                "Types of Changes": expected_types_of_changes,
+                "Types of Change": expected_types_of_change,
             }
         return expected_results
     
@@ -186,17 +186,17 @@ def _test_classifier(
                 )
             affects_ccd = int(affects_ccd_col[0])
 
-            # Collect all distinct types of changes for this triple.
+            # Collect all distinct types of change for this triple.
             # Assumption: a value of 0 is a sentinel meaning "no type of change".
             type_of_change_col = events["Type of Change"].dropna().tolist()
-            actual_types_of_changes = sorted(
+            actual_types_of_change = sorted(
                 {t for t in type_of_change_col if t not in (0, "0")},
                 key=lambda x: x.name
             )
 
             actual_results[key] = {
                 "Affects CCD": affects_ccd,
-                "Types of Changes": actual_types_of_changes,
+                "Types of Change": actual_types_of_change,
             }
         return actual_results
 
@@ -212,11 +212,11 @@ def _test_classifier(
             exp_aff = exp_res["Affects CCD"]
             act_aff = act_res["Affects CCD"]
             exp_types = sorted(
-                exp_res["Types of Changes"],
+                exp_res["Types of Change"],
                 key=lambda x: x.name
             )
             act_types = sorted(
-                act_res["Types of Changes"],
+                act_res["Types of Change"],
                 key=lambda x: x.name
             )
 

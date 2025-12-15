@@ -6,7 +6,7 @@ from pathlib import Path
 import config
 import helpers
 from batching import process_each_sample
-from classifying import classify_thoroughly, naysayer
+from classifying import classify_commit, naysayer
 from decorators import stop_the_clock
 from helpers import get_version
 from io_helpers import export_ccd_events, export_sample, get_output_dir
@@ -33,7 +33,7 @@ def main():
     if config.DO_NOT_CLASSIFY_AT_ALL:
         data = process_each_sample(sample, root, version, naysayer)
     else:
-        data = process_each_sample(sample, root, version, classify_thoroughly)
+        data = process_each_sample(sample, root, version, classify_commit)
     
     _export_selected_information(
         data,

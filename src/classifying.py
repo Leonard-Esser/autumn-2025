@@ -2,12 +2,12 @@ import logging
 
 import pygit2
 from transformers import pipeline
+from typing import Iterable
 
 import config
 import labels
 from classifier import Classifier
-from decorators import delete_sooner_or_later
-from diffing import flatten, get_changes, get_changes_of_hunk, get_diff, get_flattened_changes_grouped_by_line_origin, get_patch
+from diffing import flatten, get_changes_of_hunk, get_diff, get_flattened_changes_grouped_by_line_origin, get_patch
 from labels import TaskMode
 from model import CCDCEvent, Event, EventKey, TypeOfChange
 
@@ -19,118 +19,120 @@ classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnl
 classifier = Classifier()
 
 
-def classify_thoroughly(
-    event_key: EventKey,
-    commit: pygit2.Commit
+def classify_commit(
+    commit: pygit2.Commit,
+    event_key: EventKey
 ) -> Event | CCDCEvent:
-    logger.info(f"Classifying commit {commit.id}")
-    diff, diff_without_context = _get_diff_with_and_without_context(commit)
-    
-    def _get_patch_with_and_without_context() -> tuple[pygit2.Patch, pygit2.Patch]:
-        path = event_key.get_path
-        patch = get_patch(
-            diff,
-            path
-        )
-        patch_without_context = get_patch(
-            diff_without_context,
-            path
-        )
-        return (patch, patch_without_context)
-    
-    patch, patch_without_context = _get_patch_with_and_without_context()
-    is_ccdc_event =  _patch_is_ccdc_event(
-        patch_without_context,
+    diff = get_diff(
+        commit,
+        config.CONTEXT_LINES,
+        True
+    )
+    patch = get_patch(
+        diff,
+        event_key.get_path
+    )
+    return _classify_patch(
+        patch,
+        event_key,
         classify_additions_and_deletions_separately=True
     )
-    if is_ccdc_event:
-        return CCDCEvent(event_key)
-    
-    return Event(event_key)
 
 
-def _get_diff_with_and_without_context(
-    commit: pygit2.Commit
-) -> tuple[pygit2.Diff, pygit2.Diff]:
-    if config.CONTEXT_LINES > 0:
-        diff = get_diff(
-            commit,
-            config.CONTEXT_LINES,
-            True
-        )
-        diff_without_context = get_diff(
-            commit,
-            0,
-            True
-        )
-    else:
-        diff = get_diff(
-            commit,
-            0,
-            True
-        )
-        diff_without_context = diff
-    
-    return (diff, diff_without_context)
-
-
-def _patch_is_ccdc_event(
+def _classify_patch(
     patch: pygit2.Patch,
+    event_key: EventKey,
     classify_additions_and_deletions_separately: bool
-) -> bool:
-    for hunk in patch.hunks:
-        hunk_is_ccdc_event = _hunk_is_ccdc_event(
-            hunk,
+) -> Event | CCDCEvent:
+    return _merge_ccdc_events(
+        _get_ccdc_event_for_each_hunk(
+            patch,
+            event_key,
             classify_additions_and_deletions_separately
-        )
-        if hunk_is_ccdc_event:
-            return True
-    
-    return False
+        ),
+        event_key
+    )
 
 
-def _hunk_is_ccdc_event(
-    hunk: pygit2.DiffHunk,
+def _get_ccdc_event_for_each_hunk(
+    patch: pygit2.Patch,
+    event_key: EventKey,
     classify_additions_and_deletions_separately: bool
-) -> bool:
+) -> list[CCDCEvent]:
+    events = []
+    for hunk in patch.hunks:
+        events.append(
+            _classify_hunk(
+                hunk,
+                event_key,
+                classify_additions_and_deletions_separately,
+            )
+        )
+    return [event for event in events if isinstance(event, CCDCEvent)]
+
+
+def _merge_ccdc_events(
+    events: Iterable[CCDCEvent],
+    event_key: EventKey
+) -> Event | CCDCEvent:
+    if not events:
+        return Event(event_key)
+    
+    types_of_change = set()
+    for event in events:
+        types_of_change |= set(event.get_types_of_change)
+    return CCDCEvent(
+        event_key,
+        types_of_change
+    )
+
+
+def _classify_hunk(
+    hunk: pygit2.DiffHunk,
+    event_key: EventKey,
+    classify_additions_and_deletions_separately: bool = False
+) -> Event | CCDCEvent:
     if not classify_additions_and_deletions_separately:
-        return _hunk_as_a_whole_hints_at_ccdc_event(hunk)
+        text = flatten(
+            get_changes_of_hunk(hunk)
+        )
+        if not _text_hints_at_ccdc_event(
+            text,
+            TaskMode.INTENT
+        ):
+            return Event(event_key)
+        
+        return CCDCEvent(
+            event_key,
+            _identify_types_of_change(text) - _rule_out_illogical_types_of_change(hunk)
+        )
     
     grouped_changes = get_flattened_changes_grouped_by_line_origin(hunk)
     origins = set(grouped_changes.keys())
     if "+" in origins and "-" in origins:
-        return _hunk_as_a_whole_hints_at_ccdc_event(hunk)
+        return _classify_hunk(hunk, event_key)
     else:
         for origin in origins:
             if origin in ("+", "-"):
-                return _text_hints_at_ccdc_event(grouped_changes[origin])
-    
-    return False
+                if _text_hints_at_ccdc_event(grouped_changes[origin]):
+                    types_of_change = [TypeOfChange.ADD]
+                    if origin == "-":
+                        types_of_change = [TypeOfChange.REMOVE]
+                    return CCDCEvent(
+                        event_key,
+                        types_of_change
+                    )
+                else:
+                    return Event(event_key)
 
 
-def _hunk_as_a_whole_hints_at_ccdc_event(
-    hunk: pygit2.DiffHunk
-):
-    return _text_hints_at_ccdc_event(
-        flatten(
-            get_changes_of_hunk(hunk)
-        ),
-        TaskMode.INTENT
-    )
-
-
-def _rule_out_illogical_types_of_changes(patch_to_investigate: pygit2.Patch) -> set[TypeOfChange]:
-    """Returns the types of changes that are `impossible` or illogical based on the patch."""
-
-    def _get_line_origin_set() -> set:
-        line_origin_set = set()
-        for hunk in patch_to_investigate.hunks:
-            for line in hunk.lines:
-                line_origin_set.add(line.origin)
-        return line_origin_set
+def _rule_out_illogical_types_of_change(hunk: pygit2.DiffHunk,) -> set[TypeOfChange]:
+    """Returns the types of change that are `impossible` or illogical based on the given DiffHunk."""
 
     # Collect the set of line origins in the patch: {'+', '-', ' '}
-    line_origins = _get_line_origin_set()
+    line_origins = set()
+    for line in hunk.lines:
+        line_origins.add(line.origin)
 
     if not line_origins:
         return set(TypeOfChange)
@@ -144,16 +146,6 @@ def _rule_out_illogical_types_of_changes(patch_to_investigate: pygit2.Patch) -> 
         return {TypeOfChange.ADD, TypeOfChange.UPDATE}
 
     return set()
-
-
-def _identify_types_of_changes_based_on_patch(patch_to_investigate: pygit2.Patch) -> set[TypeOfChange]:
-    types = set()
-    for hunk in patch_to_investigate.hunks:
-        flattened_changes = flatten(
-            get_changes_of_hunk(hunk)
-        )
-        types = types | _identify_types_of_changes(flattened_changes)
-    return types
 
 
 def _text_hints_at_ccdc_event(
@@ -176,7 +168,7 @@ def _text_hints_at_ccdc_event(
     logger.info(labels_and_their_scores)
 
     def _should_return_false_early() -> bool:
-        project_communication_label = labels.PROJECT_COMMUNICATION_LABELS[task_mode]
+        project_communication_label = labels.PROJECT_COMMUNICATION[task_mode]
         if task_mode is TaskMode.INTENT:
             return labels_and_their_scores[project_communication_label] < 0.01
         if labels_and_their_scores[project_communication_label] >= 0.009:
@@ -193,21 +185,28 @@ def _text_hints_at_ccdc_event(
     return False
 
 
-def _identify_types_of_changes(text: str) -> set[TypeOfChange]:
+def _identify_types_of_change(text: str) -> set[TypeOfChange]:
     if not text or not text.strip():
         return set()
-    
-    result = classifier(text, labels.LABELS_IDENTIFYING_TYPES_OF_CHANGES, multi_label=True)
-    types_of_changes = set()
-    for label, score in zip(result["labels"], result["scores"]):
+    lbls = labels.LABELS_FOR_IDENTIFYING_TYPE_OF_CHANGE
+    hypothesis = "At least one communication channel was {}."
+    labels_and_their_scores = classifier.classify(
+        text,
+        lbls,
+        hypothesis
+    )
+    logger.info(labels_and_their_scores)
+
+    types_of_change = set()
+    for label, score in labels_and_their_scores.items():
         if label in labels.LABELS_REPRESENTING_ADD and score > 0.50:
-            types_of_changes.add(TypeOfChange.ADD)
+            types_of_change.add(TypeOfChange.ADD)
         elif label in labels.LABELS_REPRESENTING_UPDATE and score > 0.50:
-            types_of_changes.add(TypeOfChange.UPDATE)
+            types_of_change.add(TypeOfChange.UPDATE)
         elif label in labels.LABELS_REPRESENTING_REMOVE and score > 0.50:
-            types_of_changes.add(TypeOfChange.REMOVE)
+            types_of_change.add(TypeOfChange.REMOVE)
     
-    return types_of_changes
+    return types_of_change
 
 
 def naysayer(

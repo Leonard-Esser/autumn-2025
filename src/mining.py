@@ -22,7 +22,7 @@ def get_ccd_events_of_entire_repo(
     repo: Repository,
     full_name_of_repo: str,
     commits_dict: dict[str, Iterable[str]],
-    classifier_pipeline: Callable[[EventKey, Commit], CCDCEvent | Event],
+    classifier_pipeline: Callable[[Commit, EventKey], CCDCEvent | Event],
     version: str,
     path_to_changes_dir: str | Path
 ):
@@ -56,7 +56,7 @@ def get_ccd_events_of_single_commit(
     full_name_of_repo: str,
     commit: Commit,
     paths: Iterable[str],
-    classifier_pipeline: Callable[[EventKey, Commit], CCDCEvent | Event],
+    classifier_pipeline: Callable[[Commit, EventKey], CCDCEvent | Event],
     version: str | None = None,
     path_to_changes_dir: str | Path | None = None
 ):
@@ -75,12 +75,12 @@ def get_ccd_events_of_single_commit(
         rows.extend(
             create_rows(
                 classifier_pipeline(
+                    commit,
                     EventKey(
                         full_name_of_repo,
                         commit.id,
                         path
-                    ),
-                    commit
+                    )
                 ),
                 version
             )
@@ -107,8 +107,8 @@ def create_rows(
     }
 
     if isinstance(event, CCDCEvent):
-        if event.get_types_of_changes:
-            for type_of_change in event.get_types_of_changes:
+        if event.get_types_of_change:
+            for type_of_change in event.get_types_of_change:
                 rows.append(
                     {
                         **base,

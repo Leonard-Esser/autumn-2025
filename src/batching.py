@@ -18,7 +18,7 @@ def process_each_sample(
     sample: Iterable[int] | Iterable[str],
     root: Path,
     version: str,
-    classifier_pipeline: Callable[[EventKey, Commit], CCDCEvent | Event],
+    classifier_pipeline: Callable[[Commit, EventKey], CCDCEvent | Event],
 ) -> pd.DataFrame:
     
     github = get_github()
