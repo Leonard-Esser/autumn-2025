@@ -38,14 +38,20 @@ class CCDCEvent(Event):
     def __init__(
         self,
         key,
-        types_of_change = None
+        types_of_change = None,
+        affected_channels = None
     ):
         super().__init__(key)
         self.__types_of_change = types_of_change
+        self.__affected_channels = affected_channels
     
     @property
     def get_types_of_change(self):
         return self.__types_of_change
+    
+    @property
+    def get_affected_channels(self):
+        return self.__affected_channels
 
 
 class TypeOfChange(Enum):
