@@ -1,10 +1,10 @@
 Repository Full Name,Commit SHA,Path,Affects CCD,Type of Change,Classified At, Classified By
 nuxt-modules/i18n,c5a55a32dcf9fc212030e2bd6a0e80246a373551,README.md,0,0,2025-12-15,Leonard Esser
 Hammerspoon/hammerspoon,4b29f85831198a342c4fd4b55fc99a537411ac7a,README.md,0,0,2025-12-15,Leonard Esser
-GoogleChromeLabs/pwa-wp,75ef4ed3530b80c233c2a53252fbe1f00464d60a,readme.txt
-serde-rs/serde,0e8d94750b1e43d30e5789bdd0bef4886034e46b,README.md
-gshakhn/idea-fitnesse,0319e3f43d3b30e5dad9bba63abc1afbd93250c6,README.md
-amitshekhariitbhu/Android-Debug-Database,94775dde90c42a7335ea1983407a6696a0b2ec9e,README.md
+GoogleChromeLabs/pwa-wp,75ef4ed3530b80c233c2a53252fbe1f00464d60a,readme.txt,0,0,2025-12-16,Leonard Esser
+serde-rs/serde,0e8d94750b1e43d30e5789bdd0bef4886034e46b,README.md,0,0,2025-12-16,Leonard Esser
+gshakhn/idea-fitnesse,0319e3f43d3b30e5dad9bba63abc1afbd93250c6,README.md,0,0,2025-12-16,Leonard Esser
+amitshekhariitbhu/Android-Debug-Database,94775dde90c42a7335ea1983407a6696a0b2ec9e,README.md,0,0,2025-12-16,Leonard Esser
 yonadev/yona-server,90b702f2ae6943a371036ab67350ccb2906a9d6d,README.md
 Hammerspoon/hammerspoon,019151a00e9127b7f1459f43accab7b18529a564,CONTRIBUTING.md,0,0,2025-12-15,Leonard Esser
 billz/raspap-webgui,42ecbde8383639e9d0888fbf94a7c077abc33731,README.md
@@ -13,8 +13,8 @@ rafi/vim-config,23a50f104d634e5e4a19843b4905f4c47192c8f7,README.md
 denoland/deno,12753e492f924e32be2a74d94720213f1d5c6b66,README.md
 glpi-project/ios-inventory-agent,16ab247206cf1862774707eabed39f135433a385,README.md
 layoutBox/PinLayout,3849904675d3e05286739d9bee19f437426ae8eb,README.md
-GoogleChromeLabs/pwa-wp,314502fe3914d4d28407f5a4701023286a293957,readme.md
-amitshekhariitbhu/Android-Debug-Database,9f085dde550af694ba0a871e3ba5395905d13e38,README.md
+GoogleChromeLabs/pwa-wp,314502fe3914d4d28407f5a4701023286a293957,readme.md,0,0,2025-12-16,Leonard Esser
+amitshekhariitbhu/Android-Debug-Database,9f085dde550af694ba0a871e3ba5395905d13e38,README.md,0,0,2025-12-16,Leonard Esser
 pelodelfuego/vim-swoop,889f422255ad0c320298501811ec8f60c7ec3739,README.md
 cloudfoundry/eirini,13b28f0c97df0b6e852e824d19a238b42b2cf7f4,README.md
 lunarmodules/busted,1c0ffff2dd521bf97032c7114db0f4b4d12aaca6,README.md
@@ -26,7 +26,7 @@ AppIntro/AppIntro,2c4cb1df36199c7090302d28b150133d3a5a1498,README.md
 rafi/vim-config,da733d539422756c50f9976d0676a863f07e646a,README.md
 STAMP-project/dspot,6f3af52f54f8749167f74e12d350881883ee40dd,README.md
 pelodelfuego/vim-swoop,9ca4d7e6b493a3f26a85b481389655df85fc6f25,README.md
-GoogleChromeLabs/pwa-wp,0ad39727a83d3d7bd9e174ff007ccb60e692b24c,readme.txt
+GoogleChromeLabs/pwa-wp,0ad39727a83d3d7bd9e174ff007ccb60e692b24c,readme.txt,0,0,2025-12-16,Leonard Esser
 mrmans0n/smart-location-lib,58890da2c2fa5a9ce9d1f8f127c4c64183f5f0b6,README.md
 cgwire/gazu,e28b623371428c3d4202bad17ee514d6eaada8e2,README.md
 glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md
@@ -46,12 +46,12 @@ chocoteam/choco-solver,d78d4b30b1a1fffd67117a00ed776cad1f38f5b4,README.md
 MetalPetal/MetalPetal,1e6a9a0ae8b664c4ee5275b8c21073877814506d,README.md
 layoutBox/PinLayout,f4858bd338abcb112b1bf17295135db07fa1d2ba,README.md
 layoutBox/PinLayout,e41542052c7b13467f406180b73e13545b052e9d,README.md
-GoogleChromeLabs/pwa-wp,0f9306d0c64a4feae8af945475b23446600b410b,readme.md
+GoogleChromeLabs/pwa-wp,0f9306d0c64a4feae8af945475b23446600b410b,readme.md,0,0,2025-12-16,Leonard Esser
 86Box/86Box,cf0e4edbb76a57f66a0cf934e95c0d5adeb55ad4,README.md
 heroku/heroku-buildpack-nodejs,2f5a0b5cb008795b15fe4f5be865db91c4c5d056,README.md
 mrmans0n/smart-location-lib,8ad1c51eebc1575abe4b904beed506019f6f12be,README.md
 Hammerspoon/hammerspoon,3450f4126c065641e20b46f8377175c3269482c8,CONTRIBUTING.md,0,0,2025-12-15,Leonard Esser
-GoogleChromeLabs/pwa-wp,6a751a1737c5c72047e33e2bd5cdc8be66ad656c,readme.txt
+GoogleChromeLabs/pwa-wp,6a751a1737c5c72047e33e2bd5cdc8be66ad656c,readme.txt,0,0,2025-12-16,Leonard Esser
 rafi/vim-config,1cff57fa0ceab9bd8771b796e0aabe53cfed7db7,README.md
 TritonDataCenter/triton-kubernetes,8229cd3160b2fff642de78dc5f89b4e54a4af112,README.md
 heroku/heroku-buildpack-nodejs,346b39d63bb5d26b5e0de2ec3be819fa023f4968,README.md
@@ -67,9 +67,9 @@ mrmans0n/smart-location-lib,aebca16aedd9a795967795640a194d39cc24dcb4,README.md
 STAMP-project/dspot,07923f796884003c0a70485eddd090505997245c,README.md
 Hammerspoon/hammerspoon,d8f77721355f5fc33ee3a060db52a5fbddff6a96,CONTRIBUTING.md,1,TypeOfChange.ADD,2025-12-15,Leonard Esser
 libamtrack/web,0b056970be1df62dc7333728566768955cee8e75,README.md
-GoogleChromeLabs/pwa-wp,1a4e3c367e34fe0e8932159af79e942ec80ded17,README.md
+GoogleChromeLabs/pwa-wp,1a4e3c367e34fe0e8932159af79e942ec80ded17,README.md,1,TypeOfChange.ADD,2025-12-16,Leonard Esser
 Hammerspoon/hammerspoon,b459fa0b1d9623f3884426246f9952bdbfb197ab,README.md,0,0,2025-12-15,Leonard Esser
-serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,1,[<TypeOfChange.ADD: 1>, <TypeOfChange.REMOVE: 3>],2025-12-16,Leonard Esser
 denoland/deno,e311e46a8f80491bc0ab4bc5dfce55d78bdb7187,README.md
 denoland/deno,24debe9546cb9f7e365f05de548c7d6ea267af22,README.md
 layoutBox/PinLayout,8667180eb3bfddc9c35345d438a0884907974bf7,README.md
