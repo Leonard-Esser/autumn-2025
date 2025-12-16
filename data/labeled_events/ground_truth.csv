@@ -28,7 +28,7 @@ STAMP-project/dspot,6f3af52f54f8749167f74e12d350881883ee40dd,README.md,0,0,2025-
 pelodelfuego/vim-swoop,9ca4d7e6b493a3f26a85b481389655df85fc6f25,README.md,0,0,2025-12-16,Leonard Esser,0
 GoogleChromeLabs/pwa-wp,0ad39727a83d3d7bd9e174ff007ccb60e692b24c,readme.txt,0,0,2025-12-16,Leonard Esser,0
 mrmans0n/smart-location-lib,58890da2c2fa5a9ce9d1f8f127c4c64183f5f0b6,README.md,0,0,2025-12-16,Leonard Esser,0
-cgwire/gazu,e28b623371428c3d4202bad17ee514d6eaada8e2,README.md,1,TypeOfChange.DELETE,2025-12-16,Leonard Esser,1
+cgwire/gazu,e28b623371428c3d4202bad17ee514d6eaada8e2,README.md,1,TypeOfChange.REMOVE,2025-12-16,Leonard Esser,1
 glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,1,TypeOfChange.ADD,2025-12-16,Leonard Esser,0
 nuxt-modules/i18n,af7366ff39bc7522562312b6d6283801a7d74f84,CONTRIBUTING.md,0,0,2025-12-15,Leonard Esser,0
 denoland/deno,4641aacba67d8ad6c80c903c2aa6b2488e3caf49,README.md,0,0,2025-12-16,Leonard Esser,0
@@ -69,7 +69,7 @@ Hammerspoon/hammerspoon,d8f77721355f5fc33ee3a060db52a5fbddff6a96,CONTRIBUTING.md
 libamtrack/web,0b056970be1df62dc7333728566768955cee8e75,README.md,0,0,2025-12-16,Leonard Esser,0
 GoogleChromeLabs/pwa-wp,1a4e3c367e34fe0e8932159af79e942ec80ded17,README.md,1,TypeOfChange.ADD,2025-12-16,Leonard Esser,0
 Hammerspoon/hammerspoon,b459fa0b1d9623f3884426246f9952bdbfb197ab,README.md,0,0,2025-12-15,Leonard Esser,0
-serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,1,[<TypeOfChange.ADD: 1>, <TypeOfChange.REMOVE: 3>],2025-12-16,Leonard Esser,0
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,1,"[<TypeOfChange.ADD: 1>, <TypeOfChange.REMOVE: 3>]",2025-12-16,Leonard Esser,0
 denoland/deno,e311e46a8f80491bc0ab4bc5dfce55d78bdb7187,README.md,1,TypeOfChange.UPDATE,2025-12-16,Leonard Esser,0
 denoland/deno,24debe9546cb9f7e365f05de548c7d6ea267af22,README.md,0,0,2025-12-16,Leonard Esser,0
 layoutBox/PinLayout,8667180eb3bfddc9c35345d438a0884907974bf7,README.md,0,0,2025-12-16,Leonard Esser,0
