@@ -1,8 +1,10 @@
+import re
+
 import pandas as pd
 import pygit2
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Iterable
 
 import config
 from classifying import classify_commit, naysayer
@@ -20,7 +22,7 @@ def main():
     version = get_version(root)
     print(f"Data will be saved to a directory named {version} within data/output/")
     
-    truth = _get_the_truth(root)
+    truth = _get_the_truth(root, "labeled_events.csv")
     if config.DO_NOT_CLASSIFY_AT_ALL:
         delta = _test_classifier(
             root,
@@ -54,8 +56,8 @@ def _get_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
-def _get_the_truth(root: Path):
-    return _read_clean_csv(path=root / "data" / "labeled_events" / "labeled_events.csv")
+def _get_the_truth(root: Path, file_name: str):
+    return _read_clean_csv(path=root / "data" / "labeled_events" / file_name)
 
 
 def _read_clean_csv(path: str, required_columns: list[str] | None = None) -> pd.DataFrame:
@@ -105,35 +107,41 @@ def _test_classifier(
     key_cols: list[str] = ["Repository Full Name", "Commit SHA", "Path"]
     
     def _get_expected_results() -> dict[mykey, dict[str, Any]]:
-        expected_results = {}
+        expected_results: dict[mykey, dict[str, Any]] = {}
+
         for key, rows in truth.groupby(key_cols):
             full_name_of_repo, commit_sha, path = key
+
             affects_ccd_col = rows["Affects CCD"].dropna().unique()
             if len(affects_ccd_col) != 1:
                 raise ValueError(
-                    f"Expected exactly one 'Affects CCD' value per key, "
+                    "Expected exactly one 'Affects CCD' value per key, "
                     f"but found {affects_ccd_col} for "
                     f"{full_name_of_repo} @ {commit_sha} / {path}"
                 )
             affects_ccd = int(affects_ccd_col[0])
 
             # Collect all distinct types of change for this triple.
-            # Assumption: a value of 0 is a sentinel meaning "no type of change".
-            type_of_change_col = rows["Type of Change"].dropna().tolist()
-            
+            raw_cells = rows["Type of Change"].dropna().tolist()
+
+            tokens: list[Any] = []
+            for cell in raw_cells:
+                tokens.extend(_explode_type_of_change_cell(cell))
+
             expected_types_of_change = sorted(
                 {
                     convert_to_type_of_change(t)
-                    for t in type_of_change_col
+                    for t in tokens
                     if t not in (0, "0")
                 },
-                key=lambda x: x.name
+                key=lambda x: x.name,
             )
 
             expected_results[key] = {
                 "Affects CCD": affects_ccd,
                 "Types of Change": expected_types_of_change,
             }
+
         return expected_results
     
     repo_cache: dict[str, pygit2.Repository] = {}
@@ -264,6 +272,52 @@ def _test_classifier(
         _get_expected_results(),
         _get_actual_results()
     )
+
+
+# Matches:
+# - TypeOfChange.ADD
+# - <TypeOfChange.ADD: 1>
+_TOC_NAME_RE = re.compile(r"TypeOfChange\.(ADD|UPDATE|REMOVE)")
+
+def _explode_type_of_change_cell(value: Any) -> Iterable[Any]:
+    """
+    Turns a single cell value from the 'Type of Change' column into 0..n items.
+    Supports:
+      - 0 / "0" sentinel
+      - TypeOfChange enum values
+      - ints (1/2/3)
+      - strings like "TypeOfChange.ADD"
+      - strings like "[<TypeOfChange.ADD: 1>, <TypeOfChange.REMOVE: 3>]"
+      - actual containers (list/set/tuple) of the above
+    """
+    if value is None or value in (0, "0"):
+        return ()
+
+    # If the cell already contains a container, flatten it.
+    if isinstance(value, (list, set, tuple)):
+        out: list[Any] = []
+        for v in value:
+            out.extend(_explode_type_of_change_cell(v))
+        return out
+
+    # If it's a string, it might be a single enum-like token or a stringified list.
+    if isinstance(value, str):
+        s = value.strip()
+        if not s or s in ("0", "None", "nan", "NaN"):
+            return ()
+
+        # If it contains TypeOfChange.<NAME> occurrences (covers both formats above),
+        # extract all of them.
+        matches = _TOC_NAME_RE.findall(s)
+        if matches:
+            return [f"TypeOfChange.{name}" for name in matches]
+
+        # Otherwise treat it as one token (e.g. "ADD" or "1" or something your
+        # convert_to_type_of_change already supports).
+        return (s,)
+
+    # Fallback: treat as one token (e.g. int, enum instance, etc.).
+    return (value,)
 
 
 if __name__ == "__main__":
