@@ -210,7 +210,7 @@ def _identify_types_of_change(text: str) -> set[TypeOfChange]:
 
 
 def naysayer(
-    event_key: EventKey,
-    commit: pygit2.Commit
+    commit: pygit2.Commit,
+    event_key: EventKey
 ) -> Event | CCDCEvent:
     return Event(event_key)
