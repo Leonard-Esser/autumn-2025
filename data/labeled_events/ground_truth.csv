@@ -1,101 +1,117 @@
-Repository Full Name,Commit SHA,Path,Affects CCD,Type of Change,Classified At,Classified By,Tough Nut
-nuxt-modules/i18n,c5a55a32dcf9fc212030e2bd6a0e80246a373551,README.md,0,0,2025-12-15,Leonard Esser,0
-Hammerspoon/hammerspoon,4b29f85831198a342c4fd4b55fc99a537411ac7a,README.md,0,0,2025-12-15,Leonard Esser,0
-GoogleChromeLabs/pwa-wp,75ef4ed3530b80c233c2a53252fbe1f00464d60a,readme.txt,0,0,2025-12-16,Leonard Esser,0
-serde-rs/serde,0e8d94750b1e43d30e5789bdd0bef4886034e46b,README.md,0,0,2025-12-16,Leonard Esser,0
-gshakhn/idea-fitnesse,0319e3f43d3b30e5dad9bba63abc1afbd93250c6,README.md,0,0,2025-12-16,Leonard Esser,0
-amitshekhariitbhu/Android-Debug-Database,94775dde90c42a7335ea1983407a6696a0b2ec9e,README.md,0,0,2025-12-16,Leonard Esser,0
-yonadev/yona-server,90b702f2ae6943a371036ab67350ccb2906a9d6d,README.md,0,0,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,019151a00e9127b7f1459f43accab7b18529a564,CONTRIBUTING.md,0,0,2025-12-15,Leonard Esser,0
-billz/raspap-webgui,42ecbde8383639e9d0888fbf94a7c077abc33731,README.md,0,0,2025-12-16,Leonard Esser,0
-curationexperts/iris,3e50b47d8055718eddc943bb88c3552556c6d486,README.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,23a50f104d634e5e4a19843b4905f4c47192c8f7,README.md,0,0,2025-12-16,Leonard Esser,0
-denoland/deno,12753e492f924e32be2a74d94720213f1d5c6b66,README.md,0,0,2025-12-16,Leonard Esser,0
-glpi-project/ios-inventory-agent,16ab247206cf1862774707eabed39f135433a385,README.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,3849904675d3e05286739d9bee19f437426ae8eb,README.md,0,0,2025-12-16,Leonard Esser,0
-GoogleChromeLabs/pwa-wp,314502fe3914d4d28407f5a4701023286a293957,readme.md,0,0,2025-12-16,Leonard Esser,0
-amitshekhariitbhu/Android-Debug-Database,9f085dde550af694ba0a871e3ba5395905d13e38,README.md,0,0,2025-12-16,Leonard Esser,0
-pelodelfuego/vim-swoop,889f422255ad0c320298501811ec8f60c7ec3739,README.md,0,0,2025-12-16,Leonard Esser,0
-cloudfoundry/eirini,13b28f0c97df0b6e852e824d19a238b42b2cf7f4,README.md,1,TypeOfChange.ADD,2025-12-16,Leonard Esser,0
-lunarmodules/busted,1c0ffff2dd521bf97032c7114db0f4b4d12aaca6,README.md,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,bfb8c3f75a7c1f164f94bbaebee8552ced6bd135,readme.md,0,0,2025-12-16,Leonard Esser,0
-AppIntro/AppIntro,4f0923751740e4238d5b815dcfa966676126e05a,README.md,0,0,2025-12-16,Leonard Esser,0
-chocoteam/choco-solver,c33ae1eef67f8e14cfef1caf63ce5ee60edcd0cd,README.md,0,0,2025-12-16,Leonard Esser,0
-lunarmodules/busted,81fdc468e3aa3ef35e232fc8af47ef14a1097ee8,README.md,0,0,2025-12-16,Leonard Esser,0
-AppIntro/AppIntro,2c4cb1df36199c7090302d28b150133d3a5a1498,README.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,da733d539422756c50f9976d0676a863f07e646a,README.md,0,0,2025-12-16,Leonard Esser,0
-STAMP-project/dspot,6f3af52f54f8749167f74e12d350881883ee40dd,README.md,0,0,2025-12-16,Leonard Esser,0
-pelodelfuego/vim-swoop,9ca4d7e6b493a3f26a85b481389655df85fc6f25,README.md,0,0,2025-12-16,Leonard Esser,0
-GoogleChromeLabs/pwa-wp,0ad39727a83d3d7bd9e174ff007ccb60e692b24c,readme.txt,0,0,2025-12-16,Leonard Esser,0
-mrmans0n/smart-location-lib,58890da2c2fa5a9ce9d1f8f127c4c64183f5f0b6,README.md,0,0,2025-12-16,Leonard Esser,0
-cgwire/gazu,e28b623371428c3d4202bad17ee514d6eaada8e2,README.md,1,TypeOfChange.REMOVE,2025-12-16,Leonard Esser,1
-glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,1,TypeOfChange.ADD,2025-12-16,Leonard Esser,0
-nuxt-modules/i18n,af7366ff39bc7522562312b6d6283801a7d74f84,CONTRIBUTING.md,0,0,2025-12-15,Leonard Esser,0
-denoland/deno,4641aacba67d8ad6c80c903c2aa6b2488e3caf49,README.md,0,0,2025-12-16,Leonard Esser,0
-clojure-expectations/expectations,86cf05e5d5196c53b01ea9fce73d2535e4a77230,README.md,0,0,2025-12-16,Leonard Esser,0
-TritonDataCenter/triton-kubernetes,825b16602cad0414f018544f76e93fa81710647e,README.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,1c7f806e8b71986ba88b5282f428a7faab05dce2,README.md,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,b50e6a1adc188b29c34eed18c03cbca7deb3a504,README.md,0,0,2025-12-16,Leonard Esser,0
-chocoteam/choco-solver,4468c753772079311e283517d16d143631367e72,README.md,0,0,2025-12-16,Leonard Esser,0
-williballenthin/python-idb,97135b0cbe7c6477d016407a8bfe9764c732268c,readme.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,4e8380782e95e7574c18287eb18193d33d6446c5,README.md,0,0,2025-12-16,Leonard Esser,0
-mrmans0n/smart-location-lib,3104d23ee2fe63cd29405d39b0a8f31e89febc17,README.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,cc66557abe6f2fff2804d9fefa3b0a6067be452e,README.md,0,0,2025-12-16,Leonard Esser,0
-marcoslin/angularAMD,99a3968079396b3539d94ed05094df2374a5e6d2,README.md,1,TypeOfChange.UPDATE,2025-12-16,Leonard Esser,1
-chocoteam/choco-solver,d78d4b30b1a1fffd67117a00ed776cad1f38f5b4,README.md,0,0,2025-12-16,Leonard Esser,0
-MetalPetal/MetalPetal,1e6a9a0ae8b664c4ee5275b8c21073877814506d,README.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,f4858bd338abcb112b1bf17295135db07fa1d2ba,README.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,e41542052c7b13467f406180b73e13545b052e9d,README.md,0,0,2025-12-16,Leonard Esser,0
-GoogleChromeLabs/pwa-wp,0f9306d0c64a4feae8af945475b23446600b410b,readme.md,0,0,2025-12-16,Leonard Esser,0
-86Box/86Box,cf0e4edbb76a57f66a0cf934e95c0d5adeb55ad4,README.md,0,0,2025-12-16,Leonard Esser,0
-heroku/heroku-buildpack-nodejs,2f5a0b5cb008795b15fe4f5be865db91c4c5d056,README.md,0,0,2025-12-16,Leonard Esser,0
-mrmans0n/smart-location-lib,8ad1c51eebc1575abe4b904beed506019f6f12be,README.md,0,0,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,3450f4126c065641e20b46f8377175c3269482c8,CONTRIBUTING.md,0,0,2025-12-15,Leonard Esser,0
-GoogleChromeLabs/pwa-wp,6a751a1737c5c72047e33e2bd5cdc8be66ad656c,readme.txt,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,1cff57fa0ceab9bd8771b796e0aabe53cfed7db7,README.md,0,0,2025-12-16,Leonard Esser,0
-TritonDataCenter/triton-kubernetes,8229cd3160b2fff642de78dc5f89b4e54a4af112,README.md,0,0,2025-12-16,Leonard Esser,0
-heroku/heroku-buildpack-nodejs,346b39d63bb5d26b5e0de2ec3be819fa023f4968,README.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,c443b12a105787dedc5d5df53cf35ce2910c8c8c,README.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,c2445e0690811bf0c255f1cd51200bcd232747d7,README.md,0,0,2025-12-16,Leonard Esser,0
-fxbox/users,e8f5ec76b6787ef25a2ff73ac04a45110cfc9947,README.md,0,0,2025-12-16,Leonard Esser,0
-atomantic/dotfiles,f5b8c71d448dd2819edbb5797e6e384524af6964,README.md,1,TypeOfChange.UPDATE,2025-12-16,Leonard Esser,0
-cloudfoundry/eirini,20dbf3216cf2eb1410f969f82691b2f550947945,README.md,0,0,2025-12-16,Leonard Esser,0
-ARMmbed/ble-x-nucleo-idb0xa1,22a8a5f5fd9f1b4a1f04728e7dafa7edc541a8b0,README.md,0,0,2025-12-16,Leonard Esser,0
-mrmans0n/smart-location-lib,c97c45eea80389ba191d7feeb3edc7349408db54,README.md,0,0,2025-12-16,Leonard Esser,0
-Prismatik/dendritic,662d65d27ad0d7d954ff2409283aec4e3bfa9ac1,README.md,0,0,2025-12-16,Leonard Esser,0
-mrmans0n/smart-location-lib,aebca16aedd9a795967795640a194d39cc24dcb4,README.md,0,0,2025-12-16,Leonard Esser,0
-STAMP-project/dspot,07923f796884003c0a70485eddd090505997245c,README.md,0,0,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,d8f77721355f5fc33ee3a060db52a5fbddff6a96,CONTRIBUTING.md,1,TypeOfChange.ADD,2025-12-15,Leonard Esser,0
-libamtrack/web,0b056970be1df62dc7333728566768955cee8e75,README.md,0,0,2025-12-16,Leonard Esser,0
-GoogleChromeLabs/pwa-wp,1a4e3c367e34fe0e8932159af79e942ec80ded17,README.md,1,TypeOfChange.ADD,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,b459fa0b1d9623f3884426246f9952bdbfb197ab,README.md,0,0,2025-12-15,Leonard Esser,0
-serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,1,"[<TypeOfChange.ADD: 1>, <TypeOfChange.REMOVE: 3>]",2025-12-16,Leonard Esser,0
-denoland/deno,e311e46a8f80491bc0ab4bc5dfce55d78bdb7187,README.md,1,TypeOfChange.UPDATE,2025-12-16,Leonard Esser,0
-denoland/deno,24debe9546cb9f7e365f05de548c7d6ea267af22,README.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,8667180eb3bfddc9c35345d438a0884907974bf7,README.md,0,0,2025-12-16,Leonard Esser,0
-Prismatik/dendritic,4becc63e6b4d69f182b40e05cb7fd4d17c12f0c5,README.md,0,0,2025-12-16,Leonard Esser,0
-STAMP-project/dspot,f9312eef1182f291f1b71a58c00bb01122192c2e,README.md,0,0,2025-12-16,Leonard Esser,0
-chocoteam/choco-solver,4ff49a79c685d070d3b0f59603e7910a80efc127,README.md,0,0,2025-12-16,Leonard Esser,0
-pelodelfuego/vim-swoop,a0647e8445a40b0d33f5f1b17f59472611354aed,README.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,92785c05d7902232d8d7a2a10a4fc600e00785cb,README.md,0,0,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,64d5d6ae52025dc45b16a4ab4b6a06864d66140e,README.md,0,0,2025-12-15,Leonard Esser,0
-chocoteam/choco-solver,481ecfcbc62ce99261edc431cdf7fa15e41d6d2a,README.md,0,0,2025-12-16,Leonard Esser,0
-ho-tex/oberdiek,803046cff24c6e5744f6eb460dfde7a9de4eb404,README.txt,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,f6dc582cd4e052da4d3ad534999a6cba18b79d38,README.md,0,0,2025-12-16,Leonard Esser,0
-compiling-to-categories/concat,c9320adc38b6853d90d96f4c415c45d3f253075a,README.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,ca174515da066a7b29bc6b5ed0d1ed251a4b5134,README.md,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,501357f0cd735455849d19d711c255a3a029cfb7,CONTRIBUTING.md,0,0,2025-12-16,Leonard Esser,0
-layoutBox/PinLayout,d00621c35984d941c63d1de0577f365256638418,README.md,0,0,2025-12-16,Leonard Esser,0
-STAMP-project/dspot,d07b4b2bff0cbde71793c38b2503c39ade1240a7,README.md,0,0,2025-12-16,Leonard Esser,0
-marcoslin/angularAMD,949d2e1d13c5ebd742000d52d3d0fc9f03fcca9c,README.md,0,0,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,6b6a78c0b91838f47f853d17c42535db58997b01,README.md,0,0,2025-12-15,Leonard Esser,0
-billz/raspap-webgui,bfb635636b56bbde15642553642d285b5baf9c04,README.md,0,0,2025-12-16,Leonard Esser,0
-atomantic/dotfiles,5cd3cfb617ec519e4d24a2b8daaa4d30b6eb193f,README.md,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,f063ec803cf3943a1b551c1152434f456de33251,README.md,0,0,2025-12-16,Leonard Esser,0
-billz/raspap-webgui,026a385adde4a9a1a2653037d9196dbe3f3ce3d3,README.md,0,0,2025-12-16,Leonard Esser,0
-ARMmbed/ble-x-nucleo-idb0xa1,1162d38221c6e172dea85e18c66e1122eeb793b3,README.md,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,e96708da558f731244a8e377b4fc7dcfe9f211da,readme.md,0,0,2025-12-16,Leonard Esser,0
-Hammerspoon/hammerspoon,88e95b0b3b623c73866ca5c1318ce4138ff9ae29,CONTRIBUTING.md,1,TypeOfChange.ADD,2025-12-15,Leonard Esser,0
-AppIntro/AppIntro,63a9bea2b69efb7ca0ca714949c0b32eb71579f7,README.md,0,0,2025-12-16,Leonard Esser,0
-laravelio/laravel.io,7a91f1e5f512052c221293d866769b90d72bc967,readme.md,0,0,2025-12-16,Leonard Esser,0
-rafi/vim-config,ce261a81ca6bc0ef9a243d2254851930842fda0a,README.md,0,0,2025-12-16,Leonard Esser,0
+repo,commit,path,is_ccdc_event,tough_nut,type_of_change,channel
+nuxt-modules/i18n,c5a55a32dcf9fc212030e2bd6a0e80246a373551,README.md,false,false,,
+Hammerspoon/hammerspoon,4b29f85831198a342c4fd4b55fc99a537411ac7a,README.md,false,false,,
+GoogleChromeLabs/pwa-wp,75ef4ed3530b80c233c2a53252fbe1f00464d60a,readme.txt,false,false,,
+serde-rs/serde,0e8d94750b1e43d30e5789bdd0bef4886034e46b,README.md,false,false,,
+gshakhn/idea-fitnesse,0319e3f43d3b30e5dad9bba63abc1afbd93250c6,README.md,false,false,,
+amitshekhariitbhu/Android-Debug-Database,94775dde90c42a7335ea1983407a6696a0b2ec9e,README.md,false,false,,
+yonadev/yona-server,90b702f2ae6943a371036ab67350ccb2906a9d6d,README.md,false,false,,
+Hammerspoon/hammerspoon,019151a00e9127b7f1459f43accab7b18529a564,CONTRIBUTING.md,false,false,,
+billz/raspap-webgui,42ecbde8383639e9d0888fbf94a7c077abc33731,README.md,false,false,,
+curationexperts/iris,3e50b47d8055718eddc943bb88c3552556c6d486,README.md,false,false,,
+rafi/vim-config,23a50f104d634e5e4a19843b4905f4c47192c8f7,README.md,false,false,,
+denoland/deno,12753e492f924e32be2a74d94720213f1d5c6b66,README.md,false,false,,
+glpi-project/ios-inventory-agent,16ab247206cf1862774707eabed39f135433a385,README.md,false,false,,
+layoutBox/PinLayout,3849904675d3e05286739d9bee19f437426ae8eb,README.md,false,false,,
+GoogleChromeLabs/pwa-wp,314502fe3914d4d28407f5a4701023286a293957,readme.md,false,false,,
+amitshekhariitbhu/Android-Debug-Database,9f085dde550af694ba0a871e3ba5395905d13e38,README.md,false,false,,
+pelodelfuego/vim-swoop,889f422255ad0c320298501811ec8f60c7ec3739,README.md,false,false,,
+cloudfoundry/eirini,13b28f0c97df0b6e852e824d19a238b42b2cf7f4,README.md,true,false,1,Slack
+lunarmodules/busted,1c0ffff2dd521bf97032c7114db0f4b4d12aaca6,README.md,false,false,,
+laravelio/laravel.io,bfb8c3f75a7c1f164f94bbaebee8552ced6bd135,readme.md,false,false,,
+AppIntro/AppIntro,4f0923751740e4238d5b815dcfa966676126e05a,README.md,false,false,,
+chocoteam/choco-solver,c33ae1eef67f8e14cfef1caf63ce5ee60edcd0cd,README.md,false,false,,
+lunarmodules/busted,81fdc468e3aa3ef35e232fc8af47ef14a1097ee8,README.md,false,false,,
+AppIntro/AppIntro,2c4cb1df36199c7090302d28b150133d3a5a1498,README.md,false,false,,
+rafi/vim-config,da733d539422756c50f9976d0676a863f07e646a,README.md,false,false,,
+STAMP-project/dspot,6f3af52f54f8749167f74e12d350881883ee40dd,README.md,false,false,,
+pelodelfuego/vim-swoop,9ca4d7e6b493a3f26a85b481389655df85fc6f25,README.md,false,false,,
+GoogleChromeLabs/pwa-wp,0ad39727a83d3d7bd9e174ff007ccb60e692b24c,readme.txt,false,false,,
+mrmans0n/smart-location-lib,58890da2c2fa5a9ce9d1f8f127c4c64183f5f0b6,README.md,false,false,,
+cgwire/gazu,e28b623371428c3d4202bad17ee514d6eaada8e2,README.md,true,true,3,Gitter
+cgwire/gazu,e28b623371428c3d4202bad17ee514d6eaada8e2,README.md,true,true,3,website
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,email
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,GitHub issues
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,GitHub pull requests
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,Google+
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,IRC
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,mailing list
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,reddit
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,Telegram
+glpi-project/ios-inventory-agent,508dc0f26c28dc7153b11065afb0a74b3a4dbd68,CONTRIBUTING.md,true,false,1,Twitter
+nuxt-modules/i18n,af7366ff39bc7522562312b6d6283801a7d74f84,CONTRIBUTING.md,false,false,,
+denoland/deno,4641aacba67d8ad6c80c903c2aa6b2488e3caf49,README.md,false,false,,
+clojure-expectations/expectations,86cf05e5d5196c53b01ea9fce73d2535e4a77230,README.md,false,false,,
+TritonDataCenter/triton-kubernetes,825b16602cad0414f018544f76e93fa81710647e,README.md,false,false,,
+layoutBox/PinLayout,1c7f806e8b71986ba88b5282f428a7faab05dce2,README.md,false,false,,
+laravelio/laravel.io,b50e6a1adc188b29c34eed18c03cbca7deb3a504,README.md,false,false,,
+chocoteam/choco-solver,4468c753772079311e283517d16d143631367e72,README.md,false,false,,
+williballenthin/python-idb,97135b0cbe7c6477d016407a8bfe9764c732268c,readme.md,false,false,,
+rafi/vim-config,4e8380782e95e7574c18287eb18193d33d6446c5,README.md,false,false,,
+mrmans0n/smart-location-lib,3104d23ee2fe63cd29405d39b0a8f31e89febc17,README.md,false,false,,
+rafi/vim-config,cc66557abe6f2fff2804d9fefa3b0a6067be452e,README.md,false,false,,
+marcoslin/angularAMD,99a3968079396b3539d94ed05094df2374a5e6d2,README.md,true,true,2,StackOverflow
+chocoteam/choco-solver,d78d4b30b1a1fffd67117a00ed776cad1f38f5b4,README.md,false,false,,
+MetalPetal/MetalPetal,1e6a9a0ae8b664c4ee5275b8c21073877814506d,README.md,false,false,,
+layoutBox/PinLayout,f4858bd338abcb112b1bf17295135db07fa1d2ba,README.md,false,false,,
+layoutBox/PinLayout,e41542052c7b13467f406180b73e13545b052e9d,README.md,false,false,,
+GoogleChromeLabs/pwa-wp,0f9306d0c64a4feae8af945475b23446600b410b,readme.md,false,false,,
+86Box/86Box,cf0e4edbb76a57f66a0cf934e95c0d5adeb55ad4,README.md,false,false,,
+heroku/heroku-buildpack-nodejs,2f5a0b5cb008795b15fe4f5be865db91c4c5d056,README.md,false,false,,
+mrmans0n/smart-location-lib,8ad1c51eebc1575abe4b904beed506019f6f12be,README.md,false,false,,
+Hammerspoon/hammerspoon,3450f4126c065641e20b46f8377175c3269482c8,CONTRIBUTING.md,false,false,,
+GoogleChromeLabs/pwa-wp,6a751a1737c5c72047e33e2bd5cdc8be66ad656c,readme.txt,false,false,,
+rafi/vim-config,1cff57fa0ceab9bd8771b796e0aabe53cfed7db7,README.md,false,false,,
+TritonDataCenter/triton-kubernetes,8229cd3160b2fff642de78dc5f89b4e54a4af112,README.md,false,false,,
+heroku/heroku-buildpack-nodejs,346b39d63bb5d26b5e0de2ec3be819fa023f4968,README.md,false,false,,
+rafi/vim-config,c443b12a105787dedc5d5df53cf35ce2910c8c8c,README.md,false,false,,
+rafi/vim-config,c2445e0690811bf0c255f1cd51200bcd232747d7,README.md,false,false,,
+fxbox/users,e8f5ec76b6787ef25a2ff73ac04a45110cfc9947,README.md,false,false,,
+atomantic/dotfiles,f5b8c71d448dd2819edbb5797e6e384524af6964,README.md,true,false,2,twitter
+cloudfoundry/eirini,20dbf3216cf2eb1410f969f82691b2f550947945,README.md,false,false,,
+ARMmbed/ble-x-nucleo-idb0xa1,22a8a5f5fd9f1b4a1f04728e7dafa7edc541a8b0,README.md,false,false,,
+mrmans0n/smart-location-lib,c97c45eea80389ba191d7feeb3edc7349408db54,README.md,false,false,,
+Prismatik/dendritic,662d65d27ad0d7d954ff2409283aec4e3bfa9ac1,README.md,false,false,,
+mrmans0n/smart-location-lib,aebca16aedd9a795967795640a194d39cc24dcb4,README.md,false,false,,
+STAMP-project/dspot,07923f796884003c0a70485eddd090505997245c,README.md,false,false,,
+Hammerspoon/hammerspoon,d8f77721355f5fc33ee3a060db52a5fbddff6a96,CONTRIBUTING.md,true,false,1,IRC
+libamtrack/web,0b056970be1df62dc7333728566768955cee8e75,README.md,false,false,,
+GoogleChromeLabs/pwa-wp,1a4e3c367e34fe0e8932159af79e942ec80ded17,README.md,true,true,1,website
+Hammerspoon/hammerspoon,b459fa0b1d9623f3884426246f9952bdbfb197ab,README.md,false,false,,
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,1,Discord
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,1,Discourse forum
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,1,reddit
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,1,StackOverflow
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,1,Zulip
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,2,GitHub issues
+serde-rs/serde,3167f986896ac8e9ea3e3ac12f6b92ac215fdd7e,README.md,true,false,3,IRC
+denoland/deno,e311e46a8f80491bc0ab4bc5dfce55d78bdb7187,README.md,true,false,2,YouTube
+denoland/deno,24debe9546cb9f7e365f05de548c7d6ea267af22,README.md,false,false,,
+layoutBox/PinLayout,8667180eb3bfddc9c35345d438a0884907974bf7,README.md,false,false,,
+Prismatik/dendritic,4becc63e6b4d69f182b40e05cb7fd4d17c12f0c5,README.md,false,false,,
+STAMP-project/dspot,f9312eef1182f291f1b71a58c00bb01122192c2e,README.md,false,false,,
+chocoteam/choco-solver,4ff49a79c685d070d3b0f59603e7910a80efc127,README.md,false,false,,
+pelodelfuego/vim-swoop,a0647e8445a40b0d33f5f1b17f59472611354aed,README.md,false,false,,
+layoutBox/PinLayout,92785c05d7902232d8d7a2a10a4fc600e00785cb,README.md,false,false,,
+Hammerspoon/hammerspoon,64d5d6ae52025dc45b16a4ab4b6a06864d66140e,README.md,false,false,,
+chocoteam/choco-solver,481ecfcbc62ce99261edc431cdf7fa15e41d6d2a,README.md,false,false,,
+ho-tex/oberdiek,803046cff24c6e5744f6eb460dfde7a9de4eb404,README.txt,false,false,,
+laravelio/laravel.io,f6dc582cd4e052da4d3ad534999a6cba18b79d38,README.md,false,false,,
+compiling-to-categories/concat,c9320adc38b6853d90d96f4c415c45d3f253075a,README.md,false,false,,
+rafi/vim-config,ca174515da066a7b29bc6b5ed0d1ed251a4b5134,README.md,false,false,,
+laravelio/laravel.io,501357f0cd735455849d19d711c255a3a029cfb7,CONTRIBUTING.md,false,false,,
+layoutBox/PinLayout,d00621c35984d941c63d1de0577f365256638418,README.md,false,false,,
+STAMP-project/dspot,d07b4b2bff0cbde71793c38b2503c39ade1240a7,README.md,false,false,,
+marcoslin/angularAMD,949d2e1d13c5ebd742000d52d3d0fc9f03fcca9c,README.md,false,false,,
+Hammerspoon/hammerspoon,6b6a78c0b91838f47f853d17c42535db58997b01,README.md,false,false,,
+billz/raspap-webgui,bfb635636b56bbde15642553642d285b5baf9c04,README.md,false,false,,
+atomantic/dotfiles,5cd3cfb617ec519e4d24a2b8daaa4d30b6eb193f,README.md,false,false,,
+laravelio/laravel.io,f063ec803cf3943a1b551c1152434f456de33251,README.md,false,false,,
+billz/raspap-webgui,026a385adde4a9a1a2653037d9196dbe3f3ce3d3,README.md,false,false,,
+ARMmbed/ble-x-nucleo-idb0xa1,1162d38221c6e172dea85e18c66e1122eeb793b3,README.md,false,false,,
+laravelio/laravel.io,e96708da558f731244a8e377b4fc7dcfe9f211da,readme.md,false,false,,
+Hammerspoon/hammerspoon,88e95b0b3b623c73866ca5c1318ce4138ff9ae29,CONTRIBUTING.md,true,false,1,GitHub pull requests
+Hammerspoon/hammerspoon,88e95b0b3b623c73866ca5c1318ce4138ff9ae29,CONTRIBUTING.md,true,false,1,mailing list
+AppIntro/AppIntro,63a9bea2b69efb7ca0ca714949c0b32eb71579f7,README.md,false,false,,
+laravelio/laravel.io,7a91f1e5f512052c221293d866769b90d72bc967,readme.md,false,false,,
+rafi/vim-config,ce261a81ca6bc0ef9a243d2254851930842fda0a,README.md,false,false,,
