@@ -11,7 +11,7 @@ from classifying import classify_commit
 from decorators import stop_the_clock
 from diffing import flatten
 from helpers import get_version
-from investigating import naysayer
+from investigating import naysayer, log_biggest_chunk
 from io_helpers import export_ccd_events, export_sample, get_output_dir
 from logging_something import setup_logging
 from memory import reminders
@@ -138,12 +138,6 @@ def _print_reminders():
         print(reminder)
 
 
-def _log_the_biggest_chunk():
-    from memory import the_biggest_chunk_yet
-    if the_biggest_chunk_yet:
-        logger.info(f"The biggest chunk:\n{flatten(the_biggest_chunk_yet)}")
-
-
 if __name__ == "__main__":
     main()
     #_read_events_csv_and_draw_random_events()
@@ -151,5 +145,5 @@ if __name__ == "__main__":
         print("----------")
         print("Reminders:")
         _print_reminders()
-    if config.REMEMBER_THE_BIGGEST_CHUNK:
-        _log_the_biggest_chunk()
+    if config.LOOK_FOR_BIGGEST_CHUNK:
+        log_biggest_chunk()

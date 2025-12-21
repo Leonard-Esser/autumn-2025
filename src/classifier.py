@@ -68,3 +68,34 @@ class Classifier:
 
         score_map = {lbl: float(sc) for lbl, sc in zip(labels, scores)}
         return score_map
+    
+    def count_tokens(
+        self,
+        text: str,
+        *,
+        add_special_tokens: bool = True,
+    ) -> int:
+        """
+        Returns the number of tokens for `text` according to the tokenizer.
+
+        Parameters
+        ----------
+        text : str
+            Input text to tokenize.
+        add_special_tokens : bool, default=True
+            Whether to include special tokens like <s>, </s>.
+
+        Returns
+        -------
+        int
+            Number of tokens.
+        """
+        encoded = self.tokenizer(
+            text,
+            add_special_tokens=add_special_tokens,
+            truncation=False,
+            padding=False,
+            return_attention_mask=False,
+            return_token_type_ids=False,
+        )
+        return len(encoded["input_ids"])
