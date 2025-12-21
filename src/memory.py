@@ -1,3 +1,1 @@
-from typing import Iterable
-
-reminders: Iterable[str] = []
+reminders: list[str] = []
