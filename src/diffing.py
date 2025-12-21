@@ -106,7 +106,7 @@ def get_flattened_changes_grouped_by_line_origin(
     hunk: pygit2.DiffHunk
 ) -> dict[str, str]:
     return _flatten_grouped_lines(
-        _group_lines_by_origin(hunk),
+        group_lines_by_origin(hunk),
         flatten
     )
 
@@ -125,7 +125,7 @@ def _flatten_grouped_lines(
     }
 
 
-def _group_lines_by_origin(
+def group_lines_by_origin(
     hunk: pygit2.DiffHunk
 ) -> dict[str, list[str]]:
     from collections import defaultdict

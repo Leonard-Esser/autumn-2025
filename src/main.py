@@ -1,3 +1,4 @@
+import logging
 import random
 
 import pandas as pd
@@ -6,13 +7,18 @@ from pathlib import Path
 import config
 import helpers
 from batching import process_each_sample
-from classifying import classify_commit, naysayer
+from classifying import classify_commit
 from decorators import stop_the_clock
+from diffing import flatten
 from helpers import get_version
+from investigating import naysayer
 from io_helpers import export_ccd_events, export_sample, get_output_dir
 from logging_something import setup_logging
 from memory import reminders
 from sampling import draw_k_random_distinct_rows_from_sample, get_sample_provided_by_ebert_et_al
+
+
+logger = logging.getLogger(__name__)
 
 
 @stop_the_clock
@@ -132,6 +138,12 @@ def _print_reminders():
         print(reminder)
 
 
+def _log_the_biggest_chunk():
+    from memory import the_biggest_chunk_yet
+    if the_biggest_chunk_yet:
+        logger.info(f"The biggest chunk:\n{flatten(the_biggest_chunk_yet)}")
+
+
 if __name__ == "__main__":
     main()
     #_read_events_csv_and_draw_random_events()
@@ -139,3 +151,5 @@ if __name__ == "__main__":
         print("----------")
         print("Reminders:")
         _print_reminders()
+    if config.REMEMBER_THE_BIGGEST_CHUNK:
+        _log_the_biggest_chunk()
