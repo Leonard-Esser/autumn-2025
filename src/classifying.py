@@ -37,21 +37,18 @@ def classify_commit(
     )
     return _classify_patch(
         patch,
-        event_key,
-        classify_additions_and_deletions_separately=True
+        event_key
     )
 
 
 def _classify_patch(
     patch: pygit2.Patch,
-    event_key: EventKey,
-    classify_additions_and_deletions_separately: bool
+    event_key: EventKey
 ) -> Event | CCDCEvent:
     return _merge_ccdc_events(
         _get_ccdc_event_for_each_hunk(
             patch,
-            event_key,
-            classify_additions_and_deletions_separately
+            event_key
         ),
         event_key
     )
@@ -59,16 +56,14 @@ def _classify_patch(
 
 def _get_ccdc_event_for_each_hunk(
     patch: pygit2.Patch,
-    event_key: EventKey,
-    classify_additions_and_deletions_separately: bool
+    event_key: EventKey
 ) -> list[CCDCEvent]:
     events = []
     for hunk in patch.hunks:
         events.append(
             _classify_hunk(
                 hunk,
-                event_key,
-                classify_additions_and_deletions_separately,
+                event_key
             )
         )
     return [event for event in events if isinstance(event, CCDCEvent)]
@@ -92,66 +87,34 @@ def _merge_ccdc_events(
 
 def _classify_hunk(
     hunk: pygit2.DiffHunk,
-    event_key: EventKey,
-    classify_additions_and_deletions_separately: bool = False
+    event_key: EventKey
 ) -> Event | CCDCEvent:
-    if not classify_additions_and_deletions_separately:
-        text = flatten(
-            get_changes_of_hunk(hunk)
-        )
-        slices = apply_chunking_if_requested_and_necessary(
-            text,
-            _cut_into_sufficiently_small_pieces
-        )
-        results = []
-        for s in slices:
-            if not _text_hints_at_ccdc_event(
-                s,
-                TaskMode.INTENT
-            ):
-                results.append(Event(event_key))
-            else:
-                results.append(
-                    CCDCEvent(
-                        event_key,
-                        _identify_types_of_change(s) - _rule_out_illogical_types_of_change(hunk)
-                    )
-                )
-        return _merge_ccdc_events(
-            [event for event in results if isinstance(event, CCDCEvent)],
-            event_key
-        )
-    
+    events = []
     grouped_changes = get_flattened_changes_grouped_by_line_origin(hunk)
     origins = set(grouped_changes.keys())
-    if "+" in origins and "-" in origins:
-        return _classify_hunk(hunk, event_key)
-    else:
-        for origin in origins:
-            if origin in ("+", "-"):
-                text = grouped_changes[origin]
-                slices = apply_chunking_if_requested_and_necessary(
-                    text,
-                    _cut_into_sufficiently_small_pieces
-                )
-                results = []
-                for s in slices:
-                    if _text_hints_at_ccdc_event(s):
-                        types_of_change = [TypeOfChange.ADD]
-                        if origin == "-":
-                            types_of_change = [TypeOfChange.REMOVE]
-                        results.append(
-                            CCDCEvent(
-                                event_key,
-                                types_of_change
-                            )
+    for origin in origins:
+        if origin in ("+", "-"):
+            slices = apply_chunking_if_requested_and_necessary(
+                grouped_changes[origin],
+                _cut_into_sufficiently_small_pieces
+            )
+            for s in slices:
+                if _text_hints_at_ccdc_event(s):
+                    types_of_change = [TypeOfChange.ADD]
+                    if origin == "-":
+                        types_of_change = [TypeOfChange.REMOVE]
+                    events.append(
+                        CCDCEvent(
+                            event_key,
+                            types_of_change
                         )
-                    else:
-                        results.append(Event(event_key))
-                return _merge_ccdc_events(
-                    [event for event in results if isinstance(event, CCDCEvent)],
-                    event_key
-                )
+                    )
+                else:
+                    events.append(Event(event_key))
+    return _merge_ccdc_events(
+        [event for event in events if isinstance(event, CCDCEvent)],
+        event_key
+    )
 
 
 def _cut_into_sufficiently_small_pieces(text: str) -> list[str]:
