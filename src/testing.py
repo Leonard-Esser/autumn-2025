@@ -7,9 +7,10 @@ from pathlib import Path
 from typing import Any, Callable, Iterable
 
 import config
-from classifying import classify_commit, naysayer
+from classifying import classify_commit
 from decorators import stop_the_clock
 from helpers import clone_if_necessary, get_version
+from investigating import naysayer, log_biggest_chunk
 from io_helpers import get_output_dir, export_test_result
 from logging_something import setup_logging
 from mining import get_ccd_events_of_single_commit
@@ -322,3 +323,5 @@ def _explode_type_of_change_cell(value: Any) -> Iterable[Any]:
 
 if __name__ == "__main__":
     main()
+    if config.LOOK_FOR_BIGGEST_CHUNK:
+        log_biggest_chunk()

@@ -2,6 +2,7 @@ from datetime import datetime
 
 __all__ = [
     "ASSUME_MAXIMUM_OF_ONE_DELTA_PER_FILE",
+    "CHUNKING",
     "CONTEXT_LINES",
     "DELETE_GIT_DIR_IMMEDIATELY",
     "DO_NOT_CLASSIFY_AT_ALL",
@@ -25,10 +26,13 @@ __all__ = [
     "UNTIL",
 ]
 
+# behavior
+CHUNKING = True
+
 # development
 DELETE_GIT_DIR_IMMEDIATELY = False
-DO_NOT_CLASSIFY_AT_ALL = True
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO = 0 # ignored if not > 0
+DO_NOT_CLASSIFY_AT_ALL = False
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO = 10 # ignored if not > 0
 LOOK_FOR_BIGGEST_CHUNK = True
 
 # testing
@@ -42,7 +46,7 @@ RANDOM_STATE_FOR_DRAWING_EVENTS = 43
 EVENTS_SAMPLE_SIZE = 100
 
 # research subject
-SAMPLE_SIZE = 0
+SAMPLE_SIZE = 30
 SINCE = datetime(2009, 1, 1)
 UNTIL = datetime(2025, 11, 30, 23, 59, 59)
 

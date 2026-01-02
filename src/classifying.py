@@ -6,10 +6,13 @@ from typing import Iterable
 
 import config
 import labels
+from chunking import apply_chunking_if_requested_and_necessary
 from classifier import Classifier
 from diffing import flatten, get_changes_of_hunk, get_diff, get_flattened_changes_grouped_by_line_origin, get_patch
+from investigating import memorize_biggest_chunk_yet_if_necessary
 from labels import TaskMode
 from model import CCDCEvent, Event, EventKey, TypeOfChange
+from slice_text_by_token_limit import slice_text_by_token_limit
 
 
 logger = logging.getLogger(__name__)
@@ -96,15 +99,27 @@ def _classify_hunk(
         text = flatten(
             get_changes_of_hunk(hunk)
         )
-        if not _text_hints_at_ccdc_event(
+        slices = apply_chunking_if_requested_and_necessary(
             text,
-            TaskMode.INTENT
-        ):
-            return Event(event_key)
-        
-        return CCDCEvent(
-            event_key,
-            _identify_types_of_change(text) - _rule_out_illogical_types_of_change(hunk)
+            _cut_into_sufficiently_small_pieces
+        )
+        results = []
+        for s in slices:
+            if not _text_hints_at_ccdc_event(
+                s,
+                TaskMode.INTENT
+            ):
+                results.append(Event(event_key))
+            else:
+                results.append(
+                    CCDCEvent(
+                        event_key,
+                        _identify_types_of_change(s) - _rule_out_illogical_types_of_change(hunk)
+                    )
+                )
+        return _merge_ccdc_events(
+            [event for event in results if isinstance(event, CCDCEvent)],
+            event_key
         )
     
     grouped_changes = get_flattened_changes_grouped_by_line_origin(hunk)
@@ -114,16 +129,37 @@ def _classify_hunk(
     else:
         for origin in origins:
             if origin in ("+", "-"):
-                if _text_hints_at_ccdc_event(grouped_changes[origin]):
-                    types_of_change = [TypeOfChange.ADD]
-                    if origin == "-":
-                        types_of_change = [TypeOfChange.REMOVE]
-                    return CCDCEvent(
-                        event_key,
-                        types_of_change
-                    )
-                else:
-                    return Event(event_key)
+                text = grouped_changes[origin]
+                slices = apply_chunking_if_requested_and_necessary(
+                    text,
+                    _cut_into_sufficiently_small_pieces
+                )
+                results = []
+                for s in slices:
+                    if _text_hints_at_ccdc_event(s):
+                        types_of_change = [TypeOfChange.ADD]
+                        if origin == "-":
+                            types_of_change = [TypeOfChange.REMOVE]
+                        results.append(
+                            CCDCEvent(
+                                event_key,
+                                types_of_change
+                            )
+                        )
+                    else:
+                        results.append(Event(event_key))
+                return _merge_ccdc_events(
+                    [event for event in results if isinstance(event, CCDCEvent)],
+                    event_key
+                )
+
+
+def _cut_into_sufficiently_small_pieces(text: str) -> list[str]:
+    return slice_text_by_token_limit(
+        text,
+        count_tokens=classifier.count_tokens,
+        max_tokens=256,
+    )
 
 
 def _rule_out_illogical_types_of_change(hunk: pygit2.DiffHunk,) -> set[TypeOfChange]:
@@ -155,6 +191,11 @@ def _text_hints_at_ccdc_event(
     if not text or not text.strip():
         return False
     logger.info(text)
+    if config.LOOK_FOR_BIGGEST_CHUNK:
+        memorize_biggest_chunk_yet_if_necessary(
+            text,
+            _let_classifier_count_tokens
+        )
     
     lbls = labels.TOPICS
     if task_mode == TaskMode.INTENT:
@@ -183,6 +224,12 @@ def _text_hints_at_ccdc_event(
         if score > 0.5:
             return True
     return False
+
+
+def _let_classifier_count_tokens(
+    text: str
+) -> int:
+    return classifier.count_tokens(text)
 
 
 def _identify_types_of_change(text: str) -> set[TypeOfChange]:
