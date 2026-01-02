@@ -53,7 +53,7 @@ class Classifier:
         enc = self.tokenizer(
             [text] * len(labels),
             hypotheses,
-            truncation=True,
+            truncation="only_first",
             max_length=self.max_length,
             padding=True,
             return_tensors="pt",
