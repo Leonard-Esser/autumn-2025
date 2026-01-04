@@ -12,13 +12,10 @@ class Subject:
     path: str
 
 
-CommunicationChannel = str
-
-
 @dataclass
 class Result:
     subject: Subject
-    detected_channels: set[CommunicationChannel] = field(default_factory=set)
+    detected_channels: set[str] = field(default_factory=set)
     is_ccdc_event: bool = False
 
 
