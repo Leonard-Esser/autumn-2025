@@ -60,7 +60,6 @@ class Classifier:
         ).to(self.device)
 
         logits = self.nli_model(**enc).logits  # shape: (n_labels, 3)
-        entail_logits = logits[:, self.entailment_id]  # shape: (n_labels,)
 
         # P(entailment) from 3-way softmax per label
         probs = torch.softmax(logits, dim=1)[:, self.entailment_id]
