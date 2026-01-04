@@ -8,7 +8,7 @@ import pygit2
 @dataclass(frozen=True, slots=True)
 class Subject:
     full_name_of_repo: str
-    commit: pygit2.Oid
+    commit_sha: str
     path: str
 
 
