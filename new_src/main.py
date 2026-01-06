@@ -18,7 +18,7 @@ def main():
 
     repos = get_sample_provided_by_ebert_et_al(
         csv_path=Path(root) / "data" / "samples" / "ebert_et_al_2022" / "sample_100.csv",
-        k=config.SAMPLE_SIZE,
+        k=config.NUMBER_OF_REPOS_TO_INVESTIGATE,
         random_state=config.RANDOM_STATE
     )
 
