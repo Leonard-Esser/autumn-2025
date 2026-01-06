@@ -7,6 +7,7 @@ from domain_model import Subject
 from get_github import get_remote_callbacks
 from get_logger import get_logger
 from get_root import get_root
+from helpers import raise_error_if_path_is_not_git_dir
 
 
 def get_repo(full_name_of_repo: str) -> pygit2.Repository:
@@ -14,7 +15,7 @@ def get_repo(full_name_of_repo: str) -> pygit2.Repository:
     path = _get_path(full_name_of_repo, root)
     if path.exists():
         return pygit2.Repository(path)
-    repo = _clone(
+    repo = _bare_clone(
         url=_get_url(full_name_of_repo),
         path=path
     )
@@ -35,17 +36,8 @@ def _create_path_for_git_directory(
     parent_dir: Path
 ):
     path = Path(parent_dir, f"{full_name_of_repo}.git")
-    _raise_error_if_path_is_not_git_dir(path)
+    raise_error_if_path_is_not_git_dir(path)
     return path
-
-
-def _raise_error_if_path_is_not_git_dir(path: Path):
-    if not _path_is_git_dir(path):
-        raise ValueError(f"{path} is not a valid Git repository")
-
-
-def _path_is_git_dir(path: Path):
-    return path.suffix == ".git"
 
 
 def _make_directory_for_bare_clones(
@@ -58,16 +50,15 @@ def _make_directory_for_bare_clones(
     return bare_clones_dir
 
 
-def _clone(
+def _bare_clone(
     url: str,
     path: str,
-    bare: bool = True,
     depth: int = 0
 ) -> pygit2.Repository:
     return pygit2.clone_repository(
         url=url,
         path=path,
-        bare=bare,
+        bare=True,
         callbacks=get_remote_callbacks(),
         depth=depth
     )
@@ -78,7 +69,7 @@ def _get_url(full_name_of_repo: str) -> str:
 
 
 def _run_git_gc(working_dir: Path):
-    _raise_error_if_path_is_not_git_dir(working_dir)
+    raise_error_if_path_is_not_git_dir(working_dir)
     return subprocess.run(
         args=["git", "gc", "--aggressive", "--prune=now"],
         cwd=working_dir,

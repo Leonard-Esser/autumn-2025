@@ -1,10 +1,13 @@
 from __future__ import annotations
+from collections.abc import Iterable
 
 import pygit2
-from collections.abc import Iterable
+from pathlib import Path
 from typing import Dict, List
 
+import config
 from analyze import analyze
+from delete_git_dir import delete_git_dir
 from domain_model import Result, Subject
 from get_patch import get_patch
 from get_repo import get_repo
@@ -30,6 +33,8 @@ def search_for_ccdc_events(
                 classifier=classifier,
             )
             results.add(result)
+        if config.DELETES_GIT_DIR_IMMEDIATELY:
+            delete_git_dir(Path(repo.path))
     return results
 
 
