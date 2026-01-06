@@ -3,20 +3,20 @@ import random
 from urllib.parse import urlparse
 
 from pathlib import Path
-from typing import Sequence
+from typing import Optional, Sequence
 
 
 def get_sample_provided_by_ebert_et_al(
     csv_path: str | Path,
-    k: int,
-    random_state: int | None = None,
+    k: Optional[int] = None,
+    random_state: Optional[int] = None,
 ) -> list[str]:
     results = _read_full_names_from_sample_provided_by_ebert_et_al(csv_path)
     if not results:
         return []
     
-    if k > 0:
-        if random_state:
+    if k is not None and k > 0:
+        if random_state is not None:
             random.seed(random_state)
         return random.sample(results, k)
     
