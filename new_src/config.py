@@ -45,3 +45,12 @@ MAX_NUMBER_OF_TOKENS = 512
 # section: logging
 LOGS_EACH_PARTIAL_RESULT_CREATED = True
 # end of section
+
+# section: output
+PARTS_OF_BASE_OUTPUT_DIR = [
+    "data",
+    "output"
+]
+EXPORTS_SUBJECTS = True
+SUBJECTS_DIR = "subjects"
+# end of section
