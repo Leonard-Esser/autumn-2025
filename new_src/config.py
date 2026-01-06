@@ -55,4 +55,5 @@ PARTS_OF_BASE_OUTPUT_DIR = [
 ]
 EXPORTS_SUBJECTS = True
 SUBJECTS_DIR = "subjects"
+REPOS_DIR = "repos"
 # end of section

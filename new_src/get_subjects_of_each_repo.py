@@ -8,8 +8,9 @@ from typing import Optional
 import github
 from github.GithubException import GithubException, UnknownObjectException
 
+from auth import get_github
+from calling_github import get_commits, get_repo
 from domain_model import Subject
-from get_github import get_github
 from get_logger import get_logger
 
 
@@ -33,7 +34,7 @@ def get_subjects_of_each_repo(
     gh = get_github()
     all_subjects: set[Subject] = set()
     for full_name_of_repo in repos:
-        repo = _get_repo(gh, full_name_of_repo, lazy=False)
+        repo = get_repo(gh, full_name_of_repo, lazy=False)
         if repo is None:
             continue
         try:
@@ -69,23 +70,6 @@ def get_subjects_of_each_repo(
     return all_subjects
 
 
-def _get_repo(github: github.Github, full_name_or_id: int | str, lazy: bool = False):
-    try:
-        return github.get_repo(full_name_or_id=full_name_or_id, lazy=lazy)
-    except UnknownObjectException as exc:
-        # 404: repository not found
-        get_logger(__name__).error(f"[Error] Repository not found for '{full_name_or_id}': {exc.status} {exc.data}")
-        return None
-    except GithubException as exc:
-        # Other GitHub API exceptions
-        get_logger(__name__).error(f"[Error] GitHub API error for '{full_name_or_id}': {exc.status} {exc.data}")
-        return None
-    except Exception as exc:
-        # Any other unexpected errors
-        get_logger(__name__).error(f"[Error] Unexpected error while fetching '{full_name_or_id}': {exc}")
-        return None
-
-
 def _for_each_path_get_commits(
     repo: github.Repository,
     paths_to_consider: Iterable[str],
@@ -94,21 +78,8 @@ def _for_each_path_get_commits(
 ) -> dict[str, list[github.Commit]]:
     result: dict[str, list[github.Commit]] = {}
     for path in paths_to_consider:
-        result[path] = _get_commits(repo, path, since, until)
+        result[path] = get_commits(repo, since, until, path)
     return result
-
-
-def _get_commits(
-    repo: github.Repository,
-    path: str,
-    since: datetime,
-    until: datetime
-):
-    return repo.get_commits(
-        path=path,
-        since=since,
-        until=until
-    )
 
 
 def _get_commits_and_their_paths(
@@ -129,21 +100,3 @@ def _get_commits_and_their_paths(
         reverse=True
     )
     return dict(sorted_items)
-
-
-def draw_k_random_subjects(
-    population: set[Subject],
-    k: int,
-    random_state: int | None = None
-) -> set[Subject]:
-    """
-    Draw k random subjects (without replacement) from a population set.
-    If k >= len(population), returns a shallow copy of the population.
-    """
-    if k <= 0 or not population:
-        return set()
-    if k >= len(population):
-        return set(population)
-    if random_state is not None:
-        random.seed(random_state)
-    return set(random.sample(list(population), k))
