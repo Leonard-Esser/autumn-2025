@@ -3,7 +3,6 @@ from collections.abc import Iterable
 
 import pygit2
 from pathlib import Path
-from typing import Dict, List
 
 import config
 from analyze import analyze
@@ -38,12 +37,12 @@ def search_for_ccdc_events(
     return results
 
 
-def _group_subjects_by_repo(subjects: Iterable[Subject]) -> Dict[str, List[Subject]]:
+def _group_subjects_by_repo(subjects: Iterable[Subject]) -> dict[str, list[Subject]]:
     """
     Returns a dict mapping `full_name_of_repo` (e.g. "billz/raspap-webgui")
     to a list of subjects belonging to that repo, preserving input order.
     """
-    grouped: Dict[str, List[Subject]] = {}
+    grouped: dict[str, list[Subject]] = {}
     for subject in subjects:
         grouped.setdefault(subject.full_name_of_repo, []).append(subject)
     return grouped
