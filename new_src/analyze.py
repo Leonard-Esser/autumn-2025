@@ -17,8 +17,14 @@ def analyze(
             subject=subject,
             hunk=hunk,
             detected_channels=channel_detector(subject, hunk),
-            is_ccdc_event=classifier(subject, hunk),
+            is_ccdc_event=classifier(subject, hunk)
         )
         for hunk in patch.hunks
     ]
+    if not partial_results:
+        return Result(
+            subject=subject,
+            detected_channels=frozenset(),
+            is_ccdc_event=False
+        )
     return aggregate(partial_results)
