@@ -11,18 +11,23 @@ from labels import TaskMode
 from pairs_fit_max_length import pairs_fit_max_length
 from pygit2_helpers import flatten_hunk, flatten_lines, group_lines_by_origin
 
+logger = get_logger(__name__)
+
 
 def is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
-    #text = flatten_hunk(hunk, origin_included=True)
-    #task_mode = TaskMode.INTENT
-    #if _text_under_token_limit(text, task_mode):
-    #    return _ask_classifier(text, task_mode)
+    if config.TRIES_TO_CLASSIFY_HUNK_WITH_ONLY_ONE_CALL:
+        text = flatten_hunk(hunk, origin_included=True)
+        task_mode = TaskMode.INTENT
+        if _text_under_token_limit(text, task_mode):
+            logger.info("Can classify hunk with only one call")
+            return _ask_classifier(text, task_mode)
     
     partial_results: list[PartialResult] = []
     for origin, lines in group_lines_by_origin(hunk).items():
         text = flatten_lines(lines)
         task_mode = TaskMode.TOPIC
         if _text_under_token_limit(text, task_mode):
+            logger.info("Can classify group of lines with only one call")
             partial_results.append(
                 PartialResult(
                     subject=subject,
@@ -36,6 +41,7 @@ def is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
         for line in lines:
             text = line.content.rstrip()
             if _text_under_token_limit(text, task_mode):
+                logger.info("Can classify single line with only one call")
                 partial_results.append(
                     PartialResult(
                         subject=subject,
@@ -48,6 +54,7 @@ def is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
             
             # TODO apply further segmentation
             # for now, we simply let the classifier truncate the text
+            logger.warning(f"Further segmentation needed")
             partial_results.append(
                 PartialResult(
                     subject=subject,
@@ -70,6 +77,8 @@ def _text_under_token_limit(text: str, task_mode: TaskMode) -> bool:
 
 
 def _ask_classifier(text: str, task_mode: TaskMode) -> bool:
+    if not text or not text.strip():
+        return False
     classifier = Classifier(
         model_name=config.MODEL_ID,
         max_length=config.MAX_NUMBER_OF_TOKENS
@@ -79,7 +88,7 @@ def _ask_classifier(text: str, task_mode: TaskMode) -> bool:
         labels=labels.LABELS[task_mode],
         hypothesis_template=labels.HYPOTHESIS_TEMPLATES[task_mode]
     )
-    get_logger(__name__).info(labels_and_their_scores)
+    logger.info(labels_and_their_scores)
     
     if _should_return_false_early(
         labels_and_their_scores,
