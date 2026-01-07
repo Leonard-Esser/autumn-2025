@@ -7,6 +7,7 @@ import github
 from get_logger import get_logger
 from github import GithubException, UnknownObjectException
 
+
 logger = get_logger(__name__)
 
 
