@@ -1,28 +1,42 @@
-from __future__ import annotations
-
 from collections.abc import Iterable
 
+from pathlib import Path
 import pandas as pd
 
-import config
 from auth import get_github
 from calling_github import get_repo
 from export import export_df, get_output_dir
-from get_root import get_root
 from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
-from setup_logging import setup_logging
+import config
 
 
-def repos_df(full_names: Iterable[str]) -> pd.DataFrame:
+def repos_df(
+    *,
+    returns_cached_repos_if_any: bool,
+    updates_cache: bool,
+    root: Path
+) -> pd.DataFrame:
+    output_dir = get_output_dir(root)
+    if returns_cached_repos_if_any:
+        repos_csv = output_dir / config.REPOS_CSV
+        if repos_csv.exists():
+            return pd.read_csv(repos_csv)
+    
+    repos_to_investigate = get_sample_provided_by_ebert_et_al(
+        root=root,
+        excludes_retired_repos=False,
+    )
     gh = get_github()
     rows: list[dict[str, object]] = []
-    for full_name in full_names:
-        repo = get_repo(gh, full_name)
+    for full_name_of_repo in repos_to_investigate:
+        repo = get_repo(gh, full_name_of_repo)
+        if repo is None:
+            continue
         rows.append(
             {
                 # identity
                 "id": repo.id,
-                "full_name": repo.full_name,
+                "full_name_of_repo": repo.full_name,
                 
                 # urls
                 "homepage": repo.homepage,
@@ -54,7 +68,7 @@ def repos_df(full_names: Iterable[str]) -> pd.DataFrame:
         rows,
         columns=[
             "id",
-            "full_name",
+            "full_name_of_repo",
             "homepage",
             "clone_url",
             "git_url",
@@ -75,27 +89,11 @@ def repos_df(full_names: Iterable[str]) -> pd.DataFrame:
         ],
     )
     if not df.empty:
-        df = df.sort_values("full_name", kind="stable", ignore_index=True)
+        df = df.sort_values("full_name_of_repo", kind="stable", ignore_index=True)
+    if updates_cache:
+        export_df(
+            df,
+            config.REPOS_CSV,
+            output_dir
+        )
     return df
-
-
-def main():
-    root = get_root()
-    setup_logging(root)
-    repos = get_sample_provided_by_ebert_et_al(
-        csv_path=root / "data" / "samples" / "ebert_et_al_2022" / "sample_100.csv"
-    )
-    df = repos_df(repos)
-    destination = get_output_dir(
-        root,
-        config.REPOS_DIR
-    )
-    export_df(
-        df,
-        "repos.csv",
-        destination
-    )
-
-
-if __name__ == "__main__":
-    main()

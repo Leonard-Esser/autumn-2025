@@ -52,31 +52,18 @@ def export_df(
     return csv_path
 
 
-def get_cache_dir(
-    root: Path,
-    config_sha: str,
-    *,
-    version: str | None = None,
-) -> Path:
-    path = root
-    for part in config.PARTS_OF_BASE_OUTPUT_DIR:
-        path /= part
-    if version:
-        path /= version
-    path /= config_sha
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
 def get_output_dir(
     root: Path,
     *,
     version: str | None = None,
+    config_sha: str | None = None,
 ) -> Path:
     path = root
     for part in config.PARTS_OF_BASE_OUTPUT_DIR:
         path /= part
     if version:
         path /= version
+    if config_sha:
+        path /= config_sha
     path.mkdir(parents=True, exist_ok=True)
     return path

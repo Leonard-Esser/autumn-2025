@@ -22,7 +22,7 @@ _CONTRIBUTING = "CONTRIBUTING"
 
 # section: RE the subject
 RANDOM_STATE = 42
-NUMBER_OF_REPOS_TO_INVESTIGATE: Optional[int] = 20
+NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = 30
 SINCE = datetime(2023, 1, 1)
 UNTIL = datetime(2025, 12, 31, 23, 59, 59)
 PATHS_TO_CONSIDER = [
@@ -35,12 +35,13 @@ PATHS_TO_CONSIDER = [
     _CONTRIBUTING + ".txt",
     _CONTRIBUTING.lower() + ".txt",
 ]
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: Optional[int] = 20
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = 30
 # end of section
 
 # section: program behavior
-IGNORES_CACHE = False
-IS_NAYSAYER = False
+RETURNS_CACHED_DATA_IF_ANY = False
+UPDATES_CACHE = False
+IS_NAYSAYER = True
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
 
@@ -67,8 +68,8 @@ PARTS_OF_BASE_OUTPUT_DIR = [
     "data",
     "output"
 ]
-REPOS_CSV = "repos.csv"
 SUBJECTS_CSV = "subjects.csv"
+REPOS_CSV = "repos.csv"
 COMMITS_CSV = "commits.csv"
-REPOS_DIR = "repos"
+RESULTS_CSV = "results.csv"
 # end of section
