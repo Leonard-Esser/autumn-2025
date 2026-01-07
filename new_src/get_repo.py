@@ -1,12 +1,12 @@
 import subprocess
-
-import pygit2
 from pathlib import Path
 
-from auth import get_remote_callbacks
+import pygit2
 from domain_model import Subject
 from get_logger import get_logger
 from get_root import get_root
+
+from auth import get_remote_callbacks
 from helpers import raise_error_if_path_is_not_git_dir
 
 

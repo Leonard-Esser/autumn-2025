@@ -1,15 +1,15 @@
 import pygit2
+from aggregate import any_result_is_ccdc_event
+from domain_model import PartialResult, Subject
+from get_logger import get_logger
+from pairs_fit_max_length import pairs_fit_max_length
+from pygit2_helpers import flatten_hunk, flatten_lines, group_lines_by_origin
 from transformers import AutoTokenizer
 
 import config
 import labels
-from aggregate import any_result_is_ccdc_event
 from classifier import Classifier
-from domain_model import PartialResult, Subject
-from get_logger import get_logger
 from labels import TaskMode
-from pairs_fit_max_length import pairs_fit_max_length
-from pygit2_helpers import flatten_hunk, flatten_lines, group_lines_by_origin
 
 logger = get_logger(__name__)
 

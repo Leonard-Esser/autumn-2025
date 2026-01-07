@@ -1,9 +1,9 @@
+import hashlib
 from datetime import datetime
+from io import StringIO
 from pathlib import Path
 from tokenize import generate_tokens
-from io import StringIO
 from typing import Optional
-import hashlib
 
 
 def normalized_script_hash(length: int = 7) -> str:

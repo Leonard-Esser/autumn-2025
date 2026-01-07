@@ -1,11 +1,11 @@
 import csv
 from collections.abc import Iterable
-
 from pathlib import Path
+
 import pandas as pd
+from domain_model import Subject
 
 import config
-from domain_model import Subject
 
 
 def export_subjects(

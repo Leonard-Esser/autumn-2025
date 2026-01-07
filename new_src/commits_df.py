@@ -1,13 +1,13 @@
 from collections.abc import Iterable
-
 from datetime import datetime
 from pathlib import Path
-import pandas as pd
 
+import pandas as pd
+from export import export_df, get_output_dir
+
+import config
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
-from export import export_df, get_output_dir
-import config
 
 
 def commits_df(

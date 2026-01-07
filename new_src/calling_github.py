@@ -1,14 +1,12 @@
 import random
 from collections import defaultdict
 from collections.abc import Iterable
-
 from datetime import datetime
 from typing import Optional
 
 import github
-from github import GithubException, UnknownObjectException
-
 from get_logger import get_logger
+from github import GithubException, UnknownObjectException
 
 logger = get_logger(__name__)
 

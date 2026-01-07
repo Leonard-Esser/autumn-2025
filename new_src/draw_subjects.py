@@ -1,13 +1,13 @@
 from collections.abc import Iterable
-
 from datetime import datetime
 from pathlib import Path
 
 from domain_model import Subject
 from export import export_subjects, get_output_dir
-from read_subjects_csv import read_subjects_csv
 from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
 from get_subjects_of_each_repo import get_subjects_of_each_repo
+from read_subjects_csv import read_subjects_csv
+
 import config
 
 

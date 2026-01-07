@@ -1,5 +1,4 @@
 import pygit2
-
 from domain_model import Subject
 
 

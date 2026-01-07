@@ -1,12 +1,12 @@
 import json
 from dataclasses import dataclass, field
-
-import pygit2
 from typing import Optional
 
-import config
+import pygit2
 from get_logger import get_logger
 from pygit2_helpers import flatten_hunk
+
+import config
 
 
 @dataclass(frozen=True, slots=True)

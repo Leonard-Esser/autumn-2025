@@ -1,7 +1,7 @@
 import pygit2
+from domain_model import Subject
 
 import config
-from domain_model import Subject
 
 
 def get_patch(subject: Subject, repo: pygit2.Repository) -> pygit2.Patch:

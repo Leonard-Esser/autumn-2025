@@ -1,7 +1,6 @@
-from shutil import rmtree
 import os
-
 from pathlib import Path
+from shutil import rmtree
 
 from helpers import raise_error_if_path_is_not_git_dir
 

@@ -1,9 +1,8 @@
 import csv
 import random
-from urllib.parse import urlparse
-
 from pathlib import Path
 from typing import Optional, Sequence
+from urllib.parse import urlparse
 
 
 def get_sample_provided_by_ebert_et_al(

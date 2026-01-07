@@ -1,5 +1,6 @@
-import pygit2
 from pathlib import Path
+
+import pygit2
 
 
 def get_version(root: Path):
