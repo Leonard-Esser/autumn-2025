@@ -43,8 +43,12 @@ def _assert_subject_matches_repo(subject: Subject, repo: pygit2.Repository) -> N
     # We just do a simple containment check to avoid over-parsing edge cases.
     if expected and expected not in remote_url:
         raise ValueError(
-            "Subject/repo mismatch: subject.full_name_of_repo does not appear in repo's origin URL. "
-            f"subject.full_name_of_repo='{subject.full_name_of_repo}', origin.url='{remote_url}'."
+            (
+                "Subject/repo mismatch: subject.full_name_of_repo does not appear "
+                "in repo's origin URL. "
+                f"subject.full_name_of_repo='{subject.full_name_of_repo}', "
+                f"origin.url='{remote_url}'."
+            )
         )
 
 
@@ -59,7 +63,10 @@ def _get_commit(repo: pygit2.Repository, commit_sha: str) -> pygit2.Commit:
         raise KeyError(f"Commit '{commit_sha}' not found in repository.") from e
     if not isinstance(obj, pygit2.Commit):
         raise TypeError(
-            f"revparse_single('{commit_sha}') returned {type(obj).__name__}, expected pygit2.Commit."
+            (
+                f"revparse_single('{commit_sha}') returned {type(obj).__name__}, "
+                "expected pygit2.Commit."
+            )
         )
     return obj
 

@@ -1,7 +1,5 @@
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import Iterable, Mapping, Sequence
+from typing import Mapping, Sequence
 
 import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
@@ -113,7 +111,8 @@ class Classifier:
         Args:
             text: The premise.
             labels: Candidate labels (strings).
-            hypothesis_template: Template with exactly one '{}' placeholder, e.g. "This text is about {}."
+            hypothesis_template: Template with exactly one '{}' placeholder,
+                e.g. "This text is about {}."
 
         Returns:
             dict[label, score] with one float score per label.
@@ -153,10 +152,10 @@ class Classifier:
         Convert MNLI logits -> per-row score in [0, 1] for entailment.
         """
         if logits.ndim != 2:
-            raise ValueError(f"Expected logits to be 2D (batch, classes), got shape={tuple(logits.shape)}")
+            raise ValueError(
+                f"Expected logits to be 2D (batch, classes), got shape={tuple(logits.shape)}"
+            )
 
-        c = self._nli.contradiction
-        n = self._nli.neutral
         e = self._nli.entailment
 
         # Softmax over all 3 classes, then take entailment prob.

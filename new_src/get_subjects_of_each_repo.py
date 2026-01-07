@@ -1,13 +1,8 @@
-import random
-from collections import defaultdict
 from collections.abc import Iterable
 from datetime import datetime
-from typing import Optional
 
-import github
 from domain_model import Subject
 from get_logger import get_logger
-from github.GithubException import GithubException, UnknownObjectException
 
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo

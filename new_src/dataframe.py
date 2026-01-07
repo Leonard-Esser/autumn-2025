@@ -1,6 +1,7 @@
 from collections.abc import Iterable
 
 import pandas as pd
+from domain_model import Result
 
 
 def dataframe(result_set: Iterable[Result]) -> pd.DataFrame:

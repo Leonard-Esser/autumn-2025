@@ -1,6 +1,3 @@
-from pathlib import Path
-
-import pandas as pd
 import pygit2
 from commits_df import commits_df
 from dataframe import dataframe

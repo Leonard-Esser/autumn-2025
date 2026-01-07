@@ -2,7 +2,6 @@ import subprocess
 from pathlib import Path
 
 import pygit2
-from domain_model import Subject
 from get_logger import get_logger
 from get_root import get_root
 
@@ -20,7 +19,9 @@ def get_repo(full_name_of_repo: str) -> pygit2.Repository:
         path=path
     )
     result = _run_git_gc(working_dir=path)
-    get_logger(__name__).info(f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}")
+    get_logger(__name__).info(
+        f"Running git gc {'was successful' if result.returncode == 0 else 'failed'}"
+    )
     return repo
 
 

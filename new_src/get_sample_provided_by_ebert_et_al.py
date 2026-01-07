@@ -1,7 +1,6 @@
 import csv
 import random
 from pathlib import Path
-from typing import Optional, Sequence
 from urllib.parse import urlparse
 
 

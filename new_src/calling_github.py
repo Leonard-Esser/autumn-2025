@@ -2,7 +2,6 @@ import random
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import datetime
-from typing import Optional
 
 import github
 from get_logger import get_logger

@@ -3,7 +3,6 @@ from datetime import datetime
 from io import StringIO
 from pathlib import Path
 from tokenize import generate_tokens
-from typing import Optional
 
 
 def normalized_script_hash(length: int = 7) -> str:

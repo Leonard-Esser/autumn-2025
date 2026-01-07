@@ -54,7 +54,7 @@ def is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
             
             # TODO apply further segmentation
             # for now, we simply let the classifier truncate the text
-            logger.warning(f"Further segmentation needed")
+            logger.warning("Further segmentation needed")
             partial_results.append(
                 PartialResult(
                     subject=subject,
