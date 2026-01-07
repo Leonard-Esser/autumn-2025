@@ -1,5 +1,18 @@
 from datetime import datetime
+from pathlib import Path
+from tokenize import generate_tokens
+from io import StringIO
 from typing import Optional
+import hashlib
+
+
+def normalized_script_hash(length: int = 7) -> str:
+    source = Path(__file__).read_text(encoding="utf-8")
+    tokens = generate_tokens(StringIO(source).readline)
+    normalized = "".join(
+        tok.string for tok in tokens if tok.type != 61  # COMMENT
+    )
+    return hashlib.sha256(normalized.encode()).hexdigest()[:length]
 
 
 # section: local variables
@@ -9,7 +22,7 @@ _CONTRIBUTING = "CONTRIBUTING"
 
 # section: RE the subject
 RANDOM_STATE = 42
-NUMBER_OF_REPOS_TO_INVESTIGATE: Optional[int] = 10
+NUMBER_OF_REPOS_TO_INVESTIGATE: Optional[int] = 20
 SINCE = datetime(2023, 1, 1)
 UNTIL = datetime(2025, 12, 31, 23, 59, 59)
 PATHS_TO_CONSIDER = [
@@ -22,11 +35,12 @@ PATHS_TO_CONSIDER = [
     _CONTRIBUTING + ".txt",
     _CONTRIBUTING.lower() + ".txt",
 ]
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: Optional[int] = 10
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: Optional[int] = 20
 # end of section
 
 # section: program behavior
-IS_NAYSAYER = True
+IGNORES_CACHE = False
+IS_NAYSAYER = False
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
 
@@ -53,7 +67,8 @@ PARTS_OF_BASE_OUTPUT_DIR = [
     "data",
     "output"
 ]
-EXPORTS_SUBJECTS = True
-SUBJECTS_DIR = "subjects"
+REPOS_CSV = "repos.csv"
+SUBJECTS_CSV = "subjects.csv"
+COMMITS_CSV = "commits.csv"
 REPOS_DIR = "repos"
 # end of section

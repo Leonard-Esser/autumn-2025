@@ -6,20 +6,30 @@ from datetime import datetime
 import pandas as pd
 
 from auth import get_github
-from calling_github import get_commits, get_repo
+from calling_github import get_commits_and_their_paths, get_repo
 
 
 def commits_df(
     repos: Iterable[str],
     since: datetime,
-    until: datetime
+    until: datetime,
+    paths_to_consider: Iterable[str],
+    commits_per_repo: int | None = None,
+    random_state: int | None = None,
 ) -> pd.DataFrame:
     gh = get_github()
     rows: list[dict[str, object]] = []
     for full_name_of_repo in repos:
         repo = get_repo(gh, full_name_of_repo)
-        commits = get_commits(repo, since=since, until=until)
-        for commit in commits:
+        commits_and_their_paths = get_commits_and_their_paths(
+                repo,
+                since,
+                until,
+                paths_to_consider=paths_to_consider,
+                commits_per_repo=commits_per_repo,
+                random_state=random_state
+            )
+        for commit in commits_and_their_paths.keys():
             rows.append(
                 {
                     "full_name_of_repo": full_name_of_repo,
