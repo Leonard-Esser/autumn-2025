@@ -1,5 +1,6 @@
 import pygit2
 from dataframe import commits_df, repos_df, results_df
+from detect_channels import detect_channels
 from domain_model import Subject
 from draw_subjects import draw_subjects
 from export import export_df, get_output_dir
@@ -49,7 +50,7 @@ def pipeline():
     
     results = results_df(
         subjects=subjects,
-        channel_detector=_return_empty_set,
+        channel_detector=detect_channels,
         classifier=_is_ccdc_event,
         is_naysayer=config.IS_NAYSAYER,
     )

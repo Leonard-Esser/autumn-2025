@@ -40,7 +40,7 @@ ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = 10
 # section: program behavior
 RETURNS_CACHED_DATA_IF_ANY = True
 UPDATES_CACHE = True
-IS_NAYSAYER = False
+IS_NAYSAYER = True
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
 
@@ -59,8 +59,8 @@ TRIES_TO_CLASSIFY_FLATTENED_HUNK = False
 # end of section
 
 # section: logging
-LOGS_SCORES = True
-LOGS_EACH_PARTIAL_RESULT_CREATED = True
+LOGS_SCORES = False
+LOGS_EACH_PARTIAL_RESULT_CREATED = False
 # end of section
 
 # section: output
