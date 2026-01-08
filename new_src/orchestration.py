@@ -50,7 +50,7 @@ def pipeline():
     results = results_df(
         subjects=subjects,
         channel_detector=_return_empty_set,
-        classifier=is_ccdc_event,
+        classifier=_is_ccdc_event,
         is_naysayer=config.IS_NAYSAYER,
     )
     export_df(
@@ -66,3 +66,14 @@ def pipeline():
 
 def _return_empty_set(subject: Subject, hunk: pygit2.DiffHunk) -> set[str]:
     return set()
+
+
+def _is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
+    return is_ccdc_event(
+        subject=subject,
+        hunk=hunk,
+        model_id=config.MODEL_ID,
+        token_limit=config.MAX_NUMBER_OF_TOKENS,
+        tries_to_classify_flattened_hunk=config.TRIES_TO_CLASSIFY_HUNK_WITH_SINGLE_CALL,
+        logs_scores=config.LOGS_SCORES,
+    )
