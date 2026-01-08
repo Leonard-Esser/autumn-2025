@@ -3,7 +3,6 @@ from functools import wraps
 
 from get_logger import get_logger
 
-
 logger = get_logger(__name__)
 
 def stop_the_clock(func):
