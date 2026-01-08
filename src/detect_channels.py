@@ -2,8 +2,9 @@ import re
 import unicodedata
 from difflib import SequenceMatcher
 
-import communication_channels
 import pygit2
+
+import communication_channels
 from domain_model import Subject
 
 # ---------------------------------------------------------------------------

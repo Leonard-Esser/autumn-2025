@@ -1,5 +1,8 @@
 import pygit2
+
+import config
 from dataframe import commits_df, repos_df, results_df
+from decorators import stop_the_clock
 from detect_channels import detect_channels
 from domain_model import Subject
 from draw_subjects import draw_subjects
@@ -7,9 +10,6 @@ from export import export_df, get_output_dir
 from get_root import get_root
 from get_version import get_version
 from is_ccdc_event import is_ccdc_event
-
-import config
-from decorators import stop_the_clock
 
 root = get_root()
 version = get_version(root)
@@ -47,12 +47,21 @@ def pipeline():
         version=version,
         random_state=config.RANDOM_STATE,
     )
+
+    if config.CANNOT_DETECT_ANYTHING:
+        channel_detector = _return_empty_set
+    else:
+        channel_detector = detect_channels
+    
+    if config.IS_NAYSAYER:
+        classifier = _naysayer
+    else:
+        classifier = _is_ccdc_event
     
     results = results_df(
         subjects=subjects,
-        channel_detector=detect_channels,
-        classifier=_is_ccdc_event,
-        is_naysayer=config.IS_NAYSAYER,
+        channel_detector=channel_detector,
+        classifier=classifier,
     )
     export_df(
         results,
@@ -67,6 +76,10 @@ def pipeline():
 
 def _return_empty_set(subject: Subject, hunk: pygit2.DiffHunk) -> set[str]:
     return set()
+
+
+def _naysayer(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
+    return False
 
 
 def _is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:

@@ -4,8 +4,9 @@ from collections.abc import Iterable
 from datetime import datetime
 
 import github
-from get_logger import get_logger
 from github import GithubException, UnknownObjectException
+
+from get_logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -29,8 +30,8 @@ def get_repo(gh: github.Github, full_name: str, lazy: bool = False):
 
 def get_commits_and_their_paths(
     repo: github.Repository,
-    since: datetime,
-    until: datetime,
+    since: datetime | None,
+    until: datetime | None,
     *,
     paths_to_consider: Iterable[str] | None = None,
     commits_per_repo: int | None = None,
@@ -59,11 +60,28 @@ def get_commits_and_their_paths(
 def _for_each_path_get_commits(
     repo: github.Repository,
     paths_to_consider: Iterable[str],
-    since: datetime,
-    until: datetime,
+    since: datetime | None,
+    until: datetime | None,
 ) -> dict[str, list[github.Commit]]:
     result: dict[str, list[github.Commit]] = {}
     for path in paths_to_consider:
+        if since is None and until is None:
+            result[path] = repo.get_commits(
+                path=path,
+            )
+            continue
+        if since is None:
+            result[path] = repo.get_commits(
+                path=path,
+                until=until,
+            )
+            continue
+        if until is None:
+            result[path] = repo.get_commits(
+                path=path,
+                since=since,
+            )
+            continue
         result[path] = repo.get_commits(
             path=path,
             since=since,

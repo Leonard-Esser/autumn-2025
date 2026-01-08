@@ -3,10 +3,10 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 import pygit2
-from get_logger import get_logger
-from pygit2_helpers import flatten_hunk
 
 import config
+from get_logger import get_logger
+from pygit2_helpers import flatten_hunk
 
 
 @dataclass(frozen=True, slots=True)

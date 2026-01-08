@@ -2,13 +2,13 @@ from collections.abc import Callable, Iterable
 from pathlib import Path
 
 import pygit2
+
+import config
 from analyze import analyze
 from delete_git_dir import delete_git_dir
 from domain_model import Result, Subject
 from get_patch import get_patch
 from get_repo import get_repo
-
-import config
 
 
 def search_for_ccdc_events(

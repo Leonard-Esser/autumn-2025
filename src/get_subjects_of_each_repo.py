@@ -1,17 +1,16 @@
 from collections.abc import Iterable
 from datetime import datetime
 
-from domain_model import Subject
-from get_logger import get_logger
-
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
+from domain_model import Subject
+from get_logger import get_logger
 
 
 def get_subjects_of_each_repo(
     repos: Iterable[str],
-    since: datetime,
-    until: datetime,
+    since: datetime | None,
+    until: datetime | None,
     paths_to_consider: Iterable[str],
     commits_per_repo: int | None = None,
     random_state: int | None = None,

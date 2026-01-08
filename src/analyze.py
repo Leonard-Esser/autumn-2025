@@ -1,6 +1,7 @@
 from collections.abc import Callable
 
 import pygit2
+
 from aggregate import aggregate
 from domain_model import PartialResult, Result, Subject
 

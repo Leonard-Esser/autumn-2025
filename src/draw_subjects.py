@@ -2,13 +2,12 @@ from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 
+import config
 from domain_model import Subject
 from export import export_subjects, get_output_dir
 from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
 from get_subjects_of_each_repo import get_subjects_of_each_repo
 from read_subjects_csv import read_subjects_csv
-
-import config
 
 
 def draw_subjects(
@@ -16,8 +15,8 @@ def draw_subjects(
     returns_cached_subjects_if_any: bool,
     updates_cache: bool,
     root: Path,
-    commits_since: datetime,
-    commits_until: datetime,
+    commits_since: datetime | None,
+    commits_until: datetime | None,
     files: Iterable[str],
     k_commits_per_repo: int | None = None,
     k_repos: int | None = None,

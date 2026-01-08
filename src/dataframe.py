@@ -4,14 +4,14 @@ from pathlib import Path
 
 import pandas as pd
 import pygit2
-from domain_model import Result, Subject
-from export import export_df, get_output_dir
-from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
-from search_for_ccdc_events import search_for_ccdc_events
 
 import config
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
+from domain_model import Result, Subject
+from export import export_df, get_output_dir
+from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
+from search_for_ccdc_events import search_for_ccdc_events
 
 
 def repos_df(
@@ -109,8 +109,8 @@ def commits_df(
     updates_cache: bool,
     root: Path,
     repos: Iterable[str],
-    commits_since: datetime,
-    commits_until: datetime,
+    commits_since: datetime | None,
+    commits_until: datetime | None,
     files: Iterable[str],
     k_commits_per_repo: int | None = None,
     version: str | None = None,
@@ -180,13 +180,7 @@ def results_df(
     subjects: Iterable[Subject],
     channel_detector: Callable[[Subject, pygit2.DiffHunk], set[str]],
     classifier: Callable[[Subject, pygit2.DiffHunk], bool],
-    is_naysayer: bool,
 ) -> pd.DataFrame:
-    if is_naysayer:
-        def _naysayer(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
-            return False
-        classifier = _naysayer
-    
     results = search_for_ccdc_events(
         subjects=subjects,
         channel_detector=channel_detector,

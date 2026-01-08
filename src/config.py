@@ -21,9 +21,10 @@ _CONTRIBUTING = "CONTRIBUTING"
 
 # section: RE the subject
 RANDOM_STATE = 42
-NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = 10
-SINCE = datetime(2016, 1, 1)
-UNTIL = datetime(2025, 12, 31, 23, 59, 59)
+NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = None
+SINCE: datetime | None = None
+# The datetime value of UNTIL has to be before the time of cloning a repo
+UNTIL: datetime | None = datetime(2025, 12, 31, 23, 59, 59)
 PATHS_TO_CONSIDER = [
     _README + ".md",
     _README.lower() + ".md",
@@ -34,12 +35,13 @@ PATHS_TO_CONSIDER = [
     _CONTRIBUTING + ".txt",
     _CONTRIBUTING.lower() + ".txt",
 ]
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = 10
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = None
 # end of section
 
 # section: program behavior
-RETURNS_CACHED_DATA_IF_ANY = True
+RETURNS_CACHED_DATA_IF_ANY = False
 UPDATES_CACHE = True
+CANNOT_DETECT_ANYTHING = True
 IS_NAYSAYER = True
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
