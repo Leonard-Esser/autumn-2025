@@ -1,6 +1,7 @@
 import pygit2
 
 import config
+import subjects_config
 from dataframe import commits_df, repos_df, results_df
 from decorators import stop_the_clock
 from detect_channels import detect_channels
@@ -20,19 +21,21 @@ def pipeline():
         returns_cached_subjects_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
         root=root,
-        commits_since=config.SINCE,
-        commits_until=config.UNTIL,
-        files=config.PATHS_TO_CONSIDER,
-        k_commits_per_repo=config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO,
-        k_repos=config.NUMBER_OF_REPOS_TO_INVESTIGATE,
+        commits_since=subjects_config.COMMITS_SINCE,
+        commits_until=subjects_config.COMMITS_UNTIL,
+        files=subjects_config.FILES_TO_INVESTIGATE,
+        excludes_retired_repos=subjects_config.EXCLUDES_RETIRED_REPOS,
+        k_commits_per_repo=subjects_config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO,
+        k_repos=subjects_config.NUMBER_OF_REPOS_TO_INVESTIGATE,
         version=version,
-        random_state=config.RANDOM_STATE,
+        random_state=subjects_config.RANDOM_STATE,
     )
     
     repos_df(
         returns_cached_repos_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
         root=root,
+        excludes_retired_repos=subjects_config.EXCLUDES_RETIRED_REPOS,
     )
     
     commits_df(
@@ -40,12 +43,12 @@ def pipeline():
         updates_cache=config.UPDATES_CACHE,
         root=root,
         repos={s.full_name_of_repo for s in subjects},
-        commits_since=config.SINCE,
-        commits_until=config.UNTIL,
-        files=config.PATHS_TO_CONSIDER,
-        k_commits_per_repo=config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO,
+        commits_since=subjects_config.COMMITS_SINCE,
+        commits_until=subjects_config.COMMITS_UNTIL,
+        files=subjects_config.FILES_TO_INVESTIGATE,
+        k_commits_per_repo=subjects_config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO,
         version=version,
-        random_state=config.RANDOM_STATE,
+        random_state=subjects_config.RANDOM_STATE,
     )
 
     if config.CANNOT_DETECT_ANYTHING:
@@ -69,7 +72,7 @@ def pipeline():
         get_output_dir(
             root,
             version=version,
-            config_sha=config.normalized_script_hash(),
+            config_sha=subjects_config.normalized_script_hash(),
         )
     )
 

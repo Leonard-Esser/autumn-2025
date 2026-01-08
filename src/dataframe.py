@@ -6,6 +6,7 @@ import pandas as pd
 import pygit2
 
 import config
+import subjects_config
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
 from domain_model import Result, Subject
@@ -18,7 +19,8 @@ def repos_df(
     *,
     returns_cached_repos_if_any: bool,
     updates_cache: bool,
-    root: Path
+    root: Path,
+    excludes_retired_repos: bool,
 ) -> pd.DataFrame:
     output_dir = get_output_dir(root)
     if returns_cached_repos_if_any:
@@ -28,7 +30,7 @@ def repos_df(
     
     repos_to_investigate = get_sample_provided_by_ebert_et_al(
         root=root,
-        excludes_retired_repos=False,
+        excludes_retired_repos=excludes_retired_repos,
     )
     gh = get_github()
     rows: list[dict[str, object]] = []
@@ -119,7 +121,7 @@ def commits_df(
     cache = get_output_dir(
         root,
         version=version,
-        config_sha=config.normalized_script_hash(),
+        config_sha=subjects_config.normalized_script_hash(),
     )
     if returns_cached_commits_if_any:
         commits_csv = cache / config.COMMITS_CSV

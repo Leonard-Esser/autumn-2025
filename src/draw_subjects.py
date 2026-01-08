@@ -1,8 +1,11 @@
+import csv
+import random
 from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 
 import config
+import subjects_config
 from domain_model import Subject
 from export import export_subjects, get_output_dir
 from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
@@ -17,6 +20,7 @@ def draw_subjects(
     commits_since: datetime | None,
     commits_until: datetime | None,
     files: Iterable[str],
+    excludes_retired_repos: bool,
     k_commits_per_repo: int | None = None,
     k_repos: int | None = None,
     version: str | None = None,
@@ -25,7 +29,7 @@ def draw_subjects(
     cache = get_output_dir(
         root,
         version=version,
-        config_sha=config.normalized_script_hash(),
+        config_sha=subjects_config.normalized_script_hash(),
     )
     if returns_cached_subjects_if_any:
         subjects_csv = cache / config.SUBJECTS_CSV
@@ -34,7 +38,7 @@ def draw_subjects(
     
     repos_to_investigate = get_sample_provided_by_ebert_et_al(
         root=root,
-        excludes_retired_repos=False,
+        excludes_retired_repos=excludes_retired_repos,
         k=k_repos,
         random_state=random_state,
     )
