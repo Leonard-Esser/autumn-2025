@@ -21,7 +21,7 @@ _CONTRIBUTING = "CONTRIBUTING"
 
 # section: RE the subject
 RANDOM_STATE = 42
-NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = 5
+NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = 10
 SINCE = datetime(2016, 1, 1)
 UNTIL = datetime(2025, 12, 31, 23, 59, 59)
 PATHS_TO_CONSIDER = [
@@ -34,13 +34,13 @@ PATHS_TO_CONSIDER = [
     _CONTRIBUTING + ".txt",
     _CONTRIBUTING.lower() + ".txt",
 ]
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = 5
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = 10
 # end of section
 
 # section: program behavior
 RETURNS_CACHED_DATA_IF_ANY = True
 UPDATES_CACHE = True
-IS_NAYSAYER = True
+IS_NAYSAYER = False
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
 
@@ -54,12 +54,13 @@ FINDS_SIMILAR = True
 # The model id of a predefined tokenizer hosted inside a model repo on huggingface.co.
 MODEL_ID = "facebook/bart-large-mnli"
 # Maximum allowed number of tokens for a single (premise, hypothesis) pair.
-MAX_NUMBER_OF_TOKENS = 512
-TRIES_TO_CLASSIFY_HUNK_WITH_ONLY_ONE_CALL = False
+TOKEN_LIMIT = 512
+TRIES_TO_CLASSIFY_FLATTENED_HUNK = False
 # end of section
 
 # section: logging
-LOGS_EACH_PARTIAL_RESULT_CREATED = False
+LOGS_SCORES = True
+LOGS_EACH_PARTIAL_RESULT_CREATED = True
 # end of section
 
 # section: output

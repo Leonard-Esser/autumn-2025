@@ -73,7 +73,7 @@ def _is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
         subject=subject,
         hunk=hunk,
         model_id=config.MODEL_ID,
-        token_limit=config.MAX_NUMBER_OF_TOKENS,
-        tries_to_classify_flattened_hunk=config.TRIES_TO_CLASSIFY_HUNK_WITH_SINGLE_CALL,
+        token_limit=config.TOKEN_LIMIT,
+        tries_to_classify_flattened_hunk=config.TRIES_TO_CLASSIFY_FLATTENED_HUNK,
         logs_scores=config.LOGS_SCORES,
     )
