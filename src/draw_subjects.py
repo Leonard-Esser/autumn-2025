@@ -7,7 +7,6 @@ from domain_model import Subject
 from export import export_subjects, get_output_dir
 from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
 from get_subjects_of_each_repo import get_subjects_of_each_repo
-from read_subjects_csv import read_subjects_csv
 
 
 def draw_subjects(
@@ -31,7 +30,7 @@ def draw_subjects(
     if returns_cached_subjects_if_any:
         subjects_csv = cache / config.SUBJECTS_CSV
         if subjects_csv.exists():
-            return read_subjects_csv(subjects_csv)
+            return draw_subjects_from_csv(subjects_csv)
     
     repos_to_investigate = get_sample_provided_by_ebert_et_al(
         root=root,
@@ -53,4 +52,28 @@ def draw_subjects(
             config.SUBJECTS_CSV,
             cache
         )
+    return subjects
+
+
+def draw_subjects_from_csv(
+    path: Path,
+    *,
+    k: int | None = None,
+    random_state: int | None = None,
+) -> set[Subject]:
+    subjects: set[Subject] = set()
+    with path.open("r", newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            subjects.add(
+                Subject(
+                    full_name_of_repo=row["full_name_of_repo"],
+                    commit_sha=row["commit_sha"],
+                    path=row["path"],
+                )
+            )
+    if k is not None and k > 0 and k < len(subjects):
+        if random_state is not None:
+            random.seed(random_state)
+        subjects = random.sample(subjects, k)
     return subjects
