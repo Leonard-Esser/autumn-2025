@@ -12,7 +12,6 @@ from calling_github import get_commits_and_their_paths, get_repo
 from domain_model import Result, Subject
 from export import export_df, get_output_dir
 from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
-from search_for_ccdc_events import search_for_ccdc_events
 
 
 def repos_df(
