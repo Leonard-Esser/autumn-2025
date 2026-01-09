@@ -177,21 +177,7 @@ def commits_df(
     return df
 
 
-def results_df(
-    *,
-    subjects: Iterable[Subject],
-    channel_detector: Callable[[Subject, pygit2.DiffHunk], set[str]],
-    classifier: Callable[[Subject, pygit2.DiffHunk], bool],
-) -> pd.DataFrame:
-    results = search_for_ccdc_events(
-        subjects=subjects,
-        channel_detector=channel_detector,
-        classifier=classifier
-    )
-    return _dataframe(results)
-
-
-def _dataframe(result_set: Iterable[Result]) -> pd.DataFrame:
+def dataframe(result_set: Iterable[Result]) -> pd.DataFrame:
     """
     Returns a DataFrame with:
       - one row per channel in Result.detected_channels

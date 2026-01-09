@@ -2,7 +2,8 @@ import pygit2
 
 import config
 import subjects_config
-from dataframe import commits_df, repos_df, results_df
+from analyze import analyze
+from dataframe import commits_df, dataframe, repos_df
 from decorators import stop_the_clock
 from detect_channels import detect_channels
 from domain_model import Subject
@@ -61,13 +62,16 @@ def pipeline():
     else:
         classifier = _is_ccdc_event
     
-    results = results_df(
-        subjects=subjects,
+    results = analyze(
+        subjects,
         channel_detector=channel_detector,
         classifier=classifier,
+        logs_progress=config.LOGS_PROGRESS,
+        deletes_git_dir_immediately=config.DELETES_GIT_DIR_IMMEDIATELY
     )
+    results_df = dataframe(results)
     export_df(
-        results,
+        results_df,
         config.RESULTS_CSV,
         get_output_dir(
             root,

@@ -2,7 +2,7 @@
 RETURNS_CACHED_DATA_IF_ANY = True
 UPDATES_CACHE = True
 CANNOT_DETECT_ANYTHING = True
-IS_NAYSAYER = True
+IS_NAYSAYER = False
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
 
@@ -21,6 +21,7 @@ TRIES_TO_CLASSIFY_FLATTENED_HUNK = False
 # end of section
 
 # section: logging
+LOGS_PROGRESS = True
 LOGS_SCORES = False
 LOGS_EACH_PARTIAL_RESULT_CREATED = False
 # end of section
