@@ -89,7 +89,7 @@ def is_ccdc_event(
                 for text_slice in slice_text_by_token_limit(
                     text,
                     text_fits=_slice_fits,
-                ):    
+                ):
                     partial_results.append(
                         _partial_result(
                             subject=subject,
