@@ -2,8 +2,6 @@ import os
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
-import platform
-import subprocess
 from get_root import get_root
 from orchestration import pipeline
 from play_sound import play_sound

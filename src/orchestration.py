@@ -64,6 +64,7 @@ def pipeline():
     
     results = analyze(
         subjects,
+        root=root,
         channel_detector=channel_detector,
         classifier=classifier,
         logs_progress=config.LOGS_PROGRESS,

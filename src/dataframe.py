@@ -1,17 +1,16 @@
-from collections.abc import Callable, Iterable
+from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
-import pygit2
 
 import config
 import subjects_config
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
-from domain_model import Result, Subject
+from domain_model import Result
 from export import export_df, get_output_dir
-from get_sample_provided_by_ebert_et_al import get_sample_provided_by_ebert_et_al
+from sample_provided_by_ebert_et_al import draw_repos
 
 
 def repos_df(
@@ -27,10 +26,7 @@ def repos_df(
         if repos_csv.exists():
             return pd.read_csv(repos_csv)
     
-    repos_to_investigate = get_sample_provided_by_ebert_et_al(
-        root=root,
-        excludes_retired_repos=excludes_retired_repos,
-    )
+    repos_to_investigate = draw_repos()
     gh = get_github()
     rows: list[dict[str, object]] = []
     for full_name_of_repo in repos_to_investigate:

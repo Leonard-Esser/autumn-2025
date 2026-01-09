@@ -18,6 +18,7 @@ logger = get_logger(__name__)
 def analyze(
     subjects: Iterable[Subject],
     *,
+    root: Path,
     channel_detector: Callable[[Subject, pygit2.DiffHunk], set[str]],
     classifier: Callable[[Subject, pygit2.DiffHunk], bool],
     logs_progress: bool,
@@ -31,7 +32,7 @@ def analyze(
         counter: int = 1
     results: set[Result] = set()
     for full_name_of_repo, group_of_subjects in _group_subjects_by_repo(subjects).items():
-        repo: pygit2.Repository = get_repo(full_name_of_repo)
+        repo: pygit2.Repository = get_repo(full_name_of_repo=full_name_of_repo, root=root)
         for subject in group_of_subjects:
             patch = get_patch(subject, repo)
             if logs_progress:

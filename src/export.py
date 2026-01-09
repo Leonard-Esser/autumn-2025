@@ -67,3 +67,21 @@ def get_output_dir(
         path /= extra_dir
     path.mkdir(parents=True, exist_ok=True)
     return path
+
+
+def export_set_of_names(
+    names: Iterable[str],
+    *,
+    csv_path: Path | str,
+    col_name: str,
+) -> Path:
+    csv_path = Path(csv_path)
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    unique_names = sorted(
+        {(name,) for name in names}
+    )
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([col_name])
+        writer.writerows(unique_names)
+    return csv_path

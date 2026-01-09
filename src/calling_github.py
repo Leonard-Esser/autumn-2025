@@ -108,3 +108,14 @@ def _get_commits_and_their_paths(
         reverse=True
     )
     return dict(sorted_items)
+
+
+def name_check(
+    full_name_of_repo: str,
+    *,
+    gh: github.Github,
+) -> str | None:
+    repo = get_repo(gh=gh, full_name=full_name_of_repo, lazy=False)
+    if repo is None:
+        return None
+    return repo.full_name

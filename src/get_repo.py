@@ -5,12 +5,14 @@ import pygit2
 
 from auth import get_remote_callbacks
 from get_logger import get_logger
-from get_root import get_root
 from helpers import raise_error_if_path_is_not_git_dir
 
 
-def get_repo(full_name_of_repo: str) -> pygit2.Repository:
-    root = get_root()
+def get_repo(
+    *,
+    full_name_of_repo: str,
+    root: Path,
+) -> pygit2.Repository:
     path = _get_path(full_name_of_repo, root)
     if path.exists():
         return pygit2.Repository(path)
