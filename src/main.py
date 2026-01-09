@@ -1,3 +1,7 @@
+import os
+
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
 import platform
 import subprocess
 from get_root import get_root
