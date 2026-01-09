@@ -69,6 +69,7 @@ def pairs_fit_max_length(
             padding=False,
             return_attention_mask=False,
             return_token_type_ids=False,
+            verbose=False,
         )
 
         if len(encoded["input_ids"]) > max_length:
