@@ -56,14 +56,14 @@ def get_output_dir(
     root: Path,
     *,
     version: str | None = None,
-    config_sha: str | None = None,
+    extra_dir: str | None = None,
 ) -> Path:
     path = root
     for part in config.PARTS_OF_BASE_OUTPUT_DIR:
         path /= part
     if version:
         path /= version
-    if config_sha:
-        path /= config_sha
+    if extra_dir:
+        path /= extra_dir
     path.mkdir(parents=True, exist_ok=True)
     return path

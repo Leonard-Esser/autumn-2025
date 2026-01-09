@@ -29,7 +29,7 @@ def draw_subjects(
     cache = get_output_dir(
         root,
         version=version,
-        config_sha=subjects_config.normalized_script_hash(),
+        extra_dir=f"config_{subjects_config.normalized_script_hash()}",
     )
     if returns_cached_subjects_if_any:
         subjects_csv = cache / config.SUBJECTS_CSV

@@ -121,7 +121,7 @@ def commits_df(
     cache = get_output_dir(
         root,
         version=version,
-        config_sha=subjects_config.normalized_script_hash(),
+        extra_dir=f"config_{subjects_config.normalized_script_hash()}",
     )
     if returns_cached_commits_if_any:
         commits_csv = cache / config.COMMITS_CSV
