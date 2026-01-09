@@ -14,6 +14,7 @@ from get_repo import get_repo
 logger = get_logger(__name__)
 
 
+@stop_the_clock
 def analyze(
     subjects: Iterable[Subject],
     *,
