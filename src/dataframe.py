@@ -135,13 +135,13 @@ def commits_df(
         if repo is None:
             continue
         commits_and_their_paths = get_commits_and_their_paths(
-                repo,
-                commits_since,
-                commits_until,
-                paths_to_consider=files,
-                commits_per_repo=k_commits_per_repo,
-                random_state=random_state
-            )
+            repo,
+            commits_since,
+            commits_until,
+            paths_to_consider=files,
+            commits_per_repo=k_commits_per_repo,
+            random_state=random_state
+        )
         for commit in commits_and_their_paths.keys():
             rows.append(
                 {
