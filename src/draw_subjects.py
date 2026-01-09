@@ -17,7 +17,6 @@ def draw_subjects(
     returns_cached_subjects_if_any: bool,
     updates_cache: bool,
     root: Path,
-    repos: Iterable[str],
     commits_since: datetime | None,
     commits_until: datetime | None,
     files: Iterable[str],
