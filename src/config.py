@@ -1,7 +1,7 @@
 # section: program behavior
 RETURNS_CACHED_DATA_IF_ANY = True
 UPDATES_CACHE = True
-CANNOT_DETECT_ANYTHING = True
+CANNOT_DETECT_ANYTHING = False
 IS_NAYSAYER = False
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
