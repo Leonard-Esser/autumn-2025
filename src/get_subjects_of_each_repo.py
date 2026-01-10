@@ -51,8 +51,3 @@ def get_subjects_of_each_repo(
         except Exception as exc:
             log.error(f"[Error] Unexpected error while processing '{full_name_of_repo}': {exc}")
     return all_subjects
-
-
-
-
-

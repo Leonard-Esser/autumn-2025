@@ -3,12 +3,13 @@ import pygit2
 import config
 import subjects_config
 from analyze import analyze
-from dataframe import commits_df, dataframe, repos_df
+from data_access import get_results_dir
+from dataframes import commits_df, dataframe, repos_df
 from decorators import stop_the_clock
 from detect_channels import detect_channels
 from domain_model import Subject
 from draw_subjects import draw_subjects
-from export import export_df, get_output_dir
+from export import export_df
 from get_root import get_root
 from get_version import get_version
 from is_ccdc_event import is_ccdc_event
@@ -19,36 +20,32 @@ version = get_version(root)
 @stop_the_clock
 def pipeline():
     subjects = draw_subjects(
+        root,
         returns_cached_subjects_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
-        root=root,
+        k_repos=subjects_config.NUMBER_OF_REPOS_TO_INVESTIGATE,
         commits_since=subjects_config.COMMITS_SINCE,
         commits_until=subjects_config.COMMITS_UNTIL,
         files=subjects_config.FILES_TO_INVESTIGATE,
-        excludes_retired_repos=subjects_config.EXCLUDES_RETIRED_REPOS,
         k_commits_per_repo=subjects_config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO,
-        k_repos=subjects_config.NUMBER_OF_REPOS_TO_INVESTIGATE,
-        version=version,
         random_state=subjects_config.RANDOM_STATE,
     )
     
     repos_df(
+        root,
         returns_cached_repos_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
-        root=root,
-        excludes_retired_repos=subjects_config.EXCLUDES_RETIRED_REPOS,
     )
     
     commits_df(
+        root,
         returns_cached_commits_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
-        root=root,
         repos={s.full_name_of_repo for s in subjects},
         commits_since=subjects_config.COMMITS_SINCE,
         commits_until=subjects_config.COMMITS_UNTIL,
         files=subjects_config.FILES_TO_INVESTIGATE,
         k_commits_per_repo=subjects_config.ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO,
-        version=version,
         random_state=subjects_config.RANDOM_STATE,
     )
 
@@ -71,13 +68,14 @@ def pipeline():
         deletes_git_dir_immediately=config.DELETES_GIT_DIR_IMMEDIATELY
     )
     results_df = dataframe(results)
+    sample = subjects_config.normalized_script_hash()
     export_df(
         results_df,
-        config.RESULTS_CSV,
-        get_output_dir(
+        f"results_{version}_{sample}.csv",
+        get_results_dir(
             root,
-            version=version,
-            extra_dir=f"config_{subjects_config.normalized_script_hash()}",
+            program_version=version,
+            sample=sample,
         )
     )
 

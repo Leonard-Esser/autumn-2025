@@ -37,11 +37,11 @@ def get_commits_and_their_paths(
     commits_per_repo: int | None = None,
     random_state: int | None = None,
 ) -> dict[github.Commit, list[str]]:
-    commits_of_each_path = _for_each_path_get_commits(
+    commits_of_each_path = _for_each_file_get_commits(
+        paths_to_consider,
         repo=repo,
-        paths_to_consider=paths_to_consider,
         since=since,
-        until=until
+        until=until,
     )
     commits_and_paths = _get_commits_and_their_paths(
         commits_of_each_path=commits_of_each_path,
@@ -119,3 +119,35 @@ def name_check(
     if repo is None:
         return None
     return repo.full_name
+
+
+def _for_each_file_get_commits(
+    files: Iterable[str],
+    *,
+    repo: github.Repository,
+    since: datetime| None,
+    until: datetime| None,
+) -> dict[str, list[github.Commit]]:
+    result: dict[str, list[github.Commit]] = {}
+    if since is None:
+        since = github.GithubObject.NotSet
+    if until is None:
+        until = github.GithubObject.NotSet
+    for file in files:
+        commits = repo.get_commits(
+            path=file,
+            since=since,
+            until=until
+        )
+        if not commits:
+            logger.info((
+                "Calling github.Repository.get_commits "
+                f"with path={file}, since={since}, and until={until} "
+                "returned no commits."
+            ))
+        result[file] = repo.get_commits(
+            path=file,
+            since=since,
+            until=until
+        )
+    return result

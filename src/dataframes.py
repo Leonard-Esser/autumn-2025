@@ -4,32 +4,33 @@ from pathlib import Path
 
 import pandas as pd
 
-import config
 import subjects_config
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
+from data_access import get_cache_dir
 from domain_model import Result
-from export import export_df, get_output_dir
+from export import export_df
 from sample_provided_by_ebert_et_al import draw_repos
 
 
 def repos_df(
+    root: Path,
     *,
     returns_cached_repos_if_any: bool,
     updates_cache: bool,
-    root: Path,
-    excludes_retired_repos: bool,
 ) -> pd.DataFrame:
-    output_dir = get_output_dir(root)
+    cache = get_cache_dir(
+        root,
+    )
+    file_name = "all_repos.csv"
     if returns_cached_repos_if_any:
-        repos_csv = output_dir / config.REPOS_CSV
+        repos_csv = cache / file_name
         if repos_csv.exists():
             return pd.read_csv(repos_csv)
     
-    repos_to_investigate = draw_repos()
     gh = get_github()
     rows: list[dict[str, object]] = []
-    for full_name_of_repo in repos_to_investigate:
+    for full_name_of_repo in draw_repos():
         repo = get_repo(gh, full_name_of_repo)
         if repo is None:
             continue
@@ -91,37 +92,40 @@ def repos_df(
     )
     if not df.empty:
         df = df.sort_values("full_name_of_repo", kind="stable", ignore_index=True)
+    
     if updates_cache:
         export_df(
             df,
-            config.REPOS_CSV,
-            output_dir
+            file_name,
+            cache,
         )
+    
     return df
 
 
 def commits_df(
+    root: Path,
     *,
     returns_cached_commits_if_any: bool,
     updates_cache: bool,
-    root: Path,
     repos: Iterable[str],
+    k_repos: int | None = None,
     commits_since: datetime | None,
     commits_until: datetime | None,
     files: Iterable[str],
     k_commits_per_repo: int | None = None,
-    version: str | None = None,
     random_state: int | None = None,
 ) -> pd.DataFrame:
-    cache = get_output_dir(
+    sample = subjects_config.normalized_script_hash()
+    cache = get_cache_dir(
         root,
-        version=version,
-        extra_dir=f"config_{subjects_config.normalized_script_hash()}",
+        sample=sample,
     )
+    file_name = f"commits_{sample}.csv"
     if returns_cached_commits_if_any:
-        commits_csv = cache / config.COMMITS_CSV
-        if commits_csv.exists():
-            return pd.read_csv(commits_csv)
+        path = cache / file_name
+        if path.exists():
+            return pd.read_csv(path)
     
     gh = get_github()
     rows: list[dict[str, object]] = []
@@ -135,7 +139,7 @@ def commits_df(
             commits_until,
             paths_to_consider=files,
             commits_per_repo=k_commits_per_repo,
-            random_state=random_state
+            random_state=random_state,
         )
         for commit in commits_and_their_paths.keys():
             rows.append(
@@ -163,12 +167,14 @@ def commits_df(
             kind="stable",
             ignore_index=True,
         )
+    
     if updates_cache:
         export_df(
             df,
-            config.COMMITS_CSV,
-            cache
+            file_name,
+            cache,
         )
+    
     return df
 
 

@@ -4,56 +4,56 @@ from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 
-import config
 import subjects_config
+from data_access import get_cache_dir
 from domain_model import Subject
-from export import export_subjects, get_output_dir
+from export import export_subjects
 from get_subjects_of_each_repo import get_subjects_of_each_repo
 from sample_provided_by_ebert_et_al import draw_repos
 
 
 def draw_subjects(
+    root: Path,
     *,
     returns_cached_subjects_if_any: bool,
     updates_cache: bool,
-    root: Path,
+    k_repos: int | None = None,
     commits_since: datetime | None,
     commits_until: datetime | None,
     files: Iterable[str],
-    excludes_retired_repos: bool,
     k_commits_per_repo: int | None = None,
-    k_repos: int | None = None,
-    version: str | None = None,
     random_state: int | None = None,
 ) -> set[Subject]:
-    cache = get_output_dir(
+    sample = subjects_config.normalized_script_hash()
+    cache = get_cache_dir(
         root,
-        version=version,
-        extra_dir=f"config_{subjects_config.normalized_script_hash()}",
+        sample=sample,
     )
+    file_name = f"subjects_{sample}.csv"
     if returns_cached_subjects_if_any:
-        subjects_csv = cache / config.SUBJECTS_CSV
-        if subjects_csv.exists():
-            return draw_subjects_from_csv(subjects_csv)
+        path = cache / file_name
+        if path.exists():
+            return draw_subjects_from_csv(path)
     
-    repos_to_investigate = draw_repos(
-        k=k_repos,
-        random_state=random_state,
-    )
     subjects = get_subjects_of_each_repo(
-        repos=repos_to_investigate,
+        repos=draw_repos(
+            k=k_repos,
+            random_state=random_state,
+        ),
         since=commits_since,
         until=commits_until,
         paths_to_consider=files,
         commits_per_repo=k_commits_per_repo,
-        random_state=random_state
+        random_state=random_state,
     )
+
     if updates_cache:
         export_subjects(
             subjects,
-            config.SUBJECTS_CSV,
-            cache
+            file_name,
+            cache,
         )
+    
     return subjects
 
 

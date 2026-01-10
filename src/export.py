@@ -52,23 +52,6 @@ def export_df(
     return csv_path
 
 
-def get_output_dir(
-    root: Path,
-    *,
-    version: str | None = None,
-    extra_dir: str | None = None,
-) -> Path:
-    path = root
-    for part in config.PARTS_OF_BASE_OUTPUT_DIR:
-        path /= part
-    if version:
-        path /= version
-    if extra_dir:
-        path /= extra_dir
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
 def export_set_of_names(
     names: Iterable[str],
     *,

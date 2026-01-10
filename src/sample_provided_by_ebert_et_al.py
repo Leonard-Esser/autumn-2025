@@ -24,15 +24,15 @@ def draw_repos(
     k: int | None = None,
     random_state: int | None = None,
 ) -> set[str]:
-    population: set[str] = _full_name_of_each_repo()
+    population = sorted(_full_name_of_each_repo())
     if not population:
         return set()
     if k is not None and k > 0:
         k = min(k, len(population))
         if random_state is not None:
             random.seed(random_state)
-        return random.sample(population, k)
-    return population
+        return set(random.sample(population, k))
+    return set(population)
 
 
 def _full_name_of_each_repo(

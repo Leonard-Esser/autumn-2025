@@ -25,14 +25,3 @@ LOGS_PROGRESS = True
 LOGS_SCORES = False
 LOGS_EACH_PARTIAL_RESULT_CREATED = False
 # end of section
-
-# section: output
-PARTS_OF_BASE_OUTPUT_DIR = [
-    "data",
-    "output"
-]
-SUBJECTS_CSV = "subjects.csv"
-REPOS_CSV = "all_repos.csv"
-COMMITS_CSV = "commits.csv"
-RESULTS_CSV = "results.csv"
-# end of section
