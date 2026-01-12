@@ -10,6 +10,7 @@ from data_access import get_results_dir
 from dataframes import COLUMNS_FOR_MANUAL_VERIFICATION, commits_df, dataframe, merge, repos_df
 from decorators import stop_the_clock
 from domain_model import Subject
+from draw_ccdc_events import draw_ccdc_events
 from draw_subjects import draw_subjects
 from export import export_df
 
@@ -62,30 +63,67 @@ def pipeline(
         logs_progress=logs_progress,
         deletes_git_dir_immediately=deletes_git_dir_immediately,
     )
-    results_df = dataframe(results)
+
+    positives = draw_ccdc_events(
+        results=results,
+        k=config.NUMBER_OF_POSITIVE_EVENTS_TO_DRAW,
+        random_state=config.RANDOM_STATE,
+    )
+
+    negatives = draw_ccdc_events(
+        results=results,
+        k=config.NUMBER_OF_NEGATIVE_EVENTS_TO_DRAW,
+        logical_negation=True,
+        random_state=config.RANDOM_STATE,
+    )
+
+    sample = subjects_config.normalized_script_hash()
+    results_dir = get_results_dir(
+        root,
+        program_version=program_version,
+        sample=sample,
+    )
+
     results_df = merge(
-        results=results_df,
+        results=dataframe(results),
         commits=commits,
         repos=repos,
     )
-    sample = subjects_config.normalized_script_hash()
-    file_name = f"results_{program_version}_{sample}"
+
+    positives_df = merge(
+        results=dataframe(positives),
+        commits=commits,
+    )
+
+    negatives_df = merge(
+        results=dataframe(negatives),
+        commits=commits,
+    )
+    
+    file_name = f"results_{program_version}_{sample}.csv"
     export_df(
         results_df,
-        f"{file_name}.csv",
-        get_results_dir(
-            root,
-            program_version=program_version,
-            sample=sample,
-        )
+        file_name,
+        results_dir,
     )
-    file_name = f"{file_name}_focused"
+
+    file_name = f"results_{program_version}_{sample}_focused.csv"
     export_df(
         results_df[COLUMNS_FOR_MANUAL_VERIFICATION],
-        f"{file_name}.csv",
-        get_results_dir(
-            root,
-            program_version=program_version,
-            sample=sample,
-        )
+        file_name,
+        results_dir,
+    )
+    
+    file_name = f"results_{program_version}_{sample}_positives.csv"
+    export_df(
+        positives_df[COLUMNS_FOR_MANUAL_VERIFICATION],
+        file_name,
+        results_dir,
+    )
+    
+    file_name = f"results_{program_version}_{sample}_negatives.csv"
+    export_df(
+        negatives_df[COLUMNS_FOR_MANUAL_VERIFICATION],
+        file_name,
+        results_dir,
     )

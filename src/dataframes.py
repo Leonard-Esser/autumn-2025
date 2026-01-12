@@ -231,7 +231,7 @@ def merge(
     *,
     results: pd.DataFrame,
     commits: pd.DataFrame,
-    repos: pd.DataFrame | None,
+    repos: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     if repos is not None:
         results = results.merge(

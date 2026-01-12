@@ -25,3 +25,9 @@ LOGS_PROGRESS = True
 LOGS_SCORES = True
 LOGS_EACH_PARTIAL_RESULT_CREATED = True
 # end of section
+
+# section: manual verification
+RANDOM_STATE = 42
+NUMBER_OF_POSITIVE_EVENTS_TO_DRAW = 10
+NUMBER_OF_NEGATIVE_EVENTS_TO_DRAW = 10
+# end of section
