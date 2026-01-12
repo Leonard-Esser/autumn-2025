@@ -12,6 +12,14 @@ from domain_model import Result
 from export import export_df
 from sample_provided_by_ebert_et_al import draw_repos
 
+COLUMNS_OF_SPECIAL_INTEREST: list[str] = [
+    "date",
+    "url",
+    "path",
+    "is_ccdc_event",
+    "detected_channel",
+]
+
 
 def repos_df(
     root: Path,
@@ -38,7 +46,7 @@ def repos_df(
             {
                 # identity
                 "id": repo.id,
-                "full_name_of_repo": repo.full_name,
+                "full_name": repo.full_name,
                 
                 # urls
                 "homepage": repo.homepage,
@@ -70,7 +78,7 @@ def repos_df(
         rows,
         columns=[
             "id",
-            "full_name_of_repo",
+            "full_name",
             "homepage",
             "clone_url",
             "git_url",
@@ -91,7 +99,7 @@ def repos_df(
         ],
     )
     if not df.empty:
-        df = df.sort_values("full_name_of_repo", kind="stable", ignore_index=True)
+        df = df.sort_values("full_name", kind="stable", ignore_index=True)
     
     if updates_cache:
         export_df(
@@ -146,7 +154,7 @@ def commits_df(
                 {
                     "full_name_of_repo": full_name_of_repo,
                     "sha": commit.sha,
-                    "url": commit.html_url,
+                    "url": f"{commit.html_url} ",
                     "message": commit.commit.message,
                     "date": commit.commit.committer.date,
                 }
@@ -218,3 +226,27 @@ def dataframe(result_set: Iterable[Result]) -> pd.DataFrame:
         }
     )
     return df
+
+
+def merge(
+    *,
+    results: pd.DataFrame,
+    commits: pd.DataFrame,
+    repos: pd.DataFrame | None,
+) -> pd.DataFrame:
+    if repos is not None:
+        results = results.merge(
+            repos,
+            left_on="full_name_of_repo",
+            right_on="full_name",
+            how="left",
+        )
+        results.drop(columns=["full_name"])
+    results = results.merge(
+        commits,
+        left_on=["full_name_of_repo", "commit_sha"],
+        right_on=["full_name_of_repo", "sha"],
+        how="left",
+    )
+    results.drop(columns=["sha"])
+    return results

@@ -79,6 +79,12 @@ def test(
                 file_name,
                 test_results_dir,
             )
+            file_name = f"results_{test}_{program_version}_focused.csv"
+            export_df(
+                dataframe(actual),
+                file_name,
+                test_results_dir,
+            )
     
     report = compare_result_sets(
         expected=expected,

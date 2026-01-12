@@ -7,7 +7,7 @@ import config
 import subjects_config
 from analyze import analyze
 from data_access import get_results_dir
-from dataframes import commits_df, dataframe, repos_df
+from dataframes import COLUMNS_OF_SPECIAL_INTEREST, commits_df, dataframe, merge, repos_df
 from decorators import stop_the_clock
 from domain_model import Subject
 from draw_subjects import draw_subjects
@@ -36,13 +36,13 @@ def pipeline(
         random_state=subjects_config.RANDOM_STATE,
     )
     
-    repos_df(
+    repos = repos_df(
         root,
         returns_cached_repos_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
     )
     
-    commits_df(
+    commits = commits_df(
         root,
         returns_cached_commits_if_any=config.RETURNS_CACHED_DATA_IF_ANY,
         updates_cache=config.UPDATES_CACHE,
@@ -63,10 +63,24 @@ def pipeline(
         deletes_git_dir_immediately=deletes_git_dir_immediately,
     )
     results_df = dataframe(results)
+    results_df = merge(
+        results=results_df,
+        commits=commits,
+        repos=repos,
+    )
     sample = subjects_config.normalized_script_hash()
     export_df(
         results_df,
         f"results_{program_version}_{sample}.csv",
+        get_results_dir(
+            root,
+            program_version=program_version,
+            sample=sample,
+        )
+    )
+    export_df(
+        results_df[COLUMNS_OF_SPECIAL_INTEREST],
+        f"results_{program_version}_{sample}_focused.csv",
         get_results_dir(
             root,
             program_version=program_version,
