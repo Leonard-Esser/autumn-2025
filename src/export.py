@@ -60,7 +60,11 @@ def export_set_of_names(
     csv_path = Path(csv_path)
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     unique_names = sorted(
-        {(name,) for name in names}
+        {
+            (name,)
+            for name in names
+            if isinstance(name, str) and name.strip()
+        }
     )
     with csv_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter=",")

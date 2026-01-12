@@ -15,8 +15,8 @@ parts = [
     "output"
 ]
 base_path: Path = root / "data" / "samples" / "ebert_et_al_2022"
-path_to_original_sample: Path = base_path / "sample_100.csv"
-path_to_updated_sample: Path = base_path / "sample_100_updated.csv"
+path_to_original_sample: Path = base_path / "sample_1000.csv"
+path_to_updated_sample: Path = base_path / "sample_1000_updated.csv"
 
 
 def draw_repos(
