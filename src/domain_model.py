@@ -1,12 +1,14 @@
 import json
+import logging
 from dataclasses import dataclass, field
 from typing import Optional
 
 import pygit2
 
 import config
-from get_logger import get_logger
 from pygit2_helpers import flatten_hunk
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
@@ -33,7 +35,7 @@ class PartialResult:
     
     def __post_init__(self) -> None:
         if config.LOGS_EACH_PARTIAL_RESULT_CREATED:
-            get_logger(__name__).info(
+            logger.info(
                 "PartialResult created: %s",
                 self._log_repr(),
             )

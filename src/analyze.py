@@ -1,3 +1,4 @@
+import logging
 from collections.abc import Callable, Iterable
 from pathlib import Path
 
@@ -7,11 +8,10 @@ from aggregate import aggregate
 from decorators import stop_the_clock
 from delete_git_dir import delete_git_dir
 from domain_model import PartialResult, Result, Subject
-from get_logger import get_logger
 from get_patch import get_patch
 from get_repo import get_repo
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 @stop_the_clock

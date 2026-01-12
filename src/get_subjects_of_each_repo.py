@@ -1,10 +1,12 @@
+import logging
 from collections.abc import Iterable
 from datetime import datetime
 
 from auth import get_github
 from calling_github import get_commits_and_their_paths, get_repo
 from domain_model import Subject
-from get_logger import get_logger
+
+logger = logging.getLogger(__name__)
 
 
 def get_subjects_of_each_repo(
@@ -23,7 +25,6 @@ def get_subjects_of_each_repo(
     (without replacement). For sampled commits, we include all paths (from
     paths_to_consider) that the commit touched.
     """
-    log = get_logger(__name__)
     gh = get_github()
     all_subjects: set[Subject] = set()
     for full_name_of_repo in repos:
@@ -49,5 +50,5 @@ def get_subjects_of_each_repo(
                         )
                     )
         except Exception as exc:
-            log.error(f"[Error] Unexpected error while processing '{full_name_of_repo}': {exc}")
+            logger.error(f"[Error] Unexpected error while processing '{full_name_of_repo}': {exc}")
     return all_subjects

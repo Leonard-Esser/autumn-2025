@@ -1,3 +1,4 @@
+import logging
 import random
 from collections import defaultdict
 from collections.abc import Iterable
@@ -6,9 +7,7 @@ from datetime import datetime
 import github
 from github import GithubException, UnknownObjectException
 
-from get_logger import get_logger
-
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def get_repo(gh: github.Github, full_name: str, lazy: bool = False):

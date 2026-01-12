@@ -1,10 +1,9 @@
+import logging
 import time
 from functools import wraps
 from threading import Lock
 
-from get_logger import get_logger
-
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def stop_the_clock(func):

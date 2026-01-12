@@ -1,3 +1,5 @@
+import logging
+
 import pygit2
 from transformers import AutoTokenizer
 
@@ -5,13 +7,12 @@ import labels
 from aggregate import any_result_is_ccdc_event
 from classifier import Classifier
 from domain_model import PartialResult, Subject
-from get_logger import get_logger
 from labels import TaskMode
 from pairs_fit_max_length import pairs_fit_max_length
 from pygit2_helpers import flatten_hunk, flatten_lines, group_lines_by_origin
 from slice_text_by_token_limit import slice_text_by_token_limit
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def is_ccdc_event(
