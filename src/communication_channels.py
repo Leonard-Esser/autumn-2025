@@ -18,13 +18,11 @@ KEYWORDS: dict[str, list[str]] = {
         "rss feed",
         "atom",
         "atom feed",
-        "feed",
         "subscribe via rss",
         "subscribe to rss",
         "subscribe to the feed",
     ],
     "medium": [
-        "medium",
         "medium com",
         "on medium",
         "medium blog",
@@ -110,7 +108,6 @@ KEYWORDS: dict[str, list[str]] = {
     "reddit": [
         "reddit",
         "subreddit",
-        "r ",
         "ask on reddit",
         "post on reddit",
     ],
@@ -159,10 +156,8 @@ KEYWORDS: dict[str, list[str]] = {
     "mail": [
         "email",
         "e mail",
-        "mail",
         "contact us",
         "contact the team",
-        "reach out",
         "write to us",
         "send an email",
         "send us an email",
@@ -179,7 +174,6 @@ KEYWORDS: dict[str, list[str]] = {
         "google form",
         "google forms",
         "typeform",
-        "form",
     ],
     "google_group": [
         "google group",
@@ -199,7 +193,6 @@ KEYWORDS: dict[str, list[str]] = {
     ],
     "facebook": [
         "facebook",
-        "fb",
         "facebook page",
         "facebook group",
         "follow on facebook",
@@ -226,10 +219,6 @@ KEYWORDS: dict[str, list[str]] = {
         "file a jira ticket",
     ],
     "issues": [
-        "issue",
-        "issues",
-        "bug",
-        "bugs",
         "bug report",
         "bug reports",
         "feature request",
@@ -242,12 +231,9 @@ KEYWORDS: dict[str, list[str]] = {
         "submit an issue",
         "issue tracker",
         "bug tracker",
-        "ticket",
-        "tickets",
         "open a ticket",
         "file a ticket",
         "submit a ticket",
-        "tracker",
     ],
 
     # GitHub channels
@@ -266,7 +252,6 @@ KEYWORDS: dict[str, list[str]] = {
         "github pull request",
         "pull request",
         "pull-request",
-        "pr",
         "submit a pr",
         "open a pr",
         "submit a pull request",
@@ -298,17 +283,13 @@ KEYWORDS: dict[str, list[str]] = {
     ],
     "github_wiki": [
         "github wiki",
-        "wiki",
         "project wiki",
         "repository wiki",
-        "the wiki",
         "update the wiki",
         "check the wiki",
     ],
     "github_discussions": [
         "github discussions",
-        "discussion",
-        "discussions",
         "start a discussion",
         "open a discussion",
         "create a discussion",
