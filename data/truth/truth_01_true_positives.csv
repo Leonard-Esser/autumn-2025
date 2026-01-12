@@ -1,0 +1,9 @@
+full_name_of_repo,commit_sha,path,is_ccdc_event,detected_channel
+OasysFoundation/Oasys-Toolbox-React,909af32835cc63fb8b43297f56391d4b172f5043,README.md,true,
+chocoteam/choco-solver,d1747cf7a031eddf523380420eb6be6d921ab02b,README.md,true,
+DynamoRIO/drmemory,4ca92fd35ac681ff6282169e54d2da1a71ea521f,README.md,true,
+laravelio/laravel.io,4e08b51fb7da5d318d917796ed7439dede08668b,contributing.md,true,
+keras-team/keras-docs-ja,c76fc86da9b4ce2483be98f2d40a0444da44ee3d,README.md,true,
+cloudfoundry/eirini,2d6573dd70c2f47b37e0fdfd0b4983b242c85b69,README.md,true,
+Pryaxis/orion-core,f9742a119b46c90fe933eb3d6d889b289b10df28,CONTRIBUTING.md,true,
+sobolevn/git-secret,1e748a3c540bc421f9112a119ca886f92092491f,CONTRIBUTING.md,true,
