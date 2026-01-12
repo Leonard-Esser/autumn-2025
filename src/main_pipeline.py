@@ -7,7 +7,7 @@ import config
 import subjects_config
 from analyze import analyze
 from data_access import get_results_dir
-from dataframes import COLUMNS_OF_SPECIAL_INTEREST, commits_df, dataframe, merge, repos_df
+from dataframes import COLUMNS_FOR_MANUAL_VERIFICATION, commits_df, dataframe, merge, repos_df
 from decorators import stop_the_clock
 from domain_model import Subject
 from draw_subjects import draw_subjects
@@ -69,18 +69,20 @@ def pipeline(
         repos=repos,
     )
     sample = subjects_config.normalized_script_hash()
+    file_name = f"results_{program_version}_{sample}"
     export_df(
         results_df,
-        f"results_{program_version}_{sample}.csv",
+        f"{file_name}.csv",
         get_results_dir(
             root,
             program_version=program_version,
             sample=sample,
         )
     )
+    file_name = f"{file_name}_focused"
     export_df(
-        results_df[COLUMNS_OF_SPECIAL_INTEREST],
-        f"results_{program_version}_{sample}_focused.csv",
+        results_df[COLUMNS_FOR_MANUAL_VERIFICATION],
+        f"{file_name}.csv",
         get_results_dir(
             root,
             program_version=program_version,

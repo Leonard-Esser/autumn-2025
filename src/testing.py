@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from datetime import datetime
 from pathlib import Path
 
 import pygit2
@@ -50,7 +49,6 @@ def test(
     actual: Path | None = None,
     prints_report_too: bool = True,
 ) -> None:
-    test_started_at = datetime.now()
     test: str = expected.stem
     test_results_dir = get_test_results_dir(
         root,
@@ -74,12 +72,6 @@ def test(
                 logs_progress=logs_progress,
                 deletes_git_dir_immediately=deletes_git_dir_immediately,
             )
-            export_df(
-                dataframe(actual),
-                file_name,
-                test_results_dir,
-            )
-            file_name = f"results_{test}_{program_version}_focused.csv"
             export_df(
                 dataframe(actual),
                 file_name,

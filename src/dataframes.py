@@ -12,8 +12,7 @@ from domain_model import Result
 from export import export_df
 from sample_provided_by_ebert_et_al import draw_repos
 
-COLUMNS_OF_SPECIAL_INTEREST: list[str] = [
-    "date",
+COLUMNS_FOR_MANUAL_VERIFICATION: list[str] = [
     "url",
     "path",
     "is_ccdc_event",
