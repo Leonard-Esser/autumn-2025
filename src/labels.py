@@ -15,12 +15,8 @@ PROJECT_COMMUNICATION: dict[TaskMode, str] = {
     TaskMode.INTENT: "modifies project communication documentation",
 }
 
-COMMUNICATION_CHANNEL_DOCUMENTATION: str = "communication channel documentation"
-
 TOPICS_FOR_IDENTIFYING_CCDC_EVENT: list[str] = [
-    COMMUNICATION_CHANNEL_DOCUMENTATION,
     "a communication channel",
-    "communication channels",
 ]
 
 TOPICS: list[str] = [

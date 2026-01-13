@@ -4,6 +4,7 @@ import os
 from collections.abc import Callable
 
 import pygit2
+from transformers.utils import logging as hf_logging
 
 import config
 from dead_channel_detector import dead_channel_detector
@@ -11,7 +12,7 @@ from detect_channels import detect_channels
 from domain_model import Subject
 from get_root import get_root
 from get_version import get_version
-from is_ccdc_event import is_ccdc_event
+from is_ccdc_event_new import is_ccdc_event
 from main_pipeline import pipeline
 from naysayer import naysayer
 from play_sound import play_sound
@@ -19,6 +20,13 @@ from set_up_logging import set_up_logging
 from testing import test_each_truth_file
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
+# Silence HuggingFace logging
+hf_logging.set_verbosity_error()
+
+# Optional: silence Python logging from transformers/tokenizers
+logging.getLogger("transformers").setLevel(logging.ERROR)
+logging.getLogger("tokenizers").setLevel(logging.ERROR)
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +43,9 @@ def _is_ccdc_event(subject: Subject, hunk: pygit2.DiffHunk) -> bool:
         hunk=hunk,
         model_id=config.MODEL_ID,
         token_limit=config.TOKEN_LIMIT,
+        task_mode=config.TASK_MODE,
         tries_to_classify_flattened_hunk=config.TRIES_TO_CLASSIFY_FLATTENED_HUNK,
+        returns_asap=config.RETURNS_ASAP,
         logs_scores=config.LOGS_SCORES,
     )
 
