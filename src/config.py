@@ -4,9 +4,9 @@ from labels import TaskMode
 # section: program behavior
 RETURNS_CACHED_DATA_IF_ANY = True
 UPDATES_CACHE = True
-CANNOT_DETECT_ANYTHING = True
+CANNOT_DETECT_ANYTHING = False
 IS_NAYSAYER = False
-DELETES_GIT_DIR_IMMEDIATELY = False
+DELETES_GIT_DIR_IMMEDIATELY = True
 # end of section
 
 # section: diffing options
@@ -26,7 +26,7 @@ RETURNS_ASAP = True
 # end of section
 
 # section: logging
-LOGS_PROGRESS = False
+LOGS_PROGRESS = True
 LOGS_SCORES = False
 LOGS_EACH_PARTIAL_RESULT_CREATED = False
 # end of section
