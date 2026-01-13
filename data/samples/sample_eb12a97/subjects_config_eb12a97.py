@@ -1,0 +1,18 @@
+RANDOM_STATE = 42
+NUMBER_OF_REPOS_TO_INVESTIGATE = 385
+EXCLUDES_RETIRED_REPOS = True
+_README = "README"
+_CONTRIBUTING = "CONTRIBUTING"
+FILES_TO_INVESTIGATE = [
+    _README + ".md",
+    _README.lower() + ".md",
+    _README + ".txt",
+    _README.lower() + ".txt",
+    _CONTRIBUTING + ".md",
+    _CONTRIBUTING.lower() + ".md",
+    _CONTRIBUTING + ".txt",
+    _CONTRIBUTING.lower() + ".txt",
+]
+COMMITS_SINCE = datetime(2024, 1, 1)
+COMMITS_UNTIL = datetime(2025, 12, 31, 23, 59, 59)
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO = None

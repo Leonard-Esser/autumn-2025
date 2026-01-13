@@ -32,7 +32,7 @@ FILES_TO_INVESTIGATE = [
     _CONTRIBUTING.lower() + ".txt",
 ]
 
-COMMITS_SINCE: datetime | None = datetime(2016, 1, 1)
+COMMITS_SINCE: datetime | None = datetime(2024, 1, 1)
 
 # The time of cloning a repo should be after COMMITS_UNTIL
 COMMITS_UNTIL: datetime | None = datetime(2025, 12, 31, 23, 59, 59)
