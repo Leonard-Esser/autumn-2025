@@ -1,0 +1,21 @@
+url,path,is_ccdc_event,detected_channel
+https://github.com/flexera-public/policy_templates/commit/a751bd71bd5943a0011b769044ed659ea295fe0a ,README.md,True,
+https://github.com/OpenEnergyPlatform/oeplatform/commit/ced714d98a5864abaf29fb523e1ddff7e6c97466 ,README.md,True,
+https://github.com/http-kit/http-kit/commit/91e46cb71f1360677c96659a074ff92726aff8e5 ,README.md,True,github_issues
+https://github.com/http-kit/http-kit/commit/91e46cb71f1360677c96659a074ff92726aff8e5 ,README.md,True,slack
+https://github.com/plotly/plotly.js/commit/9abfb4bbb2696f171537d1f6d9771f8aa065b573 ,README.md,True,twitter
+https://github.com/plotly/plotly.js/commit/9abfb4bbb2696f171537d1f6d9771f8aa065b573 ,README.md,True,linkedin
+https://github.com/plotly/plotly.js/commit/9abfb4bbb2696f171537d1f6d9771f8aa065b573 ,README.md,True,stack_overflow
+https://github.com/plotly/plotly.js/commit/9abfb4bbb2696f171537d1f6d9771f8aa065b573 ,README.md,True,forum
+https://github.com/flexera-public/policy_templates/commit/ec2feb5c60e169e3ba7bf40d708c88d70b072221 ,README.md,True,
+https://github.com/gismo/gismo/commit/6b50b6ba0d0b88fc5f7c16f75c80af51dbd210be ,README.md,True,
+https://github.com/MisterPhilip/omnibug/commit/8636ef5a47a767baf58f70275b93c961dcf48b26 ,CONTRIBUTING.md,True,github_issues
+https://github.com/MisterPhilip/omnibug/commit/8636ef5a47a767baf58f70275b93c961dcf48b26 ,CONTRIBUTING.md,True,issues
+https://github.com/MisterPhilip/omnibug/commit/8636ef5a47a767baf58f70275b93c961dcf48b26 ,CONTRIBUTING.md,True,discord
+https://github.com/MisterPhilip/omnibug/commit/8636ef5a47a767baf58f70275b93c961dcf48b26 ,CONTRIBUTING.md,True,pull_request
+https://github.com/flexera-public/policy_templates/commit/006d6ddfe4927da10d42de75d191b37c96db559d ,README.md,True,
+https://github.com/Farama-Foundation/ViZDoom/commit/9cde8a3e03e70c7e485449bb8006bc4e0d200a86 ,README.md,True,
+https://github.com/opendsm/opendsm/commit/ba64962296a5d124c8b88f377525f4a63dd848b0 ,README.md,True,jira
+https://github.com/opendsm/opendsm/commit/ba64962296a5d124c8b88f377525f4a63dd848b0 ,README.md,True,github_wiki
+https://github.com/opendsm/opendsm/commit/ba64962296a5d124c8b88f377525f4a63dd848b0 ,README.md,True,fork
+https://github.com/opendsm/opendsm/commit/ba64962296a5d124c8b88f377525f4a63dd848b0 ,README.md,True,pull_request

@@ -1,0 +1,11 @@
+url,path,is_ccdc_event,detected_channel
+https://github.com/pardeike/Harmony/commit/11b42459cd4d8d6a679b0249fcece2bba878a7cc ,README.md,False,
+https://github.com/tighten/ziggy/commit/ae5e26a1aa297de3055db3dade5bf24157075565 ,README.md,False,
+https://github.com/lttng/lttng-tools/commit/9f2636716abf0d6cc188fed380ba77a621a370c1 ,CONTRIBUTING.md,False,
+https://github.com/freebsd/atf/commit/7455b2a3611a691be4add802d7304c732dbb648f ,README.md,False,
+https://github.com/i18next/i18next-gitbook/commit/aa1ddde0883cd1e0315c32fd362141d7060179bd ,README.md,False,
+https://github.com/opendsm/opendsm/commit/fc189d5dc42b81a6a3f11afc598dc414ebc7eb14 ,CONTRIBUTING.md,False,
+https://github.com/socrata-platform/geocoding-secondary/commit/005ad595545ef0dcc5dc167cdb701b03b79e7e52 ,README.md,False,
+https://github.com/flexera-public/policy_templates/commit/9a0b89592a076cdba8093b7256c9115671e27000 ,README.md,False,
+https://github.com/flexera-public/policy_templates/commit/ff79127e450a6a2fc6246eb055965c80f7463c1e ,README.md,False,
+https://github.com/webpack/compression-webpack-plugin/commit/838a04d23c6d2a2e4378f15d15528680b8839c25 ,README.md,False,
