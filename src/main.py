@@ -12,7 +12,7 @@ from detect_channels import detect_channels
 from domain_model import Subject
 from get_root import get_root
 from get_version import get_version
-from is_ccdc_event_new import is_ccdc_event
+from is_ccdc_event import is_ccdc_event
 from main_pipeline import pipeline
 from naysayer import naysayer
 from play_sound import play_sound
