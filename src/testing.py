@@ -20,7 +20,7 @@ def test_each_truth_file(
     logs_progress: bool,
     deletes_git_dir_immediately: bool,
     program_version: str,
-    prints_report_too: bool = True,
+    prints_report_too: bool = False,
 ) -> None:
     truth_dir = get_truth_dir(root)
     csv_paths = sorted(p for p in truth_dir.rglob("*.csv") if p.is_file())
@@ -47,7 +47,8 @@ def test(
     deletes_git_dir_immediately: bool,
     program_version: str,
     actual: Path | None = None,
-    prints_report_too: bool = True,
+    prints_report_too: bool = False,
+    overwrites_existing_results: bool = True,
 ) -> None:
     test: str = expected.stem
     test_results_dir = get_test_results_dir(
@@ -61,7 +62,7 @@ def test(
     else:
         file_name = f"results_{test}_{program_version}.csv"
         path = test_results_dir / file_name
-        if path.exists():
+        if not overwrites_existing_results and path.exists():
             actual = draw_results_from_csv(path)
         else:
             actual = analyze(

@@ -53,7 +53,7 @@ def is_ccdc_event(
                 logs_scores=logs_scores,
             )
     
-    task_mode = TaskMode.TOPIC
+    task_mode = TaskMode.INTENT
     partial_results: list[PartialResult] = []
     for origin, lines in group_lines_by_origin(hunk).items():
         text = flatten_lines(lines)
@@ -145,6 +145,7 @@ def _text_is_ccdc_event(
     )
 
     if logs_scores:
+        logger.info(text)
         logger.info(labels_and_their_scores)
     
     return _interpret_scores(labels_and_their_scores, task_mode=task_mode)
@@ -156,12 +157,9 @@ def _interpret_scores(
     task_mode: TaskMode,
 ) -> bool:
     threshold = 0.5
-    project_communication_label = labels.PROJECT_COMMUNICATION[task_mode]
-    if task_mode is TaskMode.INTENT:
-        if labels_and_their_scores[project_communication_label] < 0.1:
-            return False
-    if labels_and_their_scores[project_communication_label] > threshold:
-        labels_and_their_scores.pop(project_communication_label)
+    # project_communication_label = labels.PROJECT_COMMUNICATION[task_mode]
+    # if labels_and_their_scores[project_communication_label] > threshold:
+    #     labels_and_their_scores.pop(project_communication_label)
     
     for label, score in labels_and_their_scores.items():
         if score > threshold:

@@ -1,7 +1,7 @@
 # section: program behavior
 RETURNS_CACHED_DATA_IF_ANY = True
 UPDATES_CACHE = True
-CANNOT_DETECT_ANYTHING = False
+CANNOT_DETECT_ANYTHING = True
 IS_NAYSAYER = False
 DELETES_GIT_DIR_IMMEDIATELY = False
 # end of section
@@ -16,14 +16,14 @@ FINDS_SIMILAR = False
 # The model id of a predefined tokenizer hosted inside a model repo on huggingface.co.
 MODEL_ID = "facebook/bart-large-mnli"
 # Maximum allowed number of tokens for a single (premise, hypothesis) pair.
-TOKEN_LIMIT = 512
+TOKEN_LIMIT = 1024
 TRIES_TO_CLASSIFY_FLATTENED_HUNK = False
 # end of section
 
 # section: logging
 LOGS_PROGRESS = True
 LOGS_SCORES = True
-LOGS_EACH_PARTIAL_RESULT_CREATED = True
+LOGS_EACH_PARTIAL_RESULT_CREATED = False
 # end of section
 
 # section: manual verification
