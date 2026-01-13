@@ -16,7 +16,8 @@ def normalized_script_hash(length: int = 7) -> str:
 
 RANDOM_STATE = 42
 
-NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = 50
+NUMBER_OF_REPOS_TO_INVESTIGATE: int | None = 385
+EXCLUDES_RETIRED_REPOS = True
 
 _README = "README"
 _CONTRIBUTING = "CONTRIBUTING"
@@ -31,9 +32,9 @@ FILES_TO_INVESTIGATE = [
     _CONTRIBUTING.lower() + ".txt",
 ]
 
-COMMITS_SINCE: datetime | None = datetime(2023, 1, 1)
+COMMITS_SINCE: datetime | None = datetime(2024, 1, 1)
 
 # The time of cloning a repo should be after COMMITS_UNTIL
 COMMITS_UNTIL: datetime | None = datetime(2025, 12, 31, 23, 59, 59)
 
-ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = 3
+ONLY_CLASSIFY_THIS_MANY_COMMITS_PER_REPO: int | None = None

@@ -113,9 +113,10 @@ def name_check(
     full_name_of_repo: str,
     *,
     gh: github.Github,
+    swallows_archived_repos: bool = False,
 ) -> str | None:
     repo = get_repo(gh=gh, full_name=full_name_of_repo, lazy=False)
-    if repo is None:
+    if repo is None or (swallows_archived_repos and repo.archived):
         return None
     return repo.full_name
 

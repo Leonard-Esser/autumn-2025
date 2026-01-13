@@ -3,6 +3,7 @@ import random
 from pathlib import Path
 from urllib.parse import urlparse
 
+import subjects_config
 from auth import get_github
 from calling_github import name_check
 from export import export_set_of_names
@@ -10,10 +11,7 @@ from get_root import get_root
 from play_sound import play_sound
 
 root: Path = get_root()
-parts = [
-    "data",
-    "output"
-]
+
 base_path: Path = root / "data" / "samples" / "ebert_et_al_2022"
 path_to_original_sample: Path = base_path / "sample_1000.csv"
 path_to_updated_sample: Path = base_path / "sample_1000_updated.csv"
@@ -75,7 +73,11 @@ def _fix_sample() -> set[str]:
         original_format=True,
     ):
         repos.add(
-            name_check(full_name_of_repo, gh=gh)
+            name_check(
+                full_name_of_repo,
+                gh=gh,
+                swallows_archived_repos=subjects_config.EXCLUDES_RETIRED_REPOS,
+            )
         )
     if repos:
         export_set_of_names(
