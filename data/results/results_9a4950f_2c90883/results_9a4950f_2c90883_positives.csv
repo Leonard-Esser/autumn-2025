@@ -1,0 +1,18 @@
+url,path,is_ccdc_event,detected_channel
+https://github.com/hapi-swagger/hapi-swagger/commit/08858e58ff6f240fdbb84c0282af996d7b3105cb ,README.md,True,mail
+https://github.com/hapi-swagger/hapi-swagger/commit/08858e58ff6f240fdbb84c0282af996d7b3105cb ,README.md,True,pull_request
+https://github.com/hapi-swagger/hapi-swagger/commit/08858e58ff6f240fdbb84c0282af996d7b3105cb ,README.md,True,forum
+https://github.com/lttng/lttng-tools/commit/8d82bb77bfe9cee42f8b409c5e65f9ae4c218894 ,CONTRIBUTING.md,True,mail
+https://github.com/lttng/lttng-tools/commit/8d82bb77bfe9cee42f8b409c5e65f9ae4c218894 ,CONTRIBUTING.md,True,form
+https://github.com/lttng/lttng-tools/commit/8d82bb77bfe9cee42f8b409c5e65f9ae4c218894 ,CONTRIBUTING.md,True,mailing_list
+https://github.com/lttng/lttng-tools/commit/8d82bb77bfe9cee42f8b409c5e65f9ae4c218894 ,CONTRIBUTING.md,True,pull_request
+https://github.com/quotient-im/Quaternion/commit/c539ae6b8b425819b8d3a5a335aa9159053c3bec ,README.md,True,
+https://github.com/wazuh/wazuh/commit/6b266cac97b4f89617f00144a4485f60293cdf51 ,README.md,True,fork
+https://github.com/wazuh/wazuh/commit/6b266cac97b4f89617f00144a4485f60293cdf51 ,README.md,True,website
+https://github.com/wazuh/wazuh/commit/6b266cac97b4f89617f00144a4485f60293cdf51 ,README.md,True,pull_request
+https://github.com/pwsafe/pwsafe/commit/e5fd0175004137b0e9104e7a26a95e3a0d818999 ,README.txt,True,
+https://github.com/quotient-im/Quaternion/commit/ce095abce98eb1e3ba3fe67a979da34c18b235c5 ,README.md,True,
+https://github.com/zendesk/sunshine-conversations-web/commit/9c21978ec99ea92dff2cbcc259929a9f03f6fef4 ,README.md,True,
+https://github.com/jackc/pgx/commit/d62da82ab15054e4a62751c83d56d960f5a174d0 ,README.md,True,
+https://github.com/pachyderm/pachyderm/commit/b9e06c081cf444e547e4a8b11d216dec84669b5b ,README.md,True,slack
+https://github.com/rhymix/rhymix/commit/3e43ac505f7eef8379c9de41f4c813bfa7d4515b ,README.md,True,mail
