@@ -1,0 +1,15 @@
+url,path,is_ccdc_event,detected_channel
+https://github.com/simonmichael/hledger/commit/6d0e1336876c34aa2baa30d23f810e3180a080cd ,CONTRIBUTING.md,True,
+https://github.com/futurice/android-best-practices/commit/f180b07ca98863ce45da3b48e9dcc2ca0c26cc09 ,README.md,True,facebook
+https://github.com/http-kit/http-kit/commit/1388f31e0d3bf5e01b52ff95de0f44cfe0308453 ,README.md,True,slack
+https://github.com/http-kit/http-kit/commit/1388f31e0d3bf5e01b52ff95de0f44cfe0308453 ,README.md,True,github_issues
+https://github.com/http-kit/http-kit/commit/1388f31e0d3bf5e01b52ff95de0f44cfe0308453 ,README.md,True,github_wiki
+https://github.com/sendbird/SendBird-SDK-JavaScript/commit/b15786c1e39b5083fe9e205140b708da7852ed16 ,README.md,True,website
+https://github.com/sendbird/SendBird-SDK-JavaScript/commit/b15786c1e39b5083fe9e205140b708da7852ed16 ,README.md,True,irc
+https://github.com/futurice/android-best-practices/commit/7c497a9cf34e46c4d11d962a789b6765e8b7a6df ,README.md,True,
+https://github.com/ktorio/ktor/commit/75ba9fe23ba65d467445ab4234d740489bb6a049 ,README.md,True,
+https://github.com/kotct/dot/commit/a7f6143bed074467c108b953cbaa190c43eafe57 ,CONTRIBUTING.md,True,pull_request
+https://github.com/kotct/dot/commit/a7f6143bed074467c108b953cbaa190c43eafe57 ,CONTRIBUTING.md,True,github_discussions
+https://github.com/pachyderm/pachyderm/commit/9b8e66881a255ca016182b35eb03f181ee06d5b2 ,README.md,True,slack
+https://github.com/socrata-platform/geocoding-secondary/commit/9a3d313e11d4cd3db7fee6a79d52e89962728f7a ,README.md,True,
+https://github.com/rollbar/Rollbar.NET/commit/661dec0b4c073d23a7c7301ca36e78cfb6633b12 ,README.md,True,fork
